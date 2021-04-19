@@ -12,6 +12,7 @@
         - `cd` - change working directory
         - `ls` - list directory contents, defaults to current dir
             - `ls /some/path` - list contents of some other dir
+            - `ls -l` - provide a more detailed listing, including file size modification datetime
     - `COMMAND --help` for help, sometimes also `man COMMAND` for more detailed "manual"
     - up/down arrow keys to access recently used commands
     - specifying paths:
@@ -23,8 +24,9 @@
     - others commonly used:
         - `mkdir` - make directory
         - `touch` - create an empty file, or update last access time of existing file
-        - `mv` - move files/folders - a rename is just a move from old name to new name
-        - `cp` - copy files/folders
+        - `mv` - move files/folders from source to destination
+            - a rename is just a move from old name to new name
+        - `cp` - copy files/folders from source to destination
         - `rm` - remove files - dangerous! permanently deletes without confirmation
             - to remove a folder, use `rm -r`, i.e. recursively remove the folder and its contents
         - many commands accept `-v` (verbose) flag: prints out confirmation of what was done
@@ -61,13 +63,12 @@
     - calculator, math operators
         - `+`, `-`, `*`, `/`, `**`
     - up/down arrow keys to access recently used commands
-- functions: take some kind of input, generate some kind of output
+- functions: take some kind of input (argument), generate some kind of output
+    - `abs(-5)` - returns absolute value of input argument
     - `print('hello world!')` - print message to screen
-    - `input('hello? ')` - queries for user input
 - commands can be saved into a `.py` (plain text) file, then run from the command line
     - need to use a plain text editor - http://geany.org is my favourite, but notepad in windows or TextEdit on mac (in plain text mode) are OK
-    - make a hello world script, run from command line
-    - `python hello.py`
+    - make a hello world script, run from command line by typing `python hello.py`
     - `#` is the comment character
 - variable assignment
     - `a = 1`
@@ -92,11 +93,11 @@
 - basic Python data types
     - `int, float, str, bool`
         - `int`: counting numbers; `float`: decimal numbers; `str`: text in quotes; `bool`: logic
-        - literals: `1, 1.0, '1', True`
+        - examples of literals: `1, 1.0, '1', True`
         - types are also functions that convert input to that type, e.g. `float(1)` gives `1.0`
-    - special value: `None`
+    - special placeholder value: `None`
     - division always gives float, unless `//` (div): `4 / 2` gives `2.0`, `4 // 2` gives `2`
-        - find remainder using mod operator `%`
+        - find remainder using mod operator `%`: `4 % 2` gives `0`, `5 % 2` gives `1`
     - use `type()` to determine the type of something
 - flow control:
     - comparison operators: `==`, `!=`, `>`, `<`, `>=`, `<=`
