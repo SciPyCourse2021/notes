@@ -15,7 +15,7 @@ a1.plot(t, V, '-', c='black')
 a1.set_xlim((t[0], t[-1])) # set hard x limits
 a1.set_title('LFP example data')
 a1.set_xlabel('Time (s)')
-a1.set_ylabel('Volage (V)')
+a1.set_ylabel('Voltage (V)')
 
 # calculate spectrogram using Welch's periodogram method:
 winwidth = 5 # window width, seconds
