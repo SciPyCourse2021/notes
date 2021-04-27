@@ -1,6 +1,7 @@
 for i in range(10, 0, -1):
-    print(i)
-    if i == 3:
-        print('three')
-    elif i == 7:
-        print('seven')
+    if i == 7:
+        continue
+    if i % 2 == 0:
+        print(i, 'is even')
+    else:
+        print(i, 'is odd')
