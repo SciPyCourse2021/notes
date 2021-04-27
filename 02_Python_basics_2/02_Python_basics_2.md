@@ -14,10 +14,10 @@
         - can access previous output and input lines numbered `N` with `_N` and `_iN`
     - use `?` for help, if available, e.g. `range?` gives help on the `range()` function
         - if help is long, scroll up/down with arrow keys, to exit hit `q`
-    - command completion:
+    - command/variable name completion:
         - `something = 1`
         - `som` + `<TAB>` -> `something`
-    - command history with up/down keys
+    - command history with up/down keys (same as in plain Python)
     - attribute exploration via dot notation:
         - `s = 'hello'`
         - `s.` + `<TAB>` gives a popup menu of attributes/methods
@@ -27,7 +27,8 @@
     - paste multiline code from editor directly into IPython
     - run a script using `run`, e.g. `run hellos.py`
         - if you want your script to be able to access existing variables in your workspace, run "interactively" with `run -i hellos.py`
-    - can call some bash command-line commands for folder navigation: `pwd`, `ls`, `cd`
+    - can call some bash-like commands for folder navigation: `pwd`, `ls`, `cd`
+        - this works even on systems without a bash command line installed
     - exiting **plain Python** in Linux/Mac: `Ctrl+D`; in Windows: `Ctrl+Z`, then ENTER
     - exiting **IPython** in all OSes: `CTRL+D`, or type `exit` or `quit`
 
@@ -46,30 +47,35 @@
 #### strings
 
 - string operators:
-    - initialize a blank string: `s = ''`
+    - initialize a blank string: `s = ''` (can also use double quotes `"`, but single are easier)
     - combine strings with `+`: `s = 'Hello' + ' ' + 'world'`
     - append to an existing string with `+=`: `s += '!'`
     - duplicate strings with `*`: `ss = s * 2`
-    - whitespace characters: `\n` (new line) and `\t` (tab)
+    - whitespace characters: `\n` (new line) and `\t` (tab, rarely used)
+        - to see what they do: `print('Hi\nthere!\n')`, `print('Hi\tthere\t!')`
     - `%` string formatting operator
-        - `value = 'world'`
-        - `'Hello %s' % value`
-        - format strings act as placeholders:
-            - `%s` - format value as a string
-            - `%d` or `%i` - format value as a (discrete) integer
-            - `%f` - format value as a float
-                - `%.3f` - keep only the first 3 decimal places, round appropriately
-            - `%g` - replace with either integer or float, format appropriately
-        - `'The year %d is here' % 2021`
-        - `'pi is %.3f' % 3.14159`
+        - `thing = 'world'`
+        - `'Hello %s' % thing`
+        - `%s` is a "format string", `%` is the "string formatting" operator
+        - format strings act as placeholders, to be replaced by whatever follows the string formatting operator:
+        - `%s` - format as a string
+        - `%d` - format as a (discrete) integer
+            - `'The year %d is here' % 2021`
+        - `%f` - format as a float
+            - `'pi is %f' % 3.14159`
+            - `%.3f` - keep only the first 3 decimal places, round appropriately
+            - `'pi is %.3f' % 3.14159`
+        - `%g` - format using only as many decimal places as necessary
+            - `'I am %g years old' % 10`
+            - `'I am %g years old' % 10.5`
         - can replace multiple placeholders in a string at once, using a "tuple" `()`
-        - `'The date is %s %d, %d' % ('April', 28, 2020)`
+            - `'The date is %s %d, %d' % ('April', 28, 2020)`
         - what else does `%` do in Python?
             - how does Python know whether to use `%` as a string formatting operator or as mod operator?
 
 - example string: `s = 'abcdefg'`
     - get length by calling the `len()` function: `len(s)` gives `7`
-    - check if a string exists within another using `in`: `'h' in s` gives `False`, `'cde' in s` gives `True`
+    - check if a string exists within another string using `in`: `'h' in s` gives `False`, `'cde' in s` gives `True`
         - where have we seen the `in` operator before?
     - can iterate over the characters in a string, also using `in`:
     ```python
@@ -115,12 +121,12 @@
     - `s.replace(old, new)` - find all instances of string `old`, replace with `new`
     - `s.strip(a)` - strip characters in `a` from start and end of `s`, defaults to stripping spaces
         - what might `s.lstrip()` and `s.rstrip()` do?
-    - `s.upper()` - uppercase!
-    - `s.lower()` - lowercase!
+    - `s.upper()` - convert `s` to uppercase
+    - `s.lower()` - convert `s` to lowercase
     - what would `s.upper().lower()` do?
         - can chain multiple methods together iff method1 returns an object with a method2
-    - to discover what each method does without doing a web search:
-        - in IPython, `s.` + `<TAB>`, followed by `?` for help
+    - to discover what each method does without having to do a web search:
+        - in IPython, `s.` + `<TAB>`, select the method, then type `?` for help
 
 #### string exercises
 
@@ -154,6 +160,8 @@ def add3(x, y, z=0):
     """Add two numbers x and y, and optionally z"""
     return x + y + z
 ```
+    - keyword arguments ("kwargs") have to come after positional arguments
+    - this is invalid: `def test(x=0, y, z):`
 - return multiple values:
 ```python
 def addsubtract(x, y):
@@ -170,16 +178,18 @@ def addsubtract(x, y):
 #### coding style
 
 - good style is easier to read, understand, debug
-- try reading a book without sentences or paragraphs
-- a few tips from coding style guide
+- try reading a book without commas, periods between sentences, or paragraphs
+- official style guide: PEP 8: <https://www.python.org/dev/peps/pep-0008>
+- main highlights from style guide:
     - variable assignment: usually leave a space on either side of an operator
         - `a = 5`, `2 + 2`, `'The year %d is here' % 2020`
+        - exception: `=` in function keyword arguments should NOT have spaces on either side:
+        - `def test(a, b, c=0, d=1):`
     - use only spaces for indentation, not tabs - set text editor to insert spaces on `<TAB>`
-    - keep lines less than 100 characters long, 80 is preferred
+    - keep lines under 100 characters in length, 80 is preferred
         - forces you to break up excessively long lines of code into shorter pieces
         - good text editors have visual guide option that you can set at say 95 characters
-    - leave a blank line between neighbouring function arguments
-    - all the style tips: PEP 8: <https://www.python.org/dev/peps/pep-0008>
+    - leave a space between neighbouring function arguments, e.g. `def add(x, y):`
 - comments, docstrings
     - single line: `#`
     - multiline: `"""..."""` or  `'''...'''`
@@ -188,6 +198,10 @@ def addsubtract(x, y):
         - also very nice for other people that have to read your code
         - if you change code without updating comment - confusion!
         - another form of commenting: choose descriptive variable names, use them consistently
+
+#### quick function definition exercise:
+
+1. Define a function called `product()` that takes two arguments and returns their product. Give it an appropriate docstring.
 
 #### Homework 1 due next class!
 
