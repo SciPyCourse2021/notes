@@ -1,6 +1,6 @@
 ### Homework 2
 
-Use docstrings and good style, and make sure to test your code! Write your solutions in a file named `yourname_homework2.py` and submit to `m.spacek@lmu.de` before class 04 (May 12).
+Use docstrings and good style, and make sure to test your code! Write your solutions in a file named `yourname_homework2.py` and submit to `m.spacek@lmu.de` before class 04 (May 11).
 
 Hint: the solutions to all of these are no more than a few lines each. If your solution is long and complicated, you're probably doing it the hard way!
 
