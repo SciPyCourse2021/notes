@@ -68,7 +68,7 @@ def addsubtract(x, y):
     - initialize empty list with `l = []` or `l = list()`
     - same methods as tuple, plus these ones that can modify the list:
         - `l.append(val)`
-        - `l.extend(anotherlist)`, or `l + [4, 5, 6]`
+        - `l.extend(anotherlist)`, or `l += [4, 5, 6]`
         - `l.reverse()`
         - `l.sort()`
             - does `.sort()` work for lists of objects of different types?
