@@ -1,0 +1,1496 @@
+
+mspacek@Godel:~/SciPyCourse2021/notes/homework1$ cd ..
+mspacek@Godel:~/SciPyCourse2021/notes$ gc
+mspacek@Godel:~/SciPyCourse2021/notes$ git push
+Counting objects: 5, done.
+Delta compression using up to 4 threads.
+Compressing objects: 100% (5/5), done.
+Writing objects: 100% (5/5), 54.76 KiB | 13.69 MiB/s, done.
+Total 5 (delta 1), reused 0 (delta 0)
+remote: Resolving deltas: 100% (1/1), completed with 1 local object.
+To github.com:SciPyCourse2021/notes.git
+   0009dea..ba18b5a  master -> master
+mspacek@Godel:~/SciPyCourse2021/notes$ ipython
+Python 3.6.9 (default, Jan 26 2021, 15:33:00)
+Type 'copyright', 'credits' or 'license' for more information
+IPython 7.10.0 -- An enhanced Interactive Python. Type '?' for help.
+
+In [1]: a = 1
+
+In [2]: def test():
+   ...:     print(a)
+   ...:
+
+In [3]: test()
+1
+
+In [4]: def test():
+   ...:     print(a)
+   ...:     x = 2
+   ...:
+
+In [5]: a
+Out[5]: 1
+
+In [6]: test()
+1
+
+In [7]: x
+---------------------------------------------------------------------------
+NameError                                 Traceback (most recent call last)
+<ipython-input-7-6fcf9dfbd479> in <module>
+----> 1 x
+
+NameError: name 'x' is not defined
+> <ipython-input-7-6fcf9dfbd479>(1)<module>()
+----> 1 x
+
+ipdb> c
+
+In [8]: VOWELS = 'aeiou'
+   ...: def vowelcount(word):
+   ...:     ''' Takes a str as an argument and returns the number of vowels '''
+   ...:     word = word.lower()  # to count upper case vowels too
+   ...:     #using list comp for brevity
+   ...:     return sum(word.count(vowel) for vowel in VOWELS)
+   ...:
+
+In [9]: vowelcount('hEllo')
+Out[9]: 2
+
+In [10]: str
+Out[10]: str
+
+In [11]: type('s')
+Out[11]: str
+
+In [12]: type('s') == str
+Out[12]: True
+
+In [13]: str = 1
+
+In [14]: type('s') == str
+Out[14]: False
+
+In [15]: del str
+
+In [16]: type('s') == str
+Out[16]: True
+
+In [17]: string
+---------------------------------------------------------------------------
+NameError                                 Traceback (most recent call last)
+<ipython-input-17-edbf08a562d5> in <module>
+----> 1 string
+
+NameError: name 'string' is not defined
+> <ipython-input-17-edbf08a562d5>(1)<module>()
+----> 1 string
+
+ipdb> c
+
+In [18]: def vowelcount(string):
+    ...:     ’’’function that returns the number of vowels in the string’’’
+    ...:     vowels = 0
+    ...:     for i in string:
+    ...:         if (i ==’a’ or i ==’e’ or i ==’i’ or i ==’o’ or i ==’u’ or i ==’A’ or i ==’E’ or i ==’I’ or i
+    ...: ==’O’ or i ==’U’):
+    ...:             vowels += 1
+    ...:     return vowels
+  File "<ipython-input-18-aa72ab901ea8>", line 2
+    ’’’function that returns the number of vowels in the string’’’
+              ^
+SyntaxError: invalid character in identifier
+
+
+In [19]: def vowelcount(my_string):
+    ...:     """counts the numbers of vowels (a,e,i,o,u) in a given string"""
+    ...:     my_string = my_string.lower()
+    ...:     count = 0
+    ...:     for ii in my_string:
+    ...:         if ii == 'a' or ii == 'e' or ii == 'i' or ii == 'o' or ii == 'u':
+    ...:             count += 1
+    ...:     return count
+    ...:
+
+In [20]: vowelcount('hEllo')
+Out[20]: 2
+
+In [21]: # Student solution:
+    ...: def vowelcount(x):
+    ...:     """Returns the number of vowels in a given string"""
+    ...:     low = (str.lower(x))
+    ...:     count = low.count('a') + low.count('e') + low.count('i') + low.count('o') + low.count ('u')
+    ...:     print ('"' + x + '"' + ' contains %i vowels' %count)
+    ...:
+
+In [22]: vowelcount('hEllo')
+"hEllo" contains 2 vowels
+
+In [23]: nv = vowelcount('hEllo')
+"hEllo" contains 2 vowels
+
+In [24]: nv
+
+In [25]: print(nv)
+None
+
+In [26]: type(nv)
+Out[26]: NoneType
+
+In [27]: def vowelcount(string):
+    ...:     """returns number of vowels in a string"""
+    ...:     l = string.lower()
+    ...:     a = l.count('a')
+    ...:     e = l.count('e')
+    ...:     i = l.count('i')
+    ...:     o = l.count('o')
+    ...:     u = l.count('u')
+    ...:     return a, e, i, o, u
+    ...:
+
+In [28]: vowelcount('hEllo')
+Out[28]: (0, 1, 0, 1, 0)
+
+In [29]: sum(vowelcount('hEllo'))
+Out[29]: 2
+
+In [30]: def vowelcount(string):
+    ...:     """Take a string, returns number of vowels"""
+    ...:     s2 = string.lower()
+    ...:     new = s2.replace('a','x').replace('e','x').replace('i','x').replace('o','x').replace('u','x')
+    ...:     result = new.count('x')
+    ...:     return result
+    ...:
+
+In [31]: vowelcount('hEllox')
+Out[31]: 3
+
+In [32]: vowelcount('hElloxxxxxx')
+Out[32]: 8
+
+In [33]: def metric(x, y):
+    ...:     """Calculate difference over sum"""
+    ...:     d = x - y
+    ...:     s = x + y
+    ...:     print('difference is %g, sum is %g' % (d, s))
+    ...:     # optional: handle divide by zero:
+    ...:     #if s == 0:
+    ...:     #    return None
+    ...:     return d / s
+    ...:
+
+In [34]: metric(5, -5)
+difference is 10, sum is 0
+---------------------------------------------------------------------------
+ZeroDivisionError                         Traceback (most recent call last)
+<ipython-input-34-9fcfb6cdb295> in <module>
+----> 1 metric(5, -5)
+
+<ipython-input-33-1fc57d850fa0> in metric(x, y)
+      7     #if s == 0:
+      8     #    return None
+----> 9     return d / s
+     10
+
+ZeroDivisionError: division by zero
+> <ipython-input-33-1fc57d850fa0>(9)metric()
+      6     # optional: handle divide by zero:
+      7     #if s == 0:
+      8     #    return None
+----> 9     return d / s
+     10
+
+ipdb> c
+
+In [35]: def metric(x, y):
+    ...:     """Calculate difference over sum"""
+    ...:     d = x - y
+    ...:     s = x + y
+    ...:     print('difference is %g, sum is %g' % (d, s))
+    ...:     # optional: handle divide by zero:
+    ...:     if s == 0:
+    ...:         return None
+    ...:     return d / s
+    ...:
+
+In [36]: def metric(x, y):
+    ...:     """Calculate difference over sum"""
+    ...:     d = x - y
+    ...:     s = x + y
+    ...:     print('difference is %g, sum is %g' % (d, s))
+    ...:     # optional: handle divide by zero:
+    ...:     if s == 0:
+    ...:         return None
+    ...:     return d / s
+    ...:
+
+In [37]: metric(5, -5)
+difference is 10, sum is 0
+
+In [38]: result = metric(5, -5)
+difference is 10, sum is 0
+
+In [39]: result
+
+In [40]: print(result)
+None
+
+In [41]: print?
+Docstring:
+print(value, ..., sep=' ', end='\n', file=sys.stdout, flush=False)
+
+Prints the values to a stream, or to sys.stdout by default.
+Optional keyword arguments:
+file:  a file-like object (stream); defaults to the current sys.stdout.
+sep:   string inserted between values, default a space.
+end:   string appended after the last value, default a newline.
+flush: whether to forcibly flush the stream.
+Type:      builtin_function_or_method
+
+In [42]: def multtable(n):
+    ...:     """Print multiplication table from 1 to n"""
+    ...:     for i in range(1, n+1): # rows
+    ...:         for j in range(1, n+1): # columns
+    ...:             print(i * j, end=' ')
+    ...:         print() # move to new line for next row
+    ...:
+
+In [43]: multtable(10)
+1 2 3 4 5 6 7 8 9 10
+2 4 6 8 10 12 14 16 18 20
+3 6 9 12 15 18 21 24 27 30
+4 8 12 16 20 24 28 32 36 40
+5 10 15 20 25 30 35 40 45 50
+6 12 18 24 30 36 42 48 54 60
+7 14 21 28 35 42 49 56 63 70
+8 16 24 32 40 48 56 64 72 80
+9 18 27 36 45 54 63 72 81 90
+10 20 30 40 50 60 70 80 90 100
+
+In [44]: def multtable(n):
+    ...:     """takes a number n and prints out the multiplication table for integers 1 through n"""
+    ...:     for ii in range(1, n+1):
+    ...:         print('\n')
+    ...:         for jj in range(1, n+1):
+    ...:             print(ii*jj, end = '\t')
+    ...:
+
+In [45]: multtable(10)
+
+
+1   2   3   4   5   6   7   8   9   10
+
+2   4   6   8   10  12  14  16  18  20
+
+3   6   9   12  15  18  21  24  27  30
+
+4   8   12  16  20  24  28  32  36  40
+
+5   10  15  20  25  30  35  40  45  50
+
+6   12  18  24  30  36  42  48  54  60
+
+7   14  21  28  35  42  49  56  63  70
+
+8   16  24  32  40  48  56  64  72  80
+
+9   18  27  36  45  54  63  72  81  90
+
+10  20  30  40  50  60  70  80  90  100
+In [46]: # Student solution:
+    ...: def multtable(n):
+    ...:     """takes a number n and prints out the multiplication table for integers 1 through n"""
+    ...:     for ii in range(1, n+1):
+    ...:         print()
+    ...:         for jj in range(1, n+1):
+    ...:             print(ii*jj, end = '\t')
+    ...:
+
+In [47]: multtable(10)
+
+1   2   3   4   5   6   7   8   9   10
+2   4   6   8   10  12  14  16  18  20
+3   6   9   12  15  18  21  24  27  30
+4   8   12  16  20  24  28  32  36  40
+5   10  15  20  25  30  35  40  45  50
+6   12  18  24  30  36  42  48  54  60
+7   14  21  28  35  42  49  56  63  70
+8   16  24  32  40  48  56  64  72  80
+9   18  27  36  45  54  63  72  81  90
+10  20  30  40  50  60  70  80  90  100
+In [48]: def test(x):
+    ...:     return x+1
+    ...:
+
+In [49]: test(1)
+Out[49]: 2
+
+In [50]: result = test(1)
+
+In [51]: result
+Out[51]: 2
+
+In [52]: def test2(x):
+    ...:     print(x)
+    ...:     return x+1
+    ...:
+    ...:
+
+In [53]: test2(1)
+1
+Out[53]: 2
+
+In [54]: result = test2(1)
+1
+
+In [55]: result
+Out[55]: 2
+
+In [56]: print(result)
+2
+
+In [57]: def test3(x):
+    ...:     return x+1, x+2
+    ...:
+    ...:
+    ...:
+
+In [58]: test3(1)
+Out[58]: (2, 3)
+
+In [59]: result = test3(1)
+
+In [60]: type(result)
+Out[60]: tuple
+
+In [61]: a, b = test3(1)
+
+In [62]: a
+Out[62]: 2
+
+In [63]: b
+Out[63]: 3
+
+In [64]: t = 1, 2, 3
+
+In [65]: t = (1, 2, 3)
+
+In [66]: type(t)
+Out[66]: tuple
+
+In [67]: t = 'a', True, 6
+
+In [68]: t
+Out[68]: ('a', True, 6)
+
+In [69]: t[-1]
+Out[69]: 6
+
+In [70]: t[0]
+Out[70]: 'a'
+
+In [71]: t[0:2]
+Out[71]: ('a', True)
+
+In [72]: t[:2]
+Out[72]: ('a', True)
+
+In [73]: t[::-1]
+Out[73]: (6, True, 'a')
+
+In [74]: a, b, c = 1, 2, 3
+
+In [75]: a
+Out[75]: 1
+
+In [76]: b
+Out[76]: 2
+
+In [77]: c
+Out[77]: 3
+
+In [78]: len(t)
+Out[78]: 3
+
+In [79]: t
+Out[79]: ('a', True, 6)
+
+In [80]: t = 'a', True, 6
+
+In [81]: t[0]
+Out[81]: 'a'
+
+In [82]: t[0] = 7
+---------------------------------------------------------------------------
+TypeError                                 Traceback (most recent call last)
+<ipython-input-82-3186625c79e4> in <module>
+----> 1 t[0] = 7
+
+TypeError: 'tuple' object does not support item assignment
+> <ipython-input-82-3186625c79e4>(1)<module>()
+----> 1 t[0] = 7
+
+ipdb> c
+
+In [83]: t = 7, True, 6
+
+In [84]: t
+Out[84]: (7, True, 6)
+
+In [85]: t[0] = 'a'
+---------------------------------------------------------------------------
+TypeError                                 Traceback (most recent call last)
+<ipython-input-85-2de81540b330> in <module>
+----> 1 t[0] = 'a'
+
+TypeError: 'tuple' object does not support item assignment
+> <ipython-input-85-2de81540b330>(1)<module>()
+----> 1 t[0] = 'a'
+
+ipdb> c
+
+In [86]: t.count(7)
+Out[86]: 1
+
+In [87]: t.count(True)
+Out[87]: 1
+
+In [88]: t.count(1000)
+Out[88]: 0
+
+In [89]: t
+Out[89]: (7, True, 6)
+
+In [90]: t.index(True)
+Out[90]: 1
+
+In [91]: l = []
+
+In [92]: l
+Out[92]: []
+
+In [93]: type(l)
+Out[93]: list
+
+In [94]: len(l)
+Out[94]: 0
+
+In [95]: l = [1, 2, 3]
+
+In [96]: l[0]
+Out[96]: 1
+
+In [97]: l[0] = 666
+
+In [98]: l
+Out[98]: [666, 2, 3]
+
+In [99]: l = []
+
+In [100]: l.append(5)
+
+In [101]: l
+Out[101]: [5]
+
+In [102]: l.append(6)
+
+In [103]: l
+Out[103]: [5, 6]
+
+In [104]: val = l.append(7)
+
+In [105]: type(val)
+Out[105]: NoneType
+
+In [106]: print(val)
+None
+
+In [107]: l
+Out[107]: [5, 6, 7]
+
+In [108]: l.append(8)
+
+In [109]: l
+Out[109]: [5, 6, 7, 8]
+
+In [110]: s = 'abcdefghijklmnopqrstuvwxyz'
+
+In [111]: s.upper()
+Out[111]: 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+
+In [112]: s
+Out[112]: 'abcdefghijklmnopqrstuvwxyz'
+
+In [113]: l.copy?
+Docstring: L.copy() -> list -- a shallow copy of L
+Type:      builtin_function_or_method
+
+In [114]: l
+Out[114]: [5, 6, 7, 8]
+
+In [115]: l = [6, 2, 1, 0]
+
+In [116]: l.sort()
+
+In [117]: l
+Out[117]: [0, 1, 2, 6]
+
+In [118]: l.sort()
+
+In [119]: l
+Out[119]: [0, 1, 2, 6]
+
+In [120]: l.reverse()
+
+In [121]: l
+Out[121]: [6, 2, 1, 0]
+
+In [122]: l.sort()
+
+In [123]: l.reverse()
+
+In [124]: l = [9, 6, 2, 12, 1, 0]
+
+In [125]: l.sort()
+
+In [126]: l[::-1]
+Out[126]: [12, 9, 6, 2, 1, 0]
+
+In [127]: l = [9, 6, 2, 12, 1, 0]
+
+In [128]: l.sort()[::-1]
+---------------------------------------------------------------------------
+TypeError                                 Traceback (most recent call last)
+<ipython-input-128-599040c8ecb5> in <module>
+----> 1 l.sort()[::-1]
+
+TypeError: 'NoneType' object is not subscriptable
+> <ipython-input-128-599040c8ecb5>(1)<module>()
+----> 1 l.sort()[::-1]
+
+ipdb> c
+
+In [129]: l.sort()
+
+In [130]: l.sort().reverse()
+---------------------------------------------------------------------------
+AttributeError                            Traceback (most recent call last)
+<ipython-input-130-d28652ffd8af> in <module>
+----> 1 l.sort().reverse()
+
+AttributeError: 'NoneType' object has no attribute 'reverse'
+> <ipython-input-130-d28652ffd8af>(1)<module>()
+----> 1 l.sort().reverse()
+
+ipdb> c
+
+In [131]: l.sort?
+Docstring: L.sort(key=None, reverse=False) -> None -- stable sort *IN PLACE*
+Type:      builtin_function_or_method
+
+In [132]: l.sort(reverse=True)
+
+In [133]: l
+Out[133]: [12, 9, 6, 2, 1, 0]
+
+In [134]: l
+Out[134]: [12, 9, 6, 2, 1, 0]
+
+In [135]: l = [9, 6, 2, 12, 1, 0]
+
+In [136]: l
+Out[136]: [9, 6, 2, 12, 1, 0]
+
+In [137]: savedl = l.copy()
+
+In [138]: l
+Out[138]: [9, 6, 2, 12, 1, 0]
+
+In [139]: savedl
+Out[139]: [9, 6, 2, 12, 1, 0]
+
+In [140]: l.sort()
+
+In [141]: l
+Out[141]: [0, 1, 2, 6, 9, 12]
+
+In [142]: savedl
+Out[142]: [9, 6, 2, 12, 1, 0]
+
+In [143]: l = []
+
+In [144]: for i in range(10):
+     ...:     l.append(i)
+     ...:
+
+In [145]: l
+Out[145]: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+
+In [146]: list(range(10))
+Out[146]: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+
+In [147]: t = 1, 2, 3
+
+In [148]: type(t)
+Out[148]: tuple
+
+In [149]: list(t)
+Out[149]: [1, 2, 3]
+
+In [150]: type(list(t))
+Out[150]: list
+
+In [151]: l = [1, 2, 3]
+
+In [152]: tuple(l)
+Out[152]: (1, 2, 3)
+
+In [153]: l
+Out[153]: [1, 2, 3]
+
+In [154]: tuple(l)
+Out[154]: (1, 2, 3)
+
+In [155]: l
+Out[155]: [1, 2, 3]
+
+In [156]: help(del)
+  File "<ipython-input-156-ab90b85f1620>", line 1
+    help(del)
+           ^
+SyntaxError: invalid syntax
+
+
+In [157]: l
+Out[157]: [1, 2, 3]
+
+In [158]: del l[2]
+
+In [159]: l
+Out[159]: [1, 2]
+
+In [160]: l = [1, 2, 3]
+
+In [161]: del l[-1]
+
+In [162]: l
+Out[162]: [1, 2]
+
+In [163]: l = [1, 2, 3]
+
+In [164]: del l[0]
+
+In [165]: l
+Out[165]: [2, 3]
+
+In [166]: l
+Out[166]: [2, 3]
+
+In [167]: l = [1, 2, 3]
+
+In [168]: 1 in l
+Out[168]: True
+
+In [169]: 7 in l
+Out[169]: False
+
+In [170]: l = [1, 2, 1]
+
+In [171]: 1 in l
+Out[171]: True
+
+In [172]: sequence = 5, True, 'blah'
+
+In [173]: for val in sequence:
+     ...:     print(val)
+     ...:
+5
+True
+blah
+
+In [174]: for i, val in enumerate(sequence):
+     ...:     print(i, val)
+     ...:
+0 5
+1 True
+2 blah
+
+In [175]: for a, b in zip([1, 3, 5], [2, 4, 6]):
+     ...:     print(a, b)
+     ...:
+1 2
+3 4
+5 6
+
+In [176]: for a, b in zip([1, 3, 5, 7], [2, 4, 6]):
+     ...:     print(a, b)
+     ...:
+1 2
+3 4
+5 6
+
+In [177]: l = []
+
+In [178]: for i in range(10):
+     ...:     l.append(i)
+     ...:
+
+In [179]: l
+Out[179]: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+
+In [180]: l = [i for i in range(10)]
+
+In [181]: l
+Out[181]: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+
+In [182]: list(range(10))
+Out[182]: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+
+In [183]: l = [i*2 for i in range(10)]
+
+In [184]: l
+Out[184]: [0, 2, 4, 6, 8, 10, 12, 14, 16, 18]
+
+In [185]: l = [i*5 for i in range(10)]
+
+In [186]: l
+Out[186]: [0, 5, 10, 15, 20, 25, 30, 35, 40, 45]
+
+In [187]: 1e2
+Out[187]: 100.0
+
+In [188]: 100.0
+Out[188]: 100.0
+
+In [189]: t = 3, 5, 1.7, -2.7, 1e2, -50
+
+In [190]: t
+Out[190]: (3, 5, 1.7, -2.7, 100.0, -50)
+
+In [191]: t[1]
+Out[191]: 5
+
+In [192]: t[::2]
+Out[192]: (3, 1.7, 100.0)
+
+In [193]: t
+Out[193]: (3, 5, 1.7, -2.7, 100.0, -50)
+
+In [194]: list(t)
+Out[194]: [3, 5, 1.7, -2.7, 100.0, -50]
+
+In [195]: l = list(t)
+
+In [196]: l
+Out[196]: [3, 5, 1.7, -2.7, 100.0, -50]
+
+In [197]: l.sorted
+---------------------------------------------------------------------------
+AttributeError                            Traceback (most recent call last)
+<ipython-input-197-0b86949a4117> in <module>
+----> 1 l.sorted
+
+AttributeError: 'list' object has no attribute 'sorted'
+> <ipython-input-197-0b86949a4117>(1)<module>()
+----> 1 l.sorted
+
+ipdb> c
+
+In [198]: l.sorted()
+---------------------------------------------------------------------------
+AttributeError                            Traceback (most recent call last)
+<ipython-input-198-1e04353903f5> in <module>
+----> 1 l.sorted()
+
+AttributeError: 'list' object has no attribute 'sorted'
+> <ipython-input-198-1e04353903f5>(1)<module>()
+----> 1 l.sorted()
+
+ipdb> c
+
+In [199]: sorted
+Out[199]: <function sorted(iterable, /, *, key=None, reverse=False)>
+
+In [200]: l.sorted
+---------------------------------------------------------------------------
+AttributeError                            Traceback (most recent call last)
+<ipython-input-200-0b86949a4117> in <module>
+----> 1 l.sorted
+
+AttributeError: 'list' object has no attribute 'sorted'
+> <ipython-input-200-0b86949a4117>(1)<module>()
+----> 1 l.sorted
+
+ipdb> c
+
+In [201]: l.sort()
+
+In [202]: l
+Out[202]: [-50, -2.7, 1.7, 3, 5, 100.0]
+
+In [203]: l.sort()
+
+In [204]: l
+Out[204]: [-50, -2.7, 1.7, 3, 5, 100.0]
+
+In [205]: sorted(l)
+Out[205]: [-50, -2.7, 1.7, 3, 5, 100.0]
+
+In [206]: l.sort()
+
+In [207]: sorted(l)
+Out[207]: [-50, -2.7, 1.7, 3, 5, 100.0]
+
+In [208]: l.append('blah')
+
+In [209]: l
+Out[209]: [-50, -2.7, 1.7, 3, 5, 100.0, 'blah']
+
+In [210]: l.sort()
+---------------------------------------------------------------------------
+TypeError                                 Traceback (most recent call last)
+<ipython-input-210-fb07ac7c73ab> in <module>
+----> 1 l.sort()
+
+TypeError: '<' not supported between instances of 'str' and 'float'
+> <ipython-input-210-fb07ac7c73ab>(1)<module>()
+----> 1 l.sort()
+
+ipdb> c
+
+In [211]: l
+Out[211]: [-50, -2.7, 1.7, 3, 5, 100.0, 'blah']
+
+In [212]: del l[-1]
+
+In [213]: l
+Out[213]: [-50, -2.7, 1.7, 3, 5, 100.0]
+
+In [214]: l = [-50, -2.7, 1.7, 3, 5, 100.0, 'blah']
+
+In [215]: l
+Out[215]: [-50, -2.7, 1.7, 3, 5, 100.0, 'blah']
+
+In [216]: l.reverse()
+
+In [217]: l.reverse?
+Docstring: L.reverse() -- reverse *IN PLACE*
+Type:      builtin_function_or_method
+
+In [218]: l.reverse('blah')
+---------------------------------------------------------------------------
+TypeError                                 Traceback (most recent call last)
+<ipython-input-218-ff884bcc48c5> in <module>
+----> 1 l.reverse('blah')
+
+TypeError: reverse() takes no arguments (1 given)
+> <ipython-input-218-ff884bcc48c5>(1)<module>()
+----> 1 l.reverse('blah')
+
+ipdb> c
+
+In [219]: l.remove?
+Docstring:
+L.remove(value) -> None -- remove first occurrence of value.
+Raises ValueError if the value is not present.
+Type:      builtin_function_or_method
+
+In [220]: l.remove('blah')
+
+In [221]: l
+Out[221]: [100.0, 5, 3, 1.7, -2.7, -50]
+
+In [222]: l.remove('blah')
+---------------------------------------------------------------------------
+ValueError                                Traceback (most recent call last)
+<ipython-input-222-7ff54d06f0b4> in <module>
+----> 1 l.remove('blah')
+
+ValueError: list.remove(x): x not in list
+> <ipython-input-222-7ff54d06f0b4>(1)<module>()
+----> 1 l.remove('blah')
+
+ipdb> c
+
+In [223]: l.remove('blah')
+---------------------------------------------------------------------------
+ValueError                                Traceback (most recent call last)
+<ipython-input-223-7ff54d06f0b4> in <module>
+----> 1 l.remove('blah')
+
+ValueError: list.remove(x): x not in list
+> <ipython-input-223-7ff54d06f0b4>(1)<module>()
+----> 1 l.remove('blah')
+
+ipdb> c
+
+In [224]: while True:
+     ...:     l.remove('blah')
+     ...:
+---------------------------------------------------------------------------
+ValueError                                Traceback (most recent call last)
+<ipython-input-224-7bd63714ae4a> in <module>
+      1 while True:
+----> 2     l.remove('blah')
+      3
+
+ValueError: list.remove(x): x not in list
+> <ipython-input-224-7bd63714ae4a>(2)<module>()
+      1 while True:
+----> 2     l.remove('blah')
+      3
+
+ipdb> c
+
+In [225]: l = [-50, -2.7, 1.7, 3, 5, 100.0, 'blah']
+
+In [226]: l == 'blah'
+Out[226]: False
+
+In [227]: l.index('blah')
+Out[227]: 6
+
+In [228]: i = l.index('blah')
+
+In [229]: del l[i]
+
+In [230]: i = l.index('blah')
+---------------------------------------------------------------------------
+ValueError                                Traceback (most recent call last)
+<ipython-input-230-30c9676ddf90> in <module>
+----> 1 i = l.index('blah')
+
+ValueError: 'blah' is not in list
+> <ipython-input-230-30c9676ddf90>(1)<module>()
+----> 1 i = l.index('blah')
+
+ipdb> c
+
+In [231]: l
+Out[231]: [-50, -2.7, 1.7, 3, 5, 100.0]
+
+In [232]: l.reverse()
+
+In [233]: l
+Out[233]: [100.0, 5, 3, 1.7, -2.7, -50]
+
+In [234]: l.reverse()
+
+In [235]: l
+Out[235]: [-50, -2.7, 1.7, 3, 5, 100.0]
+
+In [236]: l[::-1]
+Out[236]: [100.0, 5, 3, 1.7, -2.7, -50]
+
+In [237]: t
+Out[237]: (3, 5, 1.7, -2.7, 100.0, -50)
+
+In [238]: l = []
+
+In [239]: for val in t:
+     ...:     l.append(t*2)
+     ...:
+
+In [240]: l
+Out[240]:
+[(3, 5, 1.7, -2.7, 100.0, -50, 3, 5, 1.7, -2.7, 100.0, -50),
+ (3, 5, 1.7, -2.7, 100.0, -50, 3, 5, 1.7, -2.7, 100.0, -50),
+ (3, 5, 1.7, -2.7, 100.0, -50, 3, 5, 1.7, -2.7, 100.0, -50),
+ (3, 5, 1.7, -2.7, 100.0, -50, 3, 5, 1.7, -2.7, 100.0, -50),
+ (3, 5, 1.7, -2.7, 100.0, -50, 3, 5, 1.7, -2.7, 100.0, -50),
+ (3, 5, 1.7, -2.7, 100.0, -50, 3, 5, 1.7, -2.7, 100.0, -50)]
+
+In [241]: l = []
+
+In [242]: for val in t:
+     ...:     l.append(val*2)
+     ...:
+     ...:
+
+In [243]: l
+Out[243]: [6, 10, 3.4, -5.4, 200.0, -100]
+
+In [244]: t
+Out[244]: (3, 5, 1.7, -2.7, 100.0, -50)
+
+In [245]: l
+Out[245]: [6, 10, 3.4, -5.4, 200.0, -100]
+
+In [246]: l = [ val*2 for val in t ]
+
+In [247]: l
+Out[247]: [6, 10, 3.4, -5.4, 200.0, -100]
+
+In [248]: def multseq(seq, x):
+     ...:     return [ val*x for val in seq ]
+     ...:
+
+In [249]: multseq([1,2,3], 5)
+Out[249]: [5, 10, 15]
+
+In [250]: a = multseq([1,2,3], 5)
+
+In [251]: a
+Out[251]: [5, 10, 15]
+
+In [252]: _249
+Out[252]: [5, 10, 15]
+
+In [253]: d = {}
+
+In [254]: t = (,)
+  File "<ipython-input-254-be92b712f3e5>", line 1
+    t = (,)
+         ^
+SyntaxError: invalid syntax
+
+
+In [255]: t = ()
+
+In [256]: l = []
+
+In [257]: d = {}
+
+In [258]: type(d)
+Out[258]: dict
+
+In [259]: d = dict()
+
+In [260]: d
+Out[260]: {}
+
+In [261]: {'Alice':25, 'Bob':20, 'Carol':32}
+Out[261]: {'Alice': 25, 'Bob': 20, 'Carol': 32}
+
+In [262]: type({'Alice':25, 'Bob':20, 'Carol':32})
+Out[262]: dict
+
+In [263]: names2ages = {'Alice':25, 'Bob':20, 'Carol':32}
+
+In [264]: names_to_ages = {'Alice':25, 'Bob':20, 'Carol':32}
+
+In [265]: something = {'Alice':25, 'Bob':20, 'Carol':32}
+
+In [266]: names2ages = {'Alice':25, 'Bob':20, 'Carol':32}
+
+In [267]: names2ages['Alice']
+Out[267]: 25
+
+In [268]: names2ages['Bob']
+Out[268]: 20
+
+In [269]: names2ages['Carol']
+Out[269]: 32
+
+In [270]: names2ages['Doug']
+---------------------------------------------------------------------------
+KeyError                                  Traceback (most recent call last)
+<ipython-input-270-3e115749041a> in <module>
+----> 1 names2ages['Doug']
+
+KeyError: 'Doug'
+> <ipython-input-270-3e115749041a>(1)<module>()
+----> 1 names2ages['Doug']
+
+ipdb> c
+
+In [271]: {25:'Alice', 20:'Bob', 32:'Carol'}
+Out[271]: {25: 'Alice', 20: 'Bob', 32: 'Carol'}
+
+In [272]: names2ages[25]
+---------------------------------------------------------------------------
+KeyError                                  Traceback (most recent call last)
+<ipython-input-272-1b3335231d40> in <module>
+----> 1 names2ages[25]
+
+KeyError: 25
+> <ipython-input-272-1b3335231d40>(1)<module>()
+----> 1 names2ages[25]
+
+ipdb> c
+
+In [273]: names2ages
+Out[273]: {'Alice': 25, 'Bob': 20, 'Carol': 32}
+
+In [274]: ages2names = {25:'Alice', 20:'Bob', 32:'Carol'}
+
+In [275]: type(ages2names)
+Out[275]: dict
+
+In [276]: names2ages[25]
+---------------------------------------------------------------------------
+KeyError                                  Traceback (most recent call last)
+<ipython-input-276-1b3335231d40> in <module>
+----> 1 names2ages[25]
+
+KeyError: 25
+> <ipython-input-276-1b3335231d40>(1)<module>()
+----> 1 names2ages[25]
+
+ipdb> c
+
+In [277]: ages2names[25]
+Out[277]: 'Alice'
+
+In [278]: ages2names = {25:'Alice', 20:'Bob', 32:'Carol', 25:'Doug'}
+
+In [279]: ages2names
+Out[279]: {25: 'Doug', 20: 'Bob', 32: 'Carol'}
+
+In [280]: ages2names[25]
+Out[280]: 'Doug'
+
+In [281]: d = {'a':1, 'b':2, 'c':3}
+
+In [282]: a
+Out[282]: [5, 10, 15]
+
+In [283]: d
+Out[283]: {'a': 1, 'b': 2, 'c': 3}
+
+In [284]: len(d)
+Out[284]: 3
+
+In [285]: d['d'] = 4
+
+In [286]: d
+Out[286]: {'a': 1, 'b': 2, 'c': 3, 'd': 4}
+
+In [287]: d['e'] = 5
+
+In [288]: d
+Out[288]: {'a': 1, 'b': 2, 'c': 3, 'd': 4, 'e': 5}
+
+In [289]: len(d)
+Out[289]: 5
+
+In [290]: del d['b']
+
+In [291]: d
+Out[291]: {'a': 1, 'c': 3, 'd': 4, 'e': 5}
+
+In [292]: del d['f']
+---------------------------------------------------------------------------
+KeyError                                  Traceback (most recent call last)
+<ipython-input-292-db85a65b1d0a> in <module>
+----> 1 del d['f']
+
+KeyError: 'f'
+> <ipython-input-292-db85a65b1d0a>(1)<module>()
+----> 1 del d['f']
+
+ipdb> c
+
+In [293]: newd = d.copy()
+
+In [294]: newd
+Out[294]: {'a': 1, 'c': 3, 'd': 4, 'e': 5}
+
+In [295]: d
+Out[295]: {'a': 1, 'c': 3, 'd': 4, 'e': 5}
+
+In [296]: newd['q'] = 56
+
+In [297]: newd
+Out[297]: {'a': 1, 'c': 3, 'd': 4, 'e': 5, 'q': 56}
+
+In [298]: d
+Out[298]: {'a': 1, 'c': 3, 'd': 4, 'e': 5}
+
+In [299]: d.keys()
+Out[299]: dict_keys(['a', 'c', 'd', 'e'])
+
+In [300]: list(d.keys())
+Out[300]: ['a', 'c', 'd', 'e']
+
+In [301]: d.values()
+Out[301]: dict_values([1, 3, 4, 5])
+
+In [302]: list(d.values())
+Out[302]: [1, 3, 4, 5]
+
+In [303]: list(d.keys())
+Out[303]: ['a', 'c', 'd', 'e']
+
+In [304]: list(d.values())
+Out[304]: [1, 3, 4, 5]
+
+In [305]: d.items?
+Docstring: D.items() -> a set-like object providing a view on D's items
+Type:      builtin_function_or_method
+
+In [306]: list(d.items())
+Out[306]: [('a', 1), ('c', 3), ('d', 4), ('e', 5)]
+
+In [307]: d
+Out[307]: {'a': 1, 'c': 3, 'd': 4, 'e': 5}
+
+In [308]: d.pop?
+Docstring:
+D.pop(k[,d]) -> v, remove specified key and return the corresponding value.
+If key is not found, d is returned if given, otherwise KeyError is raised
+Type:      builtin_function_or_method
+
+In [309]: d
+Out[309]: {'a': 1, 'c': 3, 'd': 4, 'e': 5}
+
+In [310]: d['a']
+Out[310]: 1
+
+In [311]: d.pop('a')
+Out[311]: 1
+
+In [312]: d
+Out[312]: {'c': 3, 'd': 4, 'e': 5}
+
+In [313]: d.pop('a')
+---------------------------------------------------------------------------
+KeyError                                  Traceback (most recent call last)
+<ipython-input-313-858744f94692> in <module>
+----> 1 d.pop('a')
+
+KeyError: 'a'
+> <ipython-input-313-858744f94692>(1)<module>()
+----> 1 d.pop('a')
+
+ipdb> c
+
+In [314]: names2ages
+Out[314]: {'Alice': 25, 'Bob': 20, 'Carol': 32}
+
+In [315]: names2ages.values()
+Out[315]: dict_values([25, 20, 32])
+
+In [316]: list(names2ages.values())
+Out[316]: [25, 20, 32]
+
+In [317]: 25 in list(names2ages.values())
+Out[317]: True
+
+In [318]: 25 in names2ages.values()
+Out[318]: True
+
+In [319]: for key in names2ages:
+     ...:     print(key)
+     ...:
+Alice
+Bob
+Carol
+
+In [320]: for key in names2ages:
+     ...:     print(names2ages[key])
+     ...:
+     ...:
+     ...:
+25
+20
+32
+
+In [321]: for key in names2ages:
+     ...:     val = names2ages[key]
+     ...:     if val == 25:
+     ...:         return key
+     ...:
+     ...:
+     ...:
+  File "<ipython-input-321-a712655bdde0>", line 4
+    return key
+    ^
+SyntaxError: 'return' outside function
+
+
+In [322]: for key in names2ages:
+     ...:     val = names2ages[key]
+     ...:     if val == 25:
+     ...:         return key
+     ...:
+     ...:
+  File "<ipython-input-322-e566a1b221e4>", line 4
+    return key
+    ^
+SyntaxError: 'return' outside function
+
+
+In [323]: for key in names2ages:
+     ...:     val = names2ages[key]
+     ...:     if val == 25:
+     ...:         print(key)
+     ...:
+     ...:
+     ...:
+Alice
+
+In [324]: l = []
+
+In [325]: for key in names2ages:
+     ...:     val = names2ages[key]
+     ...:     if val == 25:
+     ...:         l.append(key)
+     ...:
+     ...:
+     ...:
+     ...:
+
+In [326]: l
+Out[326]: ['Alice']
+
+In [327]: for val in names2ages.values():
+     ...:     print(val)
+     ...:
+25
+20
+32
+
+In [328]: for key in names2ages:
+     ...:     val = names2ages[key]
+     ...:     print(val)
+     ...:
+     ...:
+     ...:
+25
+20
+32
+
+In [329]: for key, val in d.items():
+     ...:     print(key, val)
+     ...:
+c 3
+d 4
+e 5
+
+In [330]: for key, val in names2ages.items():
+     ...:     print(key, val)
+     ...:
+Alice 25
+Bob 20
+Carol 32
+
+In [331]: d = { key:2*val for key, val in names2ages.items() }
+
+In [332]: d
+Out[332]: {'Alice': 50, 'Bob': 40, 'Carol': 64}
+
+In [333]: d = {}
+
+In [334]: for key, val in names2ages.items():
+     ...:     d[key] = 2*val
+     ...:
+
+In [335]: d
+Out[335]: {'Alice': 50, 'Bob': 40, 'Carol': 64}
+
+In [336]: [(1, 2), (3, 4), (5, 6)]
+Out[336]: [(1, 2), (3, 4), (5, 6)]
+
+In [337]: {'a':[1, 2, 3], 'b':[4, 5, 6]}
+Out[337]: {'a': [1, 2, 3], 'b': [4, 5, 6]}
+
+In [338]: l = [{'a':1, 'b':2}, {'c':3, 'd':4}]
+
+In [339]: l[1]
+Out[339]: {'c': 3, 'd': 4}
+
+In [340]: l[1]
+Out[340]: {'c': 3, 'd': 4}
+
+In [341]: l[1]['e'] = 5
+
+In [342]: l
+Out[342]: [{'a': 1, 'b': 2}, {'c': 3, 'd': 4, 'e': 5}]
+
+In [343]: l[0]
+Out[343]: {'a': 1, 'b': 2}
+
+In [344]: d = l[0]
+
+In [345]: del d['a']
+
+In [346]: d
+Out[346]: {'b': 2}
+
+In [347]: l
+Out[347]: [{'b': 2}, {'c': 3, 'd': 4, 'e': 5}]
+
+In [348]: l = [{'a': 1, 'b': 2}, {'c': 3, 'd': 4, 'e': 5}]
+
+In [349]: del l[0]['a']
+
+In [350]: l
+Out[350]: [{'b': 2}, {'c': 3, 'd': 4, 'e': 5}]
+
+In [351]: a = [1, 2, 3]
+
+In [352]: b = a
+
+In [353]: a
+Out[353]: [1, 2, 3]
+
+In [354]: b
+Out[354]: [1, 2, 3]
+
+In [355]: b = a
+
+In [356]: a.append(4)
+
+In [357]: a
+Out[357]: [1, 2, 3, 4]
+
+In [358]: b
+Out[358]: [1, 2, 3, 4]
+
+In [359]: a = [1, 2, 3]
+
+In [360]: b = a.copy()
+
+In [361]: a[0] = 10
+
+In [362]: a
+Out[362]: [10, 2, 3]
+
+In [363]: b
+Out[363]: [1, 2, 3]
+
+In [364]: a == b
+Out[364]: False
+
+In [365]: a
+Out[365]: [10, 2, 3]
+
+In [366]: b
+Out[366]: [1, 2, 3]
+
+In [367]: a = [1, 2, 3]
+
+In [368]: b = a
+
+In [369]: a[0] = 10
+
+In [370]: a == b
+Out[370]: True
+
+In [371]: a is b
+Out[371]: True
+
+In [372]: a = [1, 2, 3]
+
+In [373]: b = a.copy()
+
+In [374]: a == b
+Out[374]: True
+
+In [375]: a is b
+Out[375]: False
+
+In [376]: b[0] = 666
+
+In [377]: a == b
+Out[377]: False
+
+In [378]: a
+Out[378]: [1, 2, 3]
+
+In [379]: b
+Out[379]: [666, 2, 3]
+
+In [380]:
