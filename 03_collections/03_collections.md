@@ -2,6 +2,17 @@
 
 #### go over solutions to homework 1
 
+#### forgot to mention in class 02
+
+- return multiple values:
+```python
+def addsubtract(x, y):
+    """Return sum and difference of x and y"""
+    s = x + y
+    d = x - y
+    return s, d
+```
+
 #### collections
 
 - data types for storing multiple values (objects) together in a single object with a single name
