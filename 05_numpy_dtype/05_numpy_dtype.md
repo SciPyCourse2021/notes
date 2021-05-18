@@ -30,8 +30,8 @@
         - e.g., `a and b` gives an error
         - instead us vectorized boolean operators `&`, `|`, `~`
         - e.g. `a & b` and `a | b` and `~a` and `~b` work as you would expect
-    - are all values in `a` True? `a.all()` or `np.all(a)`
-    - are any values in `a` True? `a.any()` or `np.any(a)`
+    - are all values in `a` True? `a.all()` or `np.all(a)`, returns a single bool as answer
+    - are any values in `a` True? `a.any()` or `np.any(a)`, returns a single bool as answer
 - common array math methods: `a.max()`, `a.min()`, `a.ptp()`, `a.sum()`, `a.mean()`, `a.std()`
 - how can we shift all these values to have zero mean and a standard deviation of 1?
     ```python
@@ -39,12 +39,14 @@
     a /= a.std() # now std is also very close to 1
     ````
 - `a.sort()` sorts in place, `b = np.sort(a)` creates a sorted copy of `a`
+- `a.argsort()` returns fancy integer indices that *would* sort `a` if you used them to index into `a`
+    - e.g. `sortis = a.argsort()`, and then `b = a[sortis]` gives you sorted values in b, while also saving the indices that you could sort another other array of the same length in the same way
 - `np.diff()` finds the difference between consecutive values in `a`
     - e.g., `np.diff([1, 4, 2, -3])` gives `np.array([3, -2, -5])`
 
 #### more array exercises:
 
-1. Create an array `a` of 10 random numbers that range from 0 to 10 at most
+1. Create an array `a` of 10 random numbers that range from 0 to 10 at most (one line of code!)
 2. Create an array `b` that has only the 2nd, 5th and 8th entries in `a` (one line of code!)
 3. Create an array `c` that has only the values in `a` greater than 5
 4. Use `np.where()` to get the integer indices of where `a` is greater than 5.
@@ -97,13 +99,15 @@
         - `n = 2**nbits` is the number of unique integers that can be represented by an integer data type:
         - unsigned integers range from `0` to `n-1`
         - signed integers range from `-n/2` to `n/2-1`
-        - so, the bigger the integer data type (in bits and therefore bytes (`nbytes = nbits / 8`), the more integer numbers it can represent
-    - data subtypes are name by their size in *bits*
+        - so, the bigger the integer data type (in bits and therefore bytes, `nbytes = nbits / 8`), the more integer numbers it can represent
+    - data subtypes are named by their size in *bits*
     - **unsigned**: `np.uint8`, `np.uint16`, `np.uint32`, `np.uint64` use 1, 2, 4 and 8 bytes
     - **signed**: `np.int8`, `np.int16`, `np.int32`, `np.int64` use 1, 2, 4 and 8 bytes
     - can calculate max/min values of each int dtype, or use `np.iinfo()`, e.g. `np.iinfo(np.int8)`
         - access results using `.max` and `.min` attributes
-    - init arrays to the desired data type by using the `dtype` kwarg:
+    - check data type of an array using the `.dtype` attribute.
+    - what's the default integer array datatype on your machine?
+    - override the default: init arrays to the desired data type by using the `dtype` kwarg:
         - `a = np.zeros(5, dtype=np.uint8)` - smallest unsigned int
         - `b = np.zeros(5, dtype=np.int8)` - smallest signed int
     - integer overflow when assigning values:
@@ -119,7 +123,7 @@
     - how much memory (in bytes) would `a = np.zeros(100000000000, dtype=np.uint8)` use? what would happen if I tried this on my 16 GB laptop? `MemoryError`
 
 - **floats**: always signed, and made of `mantissa * 10^exponent`, e.g. `1.23456789e02`
-    - some bits that make up a float are used for the mantissa, some for the exponent
+    - some of the bits in memory that make up a float are used for the mantissa, some for the exponent
     - bigger float data types have greater resolution (mantissa) and greater range (exponent), but use more memory
     - `np.float16`, `np.float32`, `np.float64` use 2, 4 and 8 bytes. Is there a `np.float8`?
         - `a = np.zeros(5, dtype=np.float16)` uses `5*2` bytes of memory
@@ -132,7 +136,7 @@
         - note that resolution refers to the mantissa, not of the full mantissa + 10^exponent
             - `np.float16(1.23456789e4)` gives `12344.0`
             - `np.float16(1.23456789)` gives `1.234`
-            - `np.finfo(np.float16).tiny` gives `6.104e-05`, the smallest representable value
+            - `np.finfo(np.float16).tiny` gives `6.104e-05`, the smallest representable value for float16 data type
     - special values:
         - `np.inf` and `np.nan`, i.e. "infinity" and "not a number"
             - `np.inf` is used to represent *out of range* float values
