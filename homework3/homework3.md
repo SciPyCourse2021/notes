@@ -29,6 +29,6 @@ t = [0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9,
 
 5. Recalculate `y` and print it out. Is it aligned with `t`?
 
-6. Use `.argmax()` or `np.argmax()` to find the index `i` of the maximum value your newly-filtered `x2`. What are the corresponding values of `x1`, `x2` and `t` at that index `i`?
+6. Use `.argmax()` or `np.argmax()` to find the index `i` of the maximum value of your newly-filtered `x2`. What are the corresponding values of `x1`, `x2` and `t` at that index `i`?
 
 7. Check programatically if the maximum value of `x2` is unique. What does this tell you about the behaviour of `.argmax()`?
