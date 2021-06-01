@@ -209,13 +209,13 @@
 
 #### MPL and matrices exercises
 
-1. Load in an array of data from the (binary) file `surprise.npy` (see class 06). How many dimensions does it have? What's its shape?
+1. Load in an array of data from the (binary) file `surprise.npy` (see class 6 on how to do this). How many dimensions does it have? What's its shape?
 2. If you print out the array, you have no chance of guessing what it might be. Numpy truncates big arrays when printing. But you can subsample the array. Pick every 80th row and column and print that instead. Any guesses? It's an image...
 3. Plot the array. Are those the true colors? Does the array have color information? Play around a bit by giving it different colormaps: `'gray', 'jet', 'spring', 'cool'`. See https://matplotlib.org/examples/color/colormaps_reference.html. The default is `'viridis'`
 4. Add a colorbar to the above figure.
 5. Create a new figure with four axes. Choose how you want them to be arranged (2x2, 1x4, 4x1). Plot the array in each of the axes, but rotated 90 degrees with respect to the previous axes.
 6. What do you predict the transpose of the array will look like? Plot the transpose in a new figure.
-7. Create a new array that is a 2 x 2 version of the original, i.e. two copies in both x and y. Plot it in yet another figure.
+7. Create a new array that is a 2 x 2 version of the original, i.e. two copies in both x and y, like a "tiled" pattern. Plot it in yet another figure.
 
 
 #### Homework 4! Due before next class (class 8) on June 8
