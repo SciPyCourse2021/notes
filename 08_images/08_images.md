@@ -37,7 +37,7 @@ im.set_cmap('gray') # use grayscale instead
     - sequential - data ranging from low to high values
     - diverging - data that deviate around some important center value like 0
     - categorical - discrete colors for particular ranges of data
-- see colormap plots and explanations at: https://matplotlib.org/examples/color/colormaps_reference.html
+- see colormap plots and explanations at: https://matplotlib.org/stable/tutorials/colors/colormaps.html
 
 - can also directly specify desired colormap in `imshow()` call:
 ```python
@@ -77,7 +77,7 @@ ax.imshow(lowres, cmap='gray')
 f, ax = plt.subplots()
 ax.imshow(lowres, cmap='gray', interpolation='gaussian')
 ````
-- `'bilinear', 'bicubic', 'gaussian', 'spline16'` are common, see list of all [interpolation methods](https://matplotlib.org/examples/images_contours_and_fields/interpolation_methods.html)
+- `'bilinear', 'bicubic', 'gaussian', 'spline16'` are common, see list of all [interpolation methods](https://matplotlib.org/stable/gallery/images_contours_and_fields/interpolation_methods.html)
 
 - this is just for display, doesn't modify the array. Let's create a new array by interpolating the existing one, with more control over the smoothing:
 ```python
@@ -263,7 +263,7 @@ f, ax = plt.subplots()
 ax.imshow(mvi[0]) # plot the first frame
 ````
 - how might you (naively) animate the movie in a matplotlib figure?
-    - doing this properly is a bit complicated: https://matplotlib.org/api/animation_api.html
+    - doing this properly is a bit complicated: https://matplotlib.org/stable/api/animation_api.html
 - movies can also be loaded using [opencv](http://opencv.org/), but again, that might be harder to install (and use)
 
 #### Exercise 2
