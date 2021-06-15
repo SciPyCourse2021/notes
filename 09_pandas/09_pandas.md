@@ -164,7 +164,7 @@
     - notice the data types differ across columns, but are consistent within column
     - notice that the rows don't have any particular label, just integers starting from 0
     - what might happen if we try `exp1.plot()`?
-        - plots numerical columns as a function of (default) row labels
+        - plots only *numerical* columns, each as a function of (default) row labels
         - `exp1.plot.hist()` - plots all histograms on top of each other
         - `exp1.hist()` - plots separate histograms
     - let's load a 2nd experiment:
@@ -184,7 +184,7 @@
     - `exp1 = pd.read_excel('exp.xlsx', sheet_name='exp1')`
     - `exp2 = pd.read_excel('exp.xlsx', sheet_name='exp2')`
 
-- can also save a DataFrame to .csv and .xslx files using methods `.to_csv()` and `.to_excel()`
+- can also save a DataFrame to .csv and .xslx files using methods `.to_csv()` and `.to_excel()`, or to a binary Python "pickle" file with `.to_pickle()`, or to an HDF file with `.to_hdf()`
 
 - DataFrame has same simple stats methods as Series, but now calculated separately for each numerical column:
     - `exps.min()`, `exps.max()`, `exps.sum()`, `exps.mean()`, `exps.median()`, `exps.std()`
@@ -220,7 +220,7 @@
     - what kind of object is this? try `type(missd)`
     - what happens if you try to convert this list of variable length lists to an array?
         - `a = np.array(missd)`
-        - not all the rows are the same length, converting to an array doesn't have any benefit
+        - not all the rows are the same length ("ragged"), converting to an array doesn't have any benefit
         - the hint that something is wrong is that `dtype=object` instead of say `dtype=int`
         - `a.shape` is `(3,)` and `a.ndim` is `1`, i.e. this is just a 1D array
         - `a[:, 0]` gives an IndexError, again because it isn't 2D
