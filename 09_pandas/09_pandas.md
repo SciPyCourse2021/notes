@@ -283,7 +283,7 @@
 
 This is quite an intricate problemset. Solutions will be posted afterwards in `DataFrame_exercise_solutions.py`
 
-This dataset is taken from Francis Galton's 1885 study and explores the relationship between the heights of adult children and the heights of their parents. Found at http://www.math.uah.edu/stat/data/Galton.html
+This dataset is taken from Francis Galton's 1885 study and explores the relationship between the heights of adult children and the heights of their parents. Derived from data at http://www.math.uah.edu/stat/data/Galton.html
 
 Every row of the csv file `Galton.csv` represents a single child, and the columns describe their parents and family.
 
