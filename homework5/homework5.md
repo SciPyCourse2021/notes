@@ -1,6 +1,6 @@
 ### Homework 5
 
-As always, show your work, use docstrings and good style, and don't forget to test your code! Write your solutions in a file named `Firstname_homework5.py` and submit to m.spacek@lmu.de before class 10 (June 23).
+As always, show your work, use docstrings and good style, and don't forget to test your code! Write your solutions in a file named `Firstname_homework5.py` and submit to m.spacek@lmu.de before class 11 (June 29).
 
 #### images
 
