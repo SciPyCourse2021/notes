@@ -1,10 +1,19 @@
 import pandas as pd
 
 gdf = pd.read_csv('Galton.csv')
-nrows = len(gdf) # number of kids in dataset, one row per kid: 898
 
 # sometimes a useful option to print all rows, resets when you restart Python:
 pd.set_option('display.max_rows', None)
+
+# Yes, lots of redundant data. No need to repeatedly report the mother and father's heights
+# for each kid, or even the number of kids per family (which can be inferred by counting the
+# number of rows for each unique family ID). Ideally, the mother and father's heights and
+# the kids count per family should be removed from this table and put in another one
+# (maybe call it a "Family" table), that uses the same unique family IDs as the family
+# column in this table. Then you can easily cross-reference between the two, while
+# removing redundancy, and potentially errors due to redundancy.
+
+nrows = len(gdf) # number of kids in dataset, one row per kid: 898
 
 fam = gdf.groupby('Family') # analyze by family
 len(fam) # number of families, i.e. number of unique values in family column: 197
@@ -19,7 +28,8 @@ fam.count()['Kids'].sum() # also 898, just another way of counting rows
 
 # to actually consider the values stored in the kids column and check if they're correct,
 # need to reduce the multiple entries per family down to a single number: max, min, mean,
-# median, etc.
+# median, etc, any one of them will do, because we expect the kid count for each entry
+# within the same family to be the same:
 fam.max()['Kids'].sum() # 899, different result!
 fam.min()['Kids'].sum() # 899
 fam.mean()['Kids'].sum() # 899
@@ -28,15 +38,16 @@ fam.median()['Kids'].sum() # 899
 # the reduction (max) calcuation on the column we care about:
 fam['Kids'].max().sum()
 
-# something is clearly wrong. Somewhere the number of rows per family doesn't equal
+# something is clearly wrong. Somewhere the number of rows (entries) per family doesn't equal
 # the kid count for that family:
 fam.count()['Kids'] == fam.max()['Kids']
 (fam.count()['Kids'] == fam.max()['Kids']).all() # False, as expected, but where?
 np.where(fam.max()['Kids'] != fam.count()['Kids'])[0] # 32, i.e. row 32 has a problem
-fam.max().iloc[32] # family 130 has 10 kids, i.e. rows, in the dataset
-# kid data for family 130 says it actually has 11 kids,
-# so one row (kid) is missing for this family:
-fam.count().iloc[32]
+fam.count().iloc[32] # family 130 has 10 rows, i.e. 10 reported kids in the dataset
+# but, the values in the kid column for family 130 say it actually has 11 kids,
+# again, max, min, mean, etc. all do the same required reduction in this case:
+fam.max().iloc[32]
+# so one row (kid) is missing for this family!
 
 # calculate mean child height and plot distribution:
 gdf['Height'].mean() # 66.76
@@ -70,8 +81,8 @@ gdf.corr()
 gdf[['Father', 'Mother']].corr() # the off diagonal value is what we want
 gdf[['Father', 'Mother']].corr().iloc[1, 0] # 0.07366, pretty weak
 # but that still doesn't deal with the redundancy. The correct way is to
-# group by family again:
-fam[['Father', 'Mother']].max().corr()[1, 0] # 0.101, slightly stronger than we thought
+# again group by family and do a reduction:
+fam[['Father', 'Mother']].max().corr().iloc[1, 0] # 0.101, slightly stronger than we thought
 
 # calculate mean child height per family:
 mgdf = pd.DataFrame() # create a new empty DataFrame
@@ -81,5 +92,5 @@ mgdf['Mother'] = fam['Mother'].max()
 ax = mgdf.plot.scatter('Father', 'MeanHeight')
 ax = mgdf.plot.scatter('Mother', 'MeanHeight')
 # stronger correlations between parents and kids than between parents, Father-kid correlation
-# is stronger than Mother-kid correlation:
+# (0.33) is stronger than Mother-kid correlation (0.26):
 mgdf.corr()
