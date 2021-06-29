@@ -30,7 +30,7 @@
 - does the data naturally fall into various clusters/categories, or is it just one big continuous cloud of smoothly varying data points?
 - if they **do** form clusters, then you might want to analyze each cluster separately instead of lumping all your data together
 - clustering is a type of exploratory data analysis
-- if you see clusters in your data, then one way to label each data point is to manually draw boundaries betwee/around clusters, those points that fall to one side or within a boundary are given the same label (i.e. cluster ID)
+- if you see clusters in your data, then one way to label each data point is to manually draw boundaries between/around clusters, those points that fall to one side or within a boundary are given the same label (i.e. cluster ID)
     - this can be tedious and error-prone, automated clustering is preferred in most cases, but it's not magic...
 
 - let's look at two example automated clustering methods, and test them on 2D data:
