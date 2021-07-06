@@ -6,6 +6,6 @@ def squared(x):
     >>> squared(3)
     9
     >>> squared(4)
-    15
+    16
     """
     return x**2

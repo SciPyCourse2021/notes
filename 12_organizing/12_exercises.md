@@ -7,7 +7,7 @@
     git config --global user.name "First Last"
     git config --global user.email my@email.com
     ````
-    In windows, use the Git Bash command line instead of the usual windows command line.
+    In windows, use the Git Bash command line or Anaconda prompt instead of the usual windows command line.
 
 2. Create an empty folder somewhere on your computer. Call it `testproject`. Go to that folder in the command line. Create a new git repository within that folder using `git init`. See if you can locate the hidden `.git` folder that was just created (try `ls -al` in Mac/Linux, or `dir /ah` in Windows).
 

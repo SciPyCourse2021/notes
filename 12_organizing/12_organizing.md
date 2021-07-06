@@ -187,7 +187,7 @@
     - every commit requires a commit message
     - `git commit -m "Commit message"`
     - commit messages should be short, but specific
-        - use the diff to help you describe the changes you made
+        - use the diff to help you describe the changes you made and write your commit message
         - convention is to capitalize first word, start with a verb (Add, Fix, Change, etc.), end without a period
         - e.g. `Add filename.txt` or `Fix roundoff error`
     - commit early and often, in small logical chunks
