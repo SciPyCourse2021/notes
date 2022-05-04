@@ -1,0 +1,2390 @@
+
+mspacek@Godel:~/SciPyCourse2021/notes/07_mpl_matrices$ ipython
+Python 3.6.9 (default, Jan 26 2021, 15:33:00)
+Type 'copyright', 'credits' or 'license' for more information
+IPython 7.10.0 -- An enhanced Interactive Python. Type '?' for help.
+
+In [1]: np.arange(0, 4*np.pi, 0.1)
+Out[1]:
+array([ 0. ,  0.1,  0.2,  0.3,  0.4,  0.5,  0.6,  0.7,  0.8,  0.9,  1. ,
+        1.1,  1.2,  1.3,  1.4,  1.5,  1.6,  1.7,  1.8,  1.9,  2. ,  2.1,
+        2.2,  2.3,  2.4,  2.5,  2.6,  2.7,  2.8,  2.9,  3. ,  3.1,  3.2,
+        3.3,  3.4,  3.5,  3.6,  3.7,  3.8,  3.9,  4. ,  4.1,  4.2,  4.3,
+        4.4,  4.5,  4.6,  4.7,  4.8,  4.9,  5. ,  5.1,  5.2,  5.3,  5.4,
+        5.5,  5.6,  5.7,  5.8,  5.9,  6. ,  6.1,  6.2,  6.3,  6.4,  6.5,
+        6.6,  6.7,  6.8,  6.9,  7. ,  7.1,  7.2,  7.3,  7.4,  7.5,  7.6,
+        7.7,  7.8,  7.9,  8. ,  8.1,  8.2,  8.3,  8.4,  8.5,  8.6,  8.7,
+        8.8,  8.9,  9. ,  9.1,  9.2,  9.3,  9.4,  9.5,  9.6,  9.7,  9.8,
+        9.9, 10. , 10.1, 10.2, 10.3, 10.4, 10.5, 10.6, 10.7, 10.8, 10.9,
+       11. , 11.1, 11.2, 11.3, 11.4, 11.5, 11.6, 11.7, 11.8, 11.9, 12. ,
+       12.1, 12.2, 12.3, 12.4, 12.5])
+
+In [2]: np.pi
+Out[2]: 3.141592653589793
+
+In [3]: 4*np.pi
+Out[3]: 12.566370614359172
+
+In [4]: np.linspace?
+
+In [5]: np.arange(0, 4*np.pi+0.1, 0.1)
+Out[5]:
+array([ 0. ,  0.1,  0.2,  0.3,  0.4,  0.5,  0.6,  0.7,  0.8,  0.9,  1. ,
+        1.1,  1.2,  1.3,  1.4,  1.5,  1.6,  1.7,  1.8,  1.9,  2. ,  2.1,
+        2.2,  2.3,  2.4,  2.5,  2.6,  2.7,  2.8,  2.9,  3. ,  3.1,  3.2,
+        3.3,  3.4,  3.5,  3.6,  3.7,  3.8,  3.9,  4. ,  4.1,  4.2,  4.3,
+        4.4,  4.5,  4.6,  4.7,  4.8,  4.9,  5. ,  5.1,  5.2,  5.3,  5.4,
+        5.5,  5.6,  5.7,  5.8,  5.9,  6. ,  6.1,  6.2,  6.3,  6.4,  6.5,
+        6.6,  6.7,  6.8,  6.9,  7. ,  7.1,  7.2,  7.3,  7.4,  7.5,  7.6,
+        7.7,  7.8,  7.9,  8. ,  8.1,  8.2,  8.3,  8.4,  8.5,  8.6,  8.7,
+        8.8,  8.9,  9. ,  9.1,  9.2,  9.3,  9.4,  9.5,  9.6,  9.7,  9.8,
+        9.9, 10. , 10.1, 10.2, 10.3, 10.4, 10.5, 10.6, 10.7, 10.8, 10.9,
+       11. , 11.1, 11.2, 11.3, 11.4, 11.5, 11.6, 11.7, 11.8, 11.9, 12. ,
+       12.1, 12.2, 12.3, 12.4, 12.5, 12.6])
+
+In [6]: np.arange(0, 4*np.pi+0.1, 0.1)[-1]
+Out[6]: 12.600000000000001
+
+In [7]: np.arange(0, 4*np.pi, 0.1)
+Out[7]:
+array([ 0. ,  0.1,  0.2,  0.3,  0.4,  0.5,  0.6,  0.7,  0.8,  0.9,  1. ,
+        1.1,  1.2,  1.3,  1.4,  1.5,  1.6,  1.7,  1.8,  1.9,  2. ,  2.1,
+        2.2,  2.3,  2.4,  2.5,  2.6,  2.7,  2.8,  2.9,  3. ,  3.1,  3.2,
+        3.3,  3.4,  3.5,  3.6,  3.7,  3.8,  3.9,  4. ,  4.1,  4.2,  4.3,
+        4.4,  4.5,  4.6,  4.7,  4.8,  4.9,  5. ,  5.1,  5.2,  5.3,  5.4,
+        5.5,  5.6,  5.7,  5.8,  5.9,  6. ,  6.1,  6.2,  6.3,  6.4,  6.5,
+        6.6,  6.7,  6.8,  6.9,  7. ,  7.1,  7.2,  7.3,  7.4,  7.5,  7.6,
+        7.7,  7.8,  7.9,  8. ,  8.1,  8.2,  8.3,  8.4,  8.5,  8.6,  8.7,
+        8.8,  8.9,  9. ,  9.1,  9.2,  9.3,  9.4,  9.5,  9.6,  9.7,  9.8,
+        9.9, 10. , 10.1, 10.2, 10.3, 10.4, 10.5, 10.6, 10.7, 10.8, 10.9,
+       11. , 11.1, 11.2, 11.3, 11.4, 11.5, 11.6, 11.7, 11.8, 11.9, 12. ,
+       12.1, 12.2, 12.3, 12.4, 12.5])
+
+In [8]: t = np.arange(0, 4*np.pi, 0.1)
+
+In [9]: t
+Out[9]:
+array([ 0. ,  0.1,  0.2,  0.3,  0.4,  0.5,  0.6,  0.7,  0.8,  0.9,  1. ,
+        1.1,  1.2,  1.3,  1.4,  1.5,  1.6,  1.7,  1.8,  1.9,  2. ,  2.1,
+        2.2,  2.3,  2.4,  2.5,  2.6,  2.7,  2.8,  2.9,  3. ,  3.1,  3.2,
+        3.3,  3.4,  3.5,  3.6,  3.7,  3.8,  3.9,  4. ,  4.1,  4.2,  4.3,
+        4.4,  4.5,  4.6,  4.7,  4.8,  4.9,  5. ,  5.1,  5.2,  5.3,  5.4,
+        5.5,  5.6,  5.7,  5.8,  5.9,  6. ,  6.1,  6.2,  6.3,  6.4,  6.5,
+        6.6,  6.7,  6.8,  6.9,  7. ,  7.1,  7.2,  7.3,  7.4,  7.5,  7.6,
+        7.7,  7.8,  7.9,  8. ,  8.1,  8.2,  8.3,  8.4,  8.5,  8.6,  8.7,
+        8.8,  8.9,  9. ,  9.1,  9.2,  9.3,  9.4,  9.5,  9.6,  9.7,  9.8,
+        9.9, 10. , 10.1, 10.2, 10.3, 10.4, 10.5, 10.6, 10.7, 10.8, 10.9,
+       11. , 11.1, 11.2, 11.3, 11.4, 11.5, 11.6, 11.7, 11.8, 11.9, 12. ,
+       12.1, 12.2, 12.3, 12.4, 12.5])
+
+In [10]: s = 2*np.sin(t)
+
+In [11]: c = np.cos(t) + 2
+
+In [12]: t
+Out[12]:
+array([ 0. ,  0.1,  0.2,  0.3,  0.4,  0.5,  0.6,  0.7,  0.8,  0.9,  1. ,
+        1.1,  1.2,  1.3,  1.4,  1.5,  1.6,  1.7,  1.8,  1.9,  2. ,  2.1,
+        2.2,  2.3,  2.4,  2.5,  2.6,  2.7,  2.8,  2.9,  3. ,  3.1,  3.2,
+        3.3,  3.4,  3.5,  3.6,  3.7,  3.8,  3.9,  4. ,  4.1,  4.2,  4.3,
+        4.4,  4.5,  4.6,  4.7,  4.8,  4.9,  5. ,  5.1,  5.2,  5.3,  5.4,
+        5.5,  5.6,  5.7,  5.8,  5.9,  6. ,  6.1,  6.2,  6.3,  6.4,  6.5,
+        6.6,  6.7,  6.8,  6.9,  7. ,  7.1,  7.2,  7.3,  7.4,  7.5,  7.6,
+        7.7,  7.8,  7.9,  8. ,  8.1,  8.2,  8.3,  8.4,  8.5,  8.6,  8.7,
+        8.8,  8.9,  9. ,  9.1,  9.2,  9.3,  9.4,  9.5,  9.6,  9.7,  9.8,
+        9.9, 10. , 10.1, 10.2, 10.3, 10.4, 10.5, 10.6, 10.7, 10.8, 10.9,
+       11. , 11.1, 11.2, 11.3, 11.4, 11.5, 11.6, 11.7, 11.8, 11.9, 12. ,
+       12.1, 12.2, 12.3, 12.4, 12.5])
+
+In [13]: s
+Out[13]:
+array([ 0.        ,  0.19966683,  0.39733866,  0.59104041,  0.77883668,
+        0.95885108,  1.12928495,  1.28843537,  1.43471218,  1.56665382,
+        1.68294197,  1.78241472,  1.86407817,  1.92711637,  1.97089946,
+        1.99498997,  1.99914721,  1.98332962,  1.94769526,  1.89260018,
+        1.81859485,  1.72641873,  1.61699281,  1.49141042,  1.35092636,
+        1.19694429,  1.03100274,  0.85475976,  0.6699763 ,  0.47849866,
+        0.28224002,  0.08316132, -0.11674829, -0.31549139, -0.5110822 ,
+       -0.70156646, -0.88504089, -1.05967228, -1.22371578, -1.37553232,
+       -1.51360499, -1.63655422, -1.74315154, -1.83233187, -1.90320415,
+       -1.95506024, -1.98738201, -1.99984652, -1.99232922, -1.96490523,
+       -1.91784855, -1.85162936, -1.76690931, -1.66453488, -1.54552898,
+       -1.41108065, -1.26253328, -1.10137109, -0.92920436, -0.74775333,
+       -0.558831  , -0.36432501, -0.16617881,  0.0336278 ,  0.23309841,
+        0.43023998,  0.62308273,  0.80969984,  0.9882267 ,  1.15687953,
+        1.3139732 ,  1.45793808,  1.58733573,  1.70087324,  1.79741619,
+        1.87599995,  1.93583934,  1.97633647,  1.99708669,  1.99788268,
+        1.97871649,  1.93977962,  1.88146111,  1.80434367,  1.70919782,
+        1.59697423,  1.4687942 ,  1.32593846,  1.16983439,  1.00204171,
+        0.82423697,  0.63819672,  0.44577983,  0.24890885,  0.04955085,
+       -0.15030224, -0.34865356, -0.54352125, -0.73295826, -0.91507179,
+       -1.08804222, -1.2501413 , -1.39974938, -1.53537162, -1.65565294,
+       -1.75939152, -1.84555084, -1.91327003, -1.96187246, -1.99087251,
+       -1.99998041, -1.98910518, -1.95835546, -1.9080385 , -1.83865705,
+       -1.75090435, -1.64565719, -1.52396717, -1.38705017, -1.23627422,
+       -1.07314584, -0.89929493, -0.71645856, -0.52646358, -0.33120835,
+       -0.13264379])
+
+In [14]: c
+Out[14]:
+array([3.        , 2.99500417, 2.98006658, 2.95533649, 2.92106099,
+       2.87758256, 2.82533561, 2.76484219, 2.69670671, 2.62160997,
+       2.54030231, 2.45359612, 2.36235775, 2.26749883, 2.16996714,
+       2.0707372 , 1.97080048, 1.87115551, 1.77279791, 1.67671043,
+       1.58385316, 1.4951539 , 1.41149888, 1.33372398, 1.26260628,
+       1.19885638, 1.14311125, 1.09592786, 1.05777766, 1.02904183,
+       1.0100075 , 1.00086485, 1.00170522, 1.01252023, 1.03320181,
+       1.06354331, 1.10324158, 1.15189997, 1.20903229, 1.2740677 ,
+       1.34635638, 1.42517605, 1.50973918, 1.59920083, 1.69266713,
+       1.7892042 , 1.88784747, 1.98761134, 2.08749898, 2.18651237,
+       2.28366219, 2.37797774, 2.46851667, 2.55437434, 2.63469288,
+       2.70866977, 2.77556588, 2.83471278, 2.88551952, 2.92747843,
+       2.96017029, 2.98326844, 2.9965421 , 2.99985864, 2.99318492,
+       2.97658763, 2.95023259, 2.91438315, 2.86939749, 2.8157251 ,
+       2.75390225, 2.68454667, 2.60835131, 2.52607752, 2.43854733,
+       2.34663532, 2.25125984, 2.15337386, 2.05395542, 1.95399787,
+       1.85449997, 1.75645585, 1.66084514, 1.56862316, 1.48071135,
+       1.3979881 , 1.32127995, 1.25135335, 1.18890699, 1.13456479,
+       1.08886974, 1.0522784 , 1.02515638, 1.00777467, 1.00030696,
+       1.00282784, 1.01531214, 1.03763512, 1.06957373, 1.11080885,
+       1.16092847, 1.21943182, 1.28573435, 1.35917358, 1.43901574,
+       1.52446307, 1.61466181, 1.70871072, 1.80567009, 1.90457115,
+       2.0044257 , 2.10423603, 2.20300486, 2.29974534, 2.39349087,
+       2.48330476, 2.56828963, 2.64759634, 2.72043248, 2.7860703 ,
+       2.84385396, 2.89320611, 2.93363364, 2.96473262, 2.9861923 ,
+       2.99779828])
+
+In [15]: t.shape
+Out[15]: (126,)
+
+In [16]: s.shape
+Out[16]: (126,)
+
+In [17]: c.shape
+Out[17]: (126,)
+
+In [18]: plt.figure()
+Out[18]: <Figure size 700x700 with 0 Axes>
+
+In [19]: plt.plot?
+
+In [20]: plt.plot(t, s)
+Out[20]: [<matplotlib.lines.Line2D at 0x7fdaac9c4198>]
+
+In [21]: plt.plot(t, c)
+Out[21]: [<matplotlib.lines.Line2D at 0x7fdaac9ae7b8>]
+
+In [22]: plt.title('Title')
+Out[22]: Text(0.5, 1, 'Title')
+
+In [23]: plt.xlabel('Time (s)')
+Out[23]: Text(0.5, 13.944444444444452, 'Time (s)')
+
+In [24]: plt.ylabel('Position')
+Out[24]: Text(13.944444444444445, 0.5, 'Position')
+
+In [25]: pwd
+Out[25]: '/home/mspacek/SciPyCourse2021/notes/07_mpl_matrices'
+
+In [26]: cd ..
+/home/mspacek/SciPyCourse2021/notes
+
+In [27]: cd 06_fileio_mpl/
+/home/mspacek/SciPyCourse2021/notes/06_fileio_mpl
+
+In [28]: ls
+06_fileio_mpl.md   anatomy.pdf                 plot_exercise.py  t.npy
+06_fileio_mpl.pdf  ASCII-Conversion-Chart.pdf  test1D.csv        V.npy
+06_history.txt     matplotlibrc                test2D.csv        Vt.mat
+
+In [29]: plt.savefig('plot_exercise.png')
+
+In [30]: ls
+06_fileio_mpl.md   ASCII-Conversion-Chart.pdf  test1D.csv  Vt.mat
+06_fileio_mpl.pdf  matplotlibrc                test2D.csv
+06_history.txt     plot_exercise.png           t.npy
+anatomy.pdf        plot_exercise.py            V.npy
+
+In [31]: plt.figure()
+Out[31]: <Figure size 700x700 with 0 Axes>
+
+In [32]: plt.plot(t, s, label='sin')
+Out[32]: [<matplotlib.lines.Line2D at 0x7fda5f91a5f8>]
+
+In [33]: plt.plot(t, c, label='cos')
+Out[33]: [<matplotlib.lines.Line2D at 0x7fda5f5d7f28>]
+
+In [34]: plt.legend()
+Out[34]: <matplotlib.legend.Legend at 0x7fda5f538ac8>
+
+In [35]: plt.close()
+
+In [36]: plt.figure()
+    ...: plt.plot(t, s, label='sin', marker='')
+    ...: plt.plot(t, c, label='cos', marker='')
+    ...: plt.xlabel('Time (s)')
+    ...: plt.ylabel('Position')
+    ...: plt.legend(loc='upper right')
+    ...: plt.show()
+    ...: plt.savefig('sin and cos vs t.png')
+
+In [37]: plt.figure()
+    ...: plt.hist(s, bins=20, label='sin')
+    ...: plt.hist(c, bins=20, label='cos')
+    ...: plt.xlabel('Position')
+    ...: plt.ylabel('Count')
+    ...: plt.legend()
+    ...: plt.show()
+
+In [38]: plt.savefig('distribution.png')
+
+In [39]: ls
+ 06_fileio_mpl.md             distribution.png        test1D.csv
+ 06_fileio_mpl.pdf            matplotlibrc            test2D.csv
+ 06_history.txt               plot_exercise.png       t.npy
+ anatomy.pdf                  plot_exercise.py        V.npy
+ ASCII-Conversion-Chart.pdf  'sin and cos vs t.png'   Vt.mat
+
+In [40]: pwd
+Out[40]: '/home/mspacek/SciPyCourse2021/notes/06_fileio_mpl'
+
+In [41]: plt.close()
+
+In [42]: run plot_exercise.py
+
+In [43]: plt.close()
+
+In [44]: plt.close('all')
+
+In [45]: run plot_exercise.py
+
+In [46]: run plot_exercise.py
+
+In [47]: plt.figure()
+Out[47]: <Figure size 700x700 with 0 Axes>
+
+In [48]: plt.figure()
+Out[48]: <Figure size 700x700 with 0 Axes>
+
+In [49]: plt.subplots?
+
+In [50]: plt.figure()
+Out[50]: <Figure size 700x700 with 0 Axes>
+
+In [51]: plt.plot(t, c, label='cos')
+Out[51]: [<matplotlib.lines.Line2D at 0x7fda40409470>]
+
+In [52]: plt.savefig('plot_exercise.png')
+
+In [53]: plt.savefig?
+
+In [54]: plt.figure()
+Out[54]: <Figure size 700x700 with 0 Axes>
+
+In [55]: plt.figure()
+Out[55]: <Figure size 700x700 with 0 Axes>
+
+In [56]: g = plt.gcf()
+
+In [57]: f = plt.gcf()
+
+In [58]: a = plt.gca()
+
+In [59]: plt.close('all')
+
+In [60]: f, ax = plt.subplots()
+
+In [61]: f
+Out[61]: <Figure size 700x700 with 1 Axes>
+
+In [62]: ax
+Out[62]: <matplotlib.axes._subplots.AxesSubplot at 0x7fda5f432438>
+
+In [63]: ax.plot(t, s, label='sin')
+Out[63]: [<matplotlib.lines.Line2D at 0x7fda5ef9bf28>]
+
+In [64]: f2, ax2 = plt.subplots()
+
+In [65]: ax2.plot(t, c, label='cos')
+Out[65]: [<matplotlib.lines.Line2D at 0x7fda5ed54a20>]
+
+In [66]: ax.plot(t, c, lable='cos')
+---------------------------------------------------------------------------
+AttributeError                            Traceback (most recent call last)
+<ipython-input-66-d28999ec7b95> in <module>
+----> 1 ax.plot(t, c, lable='cos')
+
+/usr/local/lib/python3.6/dist-packages/matplotlib/axes/_axes.py in plot(self, scalex, scaley, data, *args, **kwargs)
+   1664         """
+   1665         kwargs = cbook.normalize_kwargs(kwargs, mlines.Line2D._alias_map)
+-> 1666         lines = [*self._get_lines(*args, data=data, **kwargs)]
+   1667         for line in lines:
+   1668             self.add_line(line)
+
+/usr/local/lib/python3.6/dist-packages/matplotlib/axes/_base.py in __call__(self, *args, **kwargs)
+    223                 this += args[0],
+    224                 args = args[1:]
+--> 225             yield from self._plot_args(this, kwargs)
+    226
+    227     def get_next_color(self):
+
+/usr/local/lib/python3.6/dist-packages/matplotlib/axes/_base.py in _plot_args(self, tup, kwargs)
+    403                 "non-matching shapes is deprecated.")
+    404         for j in range(max(ncx, ncy)):
+--> 405             seg = func(x[:, j % ncx], y[:, j % ncy], kw, kwargs)
+    406             ret.append(seg)
+    407         return ret
+
+/usr/local/lib/python3.6/dist-packages/matplotlib/axes/_base.py in _makeline(self, x, y, kw, kwargs)
+    310         default_dict = self._getdefaults(set(), kw)
+    311         self._setdefaults(default_dict, kw)
+--> 312         seg = mlines.Line2D(x, y, **kw)
+    313         return seg
+    314
+
+/usr/local/lib/python3.6/dist-packages/matplotlib/lines.py in __init__(self, xdata, ydata, linewidth, linestyle, color, marker, markersize, markeredgewidth, markeredgecolor, markerfacecolor, markerfacecoloralt, fillstyle, antialiased, dash_capstyle, solid_capstyle, dash_joinstyle, solid_joinstyle, pickradius, drawstyle, markevery, **kwargs)
+    402         # update kwargs before updating data to give the caller a
+    403         # chance to init axes (and hence unit support)
+--> 404         self.update(kwargs)
+    405         self.pickradius = pickradius
+    406         self.ind_offset = 0
+
+/usr/local/lib/python3.6/dist-packages/matplotlib/artist.py in update(self, props)
+    972
+    973         with cbook._setattr_cm(self, eventson=False):
+--> 974             ret = [_update_property(self, k, v) for k, v in props.items()]
+    975
+    976         if len(ret):
+
+/usr/local/lib/python3.6/dist-packages/matplotlib/artist.py in <listcomp>(.0)
+    972
+    973         with cbook._setattr_cm(self, eventson=False):
+--> 974             ret = [_update_property(self, k, v) for k, v in props.items()]
+    975
+    976         if len(ret):
+
+/usr/local/lib/python3.6/dist-packages/matplotlib/artist.py in _update_property(self, k, v)
+    968                 if not callable(func):
+    969                     raise AttributeError('{!r} object has no property {!r}'
+--> 970                                          .format(type(self).__name__, k))
+    971                 return func(v)
+    972
+
+AttributeError: 'Line2D' object has no property 'lable'
+> /usr/local/lib/python3.6/dist-packages/matplotlib/artist.py(970)_update_property()
+    968                 if not callable(func):
+    969                     raise AttributeError('{!r} object has no property {!r}'
+--> 970                                          .format(type(self).__name__, k))
+    971                 return func(v)
+    972
+
+ipdb> c
+
+In [67]: ax.plot(t, c, label='cos')
+Out[67]: [<matplotlib.lines.Line2D at 0x7fda5e45fa58>]
+
+In [68]: ax
+Out[68]: <matplotlib.axes._subplots.AxesSubplot at 0x7fda5f432438>
+
+In [69]: ax2
+Out[69]: <matplotlib.axes._subplots.AxesSubplot at 0x7fda5efd4320>
+
+In [70]: plt.close('all')
+
+In [71]: f, ax = plt.subplots()
+
+In [72]: ax.set_xlim('Time (s)')
+---------------------------------------------------------------------------
+ValueError                                Traceback (most recent call last)
+<ipython-input-72-50829bc463d4> in <module>
+----> 1 ax.set_xlim('Time (s)')
+
+/usr/local/lib/python3.6/dist-packages/matplotlib/axes/_base.py in set_xlim(self, left, right, emit, auto, xmin, xmax)
+   3228         """
+   3229         if right is None and np.iterable(left):
+-> 3230             left, right = left
+   3231         if xmin is not None:
+   3232             if left is not None:
+
+ValueError: too many values to unpack (expected 2)
+> /usr/local/lib/python3.6/dist-packages/matplotlib/axes/_base.py(3230)set_xlim()
+   3228         """
+   3229         if right is None and np.iterable(left):
+-> 3230             left, right = left
+   3231         if xmin is not None:
+   3232             if left is not None:
+
+ipdb> c
+
+In [73]: ax.set_xlabel('Time (s)')
+Out[73]: Text(0.5, 13.94444444444443, 'Time (s)')
+
+In [74]: ax.set_xlim(0, 10)
+Out[74]: (0, 10)
+
+In [75]: ax.set_title()
+---------------------------------------------------------------------------
+TypeError                                 Traceback (most recent call last)
+<ipython-input-75-e97edb833952> in <module>
+----> 1 ax.set_title()
+
+TypeError: set_title() missing 1 required positional argument: 'label'
+> <ipython-input-75-e97edb833952>(1)<module>()
+----> 1 ax.set_title()
+
+ipdb> c
+
+In [76]: ax.set_title('sdkfskjh')
+Out[76]: Text(0.5, 1, 'sdkfskjh')
+
+In [77]: ax.legend()
+No handles with labels found to put in legend.
+Out[77]: <matplotlib.legend.Legend at 0x7fda5e3ecbe0>
+
+In [78]: ax.hist(c, bins=20)
+Out[78]:
+(array([18.,  8.,  6.,  5.,  5.,  5.,  4.,  4.,  4.,  4.,  4.,  4.,  5.,
+         4.,  4.,  4.,  6.,  6.,  8., 19.]),
+ array([1.00030696, 1.10029161, 1.20027626, 1.30026091, 1.40024557,
+        1.50023022, 1.60021487, 1.70019952, 1.80018417, 1.90016883,
+        2.00015348, 2.10013813, 2.20012278, 2.30010744, 2.40009209,
+        2.50007674, 2.60006139, 2.70004604, 2.8000307 , 2.90001535,
+        3.        ]),
+ <a list of 20 Patch objects>)
+
+In [79]: ax.clear()
+
+In [80]: plt.subplots?
+
+In [81]: f, axs = plt.subplots(nrows=2, ncols=2)
+
+In [82]: axs.shape
+Out[82]: (2, 2)
+
+In [83]: type(axs)
+Out[83]: numpy.ndarray
+
+In [84]: axs.dtype
+Out[84]: dtype('O')
+
+In [85]: axs
+Out[85]:
+array([[<matplotlib.axes._subplots.AxesSubplot object at 0x7fda5e3d8cf8>,
+        <matplotlib.axes._subplots.AxesSubplot object at 0x7fda5e331710>],
+       [<matplotlib.axes._subplots.AxesSubplot object at 0x7fda5e2d3828>,
+        <matplotlib.axes._subplots.AxesSubplot object at 0x7fda5e2f8940>]],
+      dtype=object)
+
+In [86]: axs[0, 0]
+Out[86]: <matplotlib.axes._subplots.AxesSubplot at 0x7fda5e3d8cf8>
+
+In [87]: axs[0, 0].plot(t, s)
+Out[87]: [<matplotlib.lines.Line2D at 0x7fda5e46e358>]
+
+In [88]: axs[1, 1].plot(t, c)
+Out[88]: [<matplotlib.lines.Line2D at 0x7fda5e3d04e0>]
+
+In [89]: axs[0, 1].plot(t, c, color='red')
+Out[89]: [<matplotlib.lines.Line2D at 0x7fda5e3ec550>]
+
+In [90]: axs[1, 0].plot(t, c, color='green')
+Out[90]: [<matplotlib.lines.Line2D at 0x7fda5e3a5dd8>]
+
+In [91]: plt.subplots?
+
+In [92]: plt.close('all')
+
+In [93]: f1, ax1 = plt.subplots(2, 1, sharex=True, sharey=False)
+
+In [94]: ax1.shape
+Out[94]: (2,)
+
+In [95]: ax1[0]
+Out[95]: <matplotlib.axes._subplots.AxesSubplot at 0x7fda5ed2b470>
+
+In [96]: ax1[1]
+Out[96]: <matplotlib.axes._subplots.AxesSubplot at 0x7fda1ee9e6a0>
+
+In [97]: ax1[0]
+Out[97]: <matplotlib.axes._subplots.AxesSubplot at 0x7fda5ed2b470>
+
+In [98]: ax1[0].plot(t, s)
+Out[98]: [<matplotlib.lines.Line2D at 0x7fda76b8ba58>]
+
+In [99]: ax1[1].plot(t, c, color='red')
+Out[99]: [<matplotlib.lines.Line2D at 0x7fda76b8bda0>]
+
+In [100]: f2, ax2 = plt.subplots(2, 1, sharex=True, sharey=False)
+
+In [101]: ax2[0].hist(s)
+Out[101]:
+(array([26., 12.,  8.,  8.,  8., 10.,  8., 11., 11., 25.]),
+ array([-1.99998041e+00, -1.60006765e+00, -1.20015489e+00, -8.00242127e-01,
+        -4.00329365e-01, -4.16603509e-04,  3.99496158e-01,  7.99408920e-01,
+         1.19932168e+00,  1.59923444e+00,  1.99914721e+00]),
+ <a list of 10 Patch objects>)
+
+In [102]: ax2[1].hist(c, color='red')
+Out[102]:
+(array([26., 11., 10.,  8.,  8.,  8.,  9.,  8., 12., 27.]),
+ array([1.00030696, 1.20027626, 1.40024557, 1.60021487, 1.80018417,
+        2.00015348, 2.20012278, 2.40009209, 2.60006139, 2.8000307 ,
+        3.        ]),
+ <a list of 10 Patch objects>)
+
+In [103]: ax2[1].set_xlim(-5, 5)
+Out[103]: (-5, 5)
+
+In [104]: f1.canvas
+Out[104]: <matplotlib.backends.backend_qt5agg.FigureCanvasQTAgg at 0x7fda5d1deaf8>
+
+Module PySide2 not importable in path ['/usr/local/bin', '/usr/lib/python36.zip', '/usr/lib/python3.6', '/usr/lib/python3.6/lib-dynload', '/usr/local/lib/python3.6/dist-packages', '/home/mspacek/dev/djd', '/home/mspacek/dev/expio', '/home/mspacek/dev/spyke', '/home/mspacek/src/datajoint-python', '/home/mspacek/dev/pitrack/pydc1394', '/home/mspacek/dev/pitrack', '/usr/lib/python3/dist-packages', '/usr/local/lib/python3.6/dist-packages/IPython/extensions', '/home/mspacek/.ipython'].
+Module PyQt5.QtWidgets not importable in path ['/usr/local/bin', '/usr/lib/python36.zip', '/usr/lib/python3.6', '/usr/lib/python3.6/lib-dynload', '/usr/local/lib/python3.6/dist-packages', '/home/mspacek/dev/djd', '/home/mspacek/dev/expio', '/home/mspacek/dev/spyke', '/home/mspacek/src/datajoint-python', '/home/mspacek/dev/pitrack/pydc1394', '/home/mspacek/dev/pitrack', '/usr/lib/python3/dist-packages', '/usr/local/lib/python3.6/dist-packages/IPython/extensions', '/home/mspacek/.ipython'].
+Module PySide not importable in path ['/usr/local/bin', '/usr/lib/python36.zip', '/usr/lib/python3.6', '/usr/lib/python3.6/lib-dynload', '/usr/local/lib/python3.6/dist-packages', '/home/mspacek/dev/djd', '/home/mspacek/dev/expio', '/home/mspacek/dev/spyke', '/home/mspacek/src/datajoint-python', '/home/mspacek/dev/pitrack/pydc1394', '/home/mspacek/dev/pitrack', '/usr/lib/python3/dist-packages', '/usr/local/lib/python3.6/dist-packages/IPython/extensions', '/home/mspacek/.ipython'].
+In [105]: f1.canvas.set_window_title?
+Signature: f1.canvas.set_window_title(title)
+Docstring:
+Set the title text of the window containing the figure.  Note that
+this has no effect if there is no window (e.g., a PS backend).
+File:      /usr/local/lib/python3.6/dist-packages/matplotlib/backend_bases.py
+Type:      method
+
+In [106]: f1.canvas.set_window_title('hello world')
+
+In [107]: f1
+Out[107]: <Figure size 700x700 with 2 Axes>
+
+In [108]: f1
+Out[108]: <Figure size 700x700 with 2 Axes>
+
+In [109]: type(f1)
+Out[109]: matplotlib.figure.Figure
+
+In [110]: f1.canvas
+Out[110]: <matplotlib.backends.backend_qt5agg.FigureCanvasQTAgg at 0x7fda5d1deaf8>
+
+In [111]: f1.canvas.set_window_title('hi')
+
+In [112]: mpl
+---------------------------------------------------------------------------
+NameError                                 Traceback (most recent call last)
+<ipython-input-112-1880464a6e9f> in <module>
+----> 1 mpl
+
+NameError: name 'mpl' is not defined
+> <ipython-input-112-1880464a6e9f>(1)<module>()
+----> 1 mpl
+
+ipdb> c
+
+In [113]: matplotlib
+Using matplotlib backend: Qt4Agg
+
+In [114]: matplotlib.version.version
+---------------------------------------------------------------------------
+NameError                                 Traceback (most recent call last)
+<ipython-input-114-025b84010da7> in <module>
+----> 1 matplotlib.version.version
+
+NameError: name 'matplotlib' is not defined
+> <ipython-input-114-025b84010da7>(1)<module>()
+----> 1 matplotlib.version.version
+
+ipdb> c
+
+In [115]: import matplotlib
+
+In [116]: matplotlib.version.version
+---------------------------------------------------------------------------
+AttributeError                            Traceback (most recent call last)
+<ipython-input-116-025b84010da7> in <module>
+----> 1 matplotlib.version.version
+
+AttributeError: module 'matplotlib' has no attribute 'version'
+> <ipython-input-116-025b84010da7>(1)<module>()
+----> 1 matplotlib.version.version
+
+ipdb> c
+
+In [117]: matplotlib.version
+---------------------------------------------------------------------------
+AttributeError                            Traceback (most recent call last)
+<ipython-input-117-2421639d99b1> in <module>
+----> 1 matplotlib.version
+
+AttributeError: module 'matplotlib' has no attribute 'version'
+> <ipython-input-117-2421639d99b1>(1)<module>()
+----> 1 matplotlib.version
+
+ipdb> c
+
+In [118]: matplotlib.__version__
+Out[118]: '3.1.1'
+
+In [119]: f1.manager
+---------------------------------------------------------------------------
+AttributeError                            Traceback (most recent call last)
+<ipython-input-119-091951c46c6f> in <module>
+----> 1 f1.manager
+
+AttributeError: 'Figure' object has no attribute 'manager'
+> <ipython-input-119-091951c46c6f>(1)<module>()
+----> 1 f1.manager
+
+ipdb> c
+
+In [120]: f1.canvas.manager
+Out[120]: <matplotlib.backends.backend_qt5.FigureManagerQT at 0x7fda5eadd9b0>
+
+Module PySide2 not importable in path ['/usr/local/bin', '/usr/lib/python36.zip', '/usr/lib/python3.6', '/usr/lib/python3.6/lib-dynload', '/usr/local/lib/python3.6/dist-packages', '/home/mspacek/dev/djd', '/home/mspacek/dev/expio', '/home/mspacek/dev/spyke', '/home/mspacek/src/datajoint-python', '/home/mspacek/dev/pitrack/pydc1394', '/home/mspacek/dev/pitrack', '/usr/lib/python3/dist-packages', '/usr/local/lib/python3.6/dist-packages/IPython/extensions', '/home/mspacek/.ipython'].
+Module PyQt5.QtWidgets not importable in path ['/usr/local/bin', '/usr/lib/python36.zip', '/usr/lib/python3.6', '/usr/lib/python3.6/lib-dynload', '/usr/local/lib/python3.6/dist-packages', '/home/mspacek/dev/djd', '/home/mspacek/dev/expio', '/home/mspacek/dev/spyke', '/home/mspacek/src/datajoint-python', '/home/mspacek/dev/pitrack/pydc1394', '/home/mspacek/dev/pitrack', '/usr/lib/python3/dist-packages', '/usr/local/lib/python3.6/dist-packages/IPython/extensions', '/home/mspacek/.ipython'].
+Module PySide not importable in path ['/usr/local/bin', '/usr/lib/python36.zip', '/usr/lib/python3.6', '/usr/lib/python3.6/lib-dynload', '/usr/local/lib/python3.6/dist-packages', '/home/mspacek/dev/djd', '/home/mspacek/dev/expio', '/home/mspacek/dev/spyke', '/home/mspacek/src/datajoint-python', '/home/mspacek/dev/pitrack/pydc1394', '/home/mspacek/dev/pitrack', '/usr/lib/python3/dist-packages', '/usr/local/lib/python3.6/dist-packages/IPython/extensions', '/home/mspacek/.ipython'].
+In [121]: f1.canvas.manager.set_window_title('great')
+
+In [122]: plt.show()
+
+In [123]: plt.close('all')
+
+In [124]: ax
+Out[124]: <matplotlib.axes._subplots.AxesSubplot at 0x7fda5e422ac8>
+
+In [125]: f, ax = plt.subplots()
+
+In [126]: x, y, c = np.random.random(100), np.random.random(100), np.random.random(100)
+
+In [127]: len(x)
+Out[127]: 100
+
+In [128]: x
+Out[128]:
+array([0.42028647, 0.99649296, 0.34372767, 0.13065468, 0.86575979,
+       0.09684231, 0.82433787, 0.02777705, 0.74898854, 0.15906872,
+       0.38884511, 0.2095076 , 0.63304153, 0.9796075 , 0.12672116,
+       0.61412123, 0.00216226, 0.6299434 , 0.84521221, 0.1250576 ,
+       0.58786859, 0.88181488, 0.99200826, 0.28429235, 0.44126987,
+       0.74261684, 0.36876525, 0.03240604, 0.87794058, 0.09651329,
+       0.78028568, 0.11119524, 0.81261054, 0.90260562, 0.03847585,
+       0.86632101, 0.37654679, 0.53662733, 0.8971335 , 0.20576002,
+       0.61071118, 0.08659179, 0.56052056, 0.54080517, 0.95831668,
+       0.39896805, 0.41323678, 0.38104548, 0.82460232, 0.80562926,
+       0.15817638, 0.91241586, 0.54313131, 0.77223395, 0.18100769,
+       0.87402351, 0.67992986, 0.36409941, 0.34638487, 0.85499963,
+       0.75126892, 0.33266603, 0.67770701, 0.25920946, 0.49452182,
+       0.27203899, 0.31090822, 0.07713083, 0.69797152, 0.71897421,
+       0.07495112, 0.55988926, 0.08476626, 0.90610202, 0.78261853,
+       0.20871158, 0.82730788, 0.35377592, 0.72885231, 0.1002496 ,
+       0.48319451, 0.71523512, 0.60705533, 0.10053098, 0.83715857,
+       0.32627964, 0.37809478, 0.40882663, 0.53702431, 0.71788072,
+       0.4619492 , 0.10323914, 0.31322344, 0.96345817, 0.84979729,
+       0.10632166, 0.00246695, 0.00432319, 0.37038691, 0.20130164])
+
+In [129]: x
+Out[129]:
+array([0.42028647, 0.99649296, 0.34372767, 0.13065468, 0.86575979,
+       0.09684231, 0.82433787, 0.02777705, 0.74898854, 0.15906872,
+       0.38884511, 0.2095076 , 0.63304153, 0.9796075 , 0.12672116,
+       0.61412123, 0.00216226, 0.6299434 , 0.84521221, 0.1250576 ,
+       0.58786859, 0.88181488, 0.99200826, 0.28429235, 0.44126987,
+       0.74261684, 0.36876525, 0.03240604, 0.87794058, 0.09651329,
+       0.78028568, 0.11119524, 0.81261054, 0.90260562, 0.03847585,
+       0.86632101, 0.37654679, 0.53662733, 0.8971335 , 0.20576002,
+       0.61071118, 0.08659179, 0.56052056, 0.54080517, 0.95831668,
+       0.39896805, 0.41323678, 0.38104548, 0.82460232, 0.80562926,
+       0.15817638, 0.91241586, 0.54313131, 0.77223395, 0.18100769,
+       0.87402351, 0.67992986, 0.36409941, 0.34638487, 0.85499963,
+       0.75126892, 0.33266603, 0.67770701, 0.25920946, 0.49452182,
+       0.27203899, 0.31090822, 0.07713083, 0.69797152, 0.71897421,
+       0.07495112, 0.55988926, 0.08476626, 0.90610202, 0.78261853,
+       0.20871158, 0.82730788, 0.35377592, 0.72885231, 0.1002496 ,
+       0.48319451, 0.71523512, 0.60705533, 0.10053098, 0.83715857,
+       0.32627964, 0.37809478, 0.40882663, 0.53702431, 0.71788072,
+       0.4619492 , 0.10323914, 0.31322344, 0.96345817, 0.84979729,
+       0.10632166, 0.00246695, 0.00432319, 0.37038691, 0.20130164])
+
+In [130]: y
+Out[130]:
+array([0.53757358, 0.18640875, 0.23048786, 0.42662069, 0.78164513,
+       0.21799244, 0.66124666, 0.69308578, 0.26689317, 0.52343128,
+       0.93775244, 0.98022459, 0.18405176, 0.71568546, 0.06191701,
+       0.31834562, 0.96344818, 0.60636858, 0.32306243, 0.18923475,
+       0.57364872, 0.55592452, 0.86315871, 0.27718106, 0.07648153,
+       0.77614551, 0.25282283, 0.62200463, 0.74109092, 0.27260308,
+       0.03251543, 0.07411375, 0.25402039, 0.31857409, 0.67806068,
+       0.90474557, 0.15782451, 0.39811528, 0.3539568 , 0.51697614,
+       0.0374118 , 0.63396698, 0.36963531, 0.49814983, 0.96757387,
+       0.27052764, 0.20974501, 0.85906559, 0.67351685, 0.93757238,
+       0.10295508, 0.48430365, 0.54493476, 0.83444434, 0.30199513,
+       0.3777604 , 0.98208   , 0.90943621, 0.48280221, 0.25944689,
+       0.01728035, 0.86931682, 0.6650614 , 0.58225719, 0.88675754,
+       0.4042135 , 0.88000506, 0.68285525, 0.78771481, 0.67045599,
+       0.92335085, 0.74648286, 0.74408376, 0.30587738, 0.4316153 ,
+       0.59841567, 0.68621978, 0.93578283, 0.08951641, 0.58966546,
+       0.48702797, 0.22669255, 0.21377446, 0.23531587, 0.88919466,
+       0.53870665, 0.0289003 , 0.52481347, 0.12550813, 0.06330501,
+       0.94732843, 0.17593172, 0.85688378, 0.38851199, 0.65522976,
+       0.7348764 , 0.94044445, 0.71643436, 0.49295386, 0.96016123])
+
+In [131]: c
+Out[131]:
+array([0.11148354, 0.18799385, 0.24381039, 0.10117378, 0.14332601,
+       0.53000967, 0.53625824, 0.10960482, 0.95354391, 0.6468669 ,
+       0.88121438, 0.11425098, 0.33972598, 0.04860188, 0.14680733,
+       0.36691608, 0.61746322, 0.10597194, 0.08971101, 0.11729232,
+       0.06393595, 0.95887856, 0.74166967, 0.15929099, 0.88836626,
+       0.58912777, 0.70351998, 0.05096112, 0.39323099, 0.96795529,
+       0.82195813, 0.44805384, 0.25007229, 0.04804952, 0.95334662,
+       0.63335378, 0.47209492, 0.62060515, 0.27984375, 0.25016102,
+       0.51808883, 0.3470318 , 0.94291605, 0.03810808, 0.67986458,
+       0.77984611, 0.44660486, 0.25613276, 0.80136771, 0.91952944,
+       0.67079477, 0.86581257, 0.31946879, 0.21616568, 0.73944971,
+       0.63851548, 0.24694186, 0.35836543, 0.3732542 , 0.67413189,
+       0.94686791, 0.03412198, 0.71997131, 0.13680614, 0.62005216,
+       0.75397074, 0.77995201, 0.28552605, 0.34403036, 0.45051256,
+       0.04225046, 0.96864387, 0.86001049, 0.27184092, 0.72179958,
+       0.04509447, 0.09342063, 0.20078292, 0.28988212, 0.44171392,
+       0.96390796, 0.30265906, 0.0070929 , 0.72196709, 0.31072504,
+       0.39313298, 0.77715428, 0.17847145, 0.45952282, 0.88305206,
+       0.0032056 , 0.81757784, 0.72159243, 0.0623105 , 0.01062548,
+       0.30014949, 0.87260585, 0.5948529 , 0.72981011, 0.13362101])
+
+In [132]: ax.plot(x, y)
+Out[132]: [<matplotlib.lines.Line2D at 0x7fda43280438>]
+
+In [133]: f, ax = plt.subplots()
+
+In [134]: ax.scatter(x, y, c=c)
+Out[134]: <matplotlib.collections.PathCollection at 0x7fda432d1438>
+
+In [135]: c
+Out[135]:
+array([0.11148354, 0.18799385, 0.24381039, 0.10117378, 0.14332601,
+       0.53000967, 0.53625824, 0.10960482, 0.95354391, 0.6468669 ,
+       0.88121438, 0.11425098, 0.33972598, 0.04860188, 0.14680733,
+       0.36691608, 0.61746322, 0.10597194, 0.08971101, 0.11729232,
+       0.06393595, 0.95887856, 0.74166967, 0.15929099, 0.88836626,
+       0.58912777, 0.70351998, 0.05096112, 0.39323099, 0.96795529,
+       0.82195813, 0.44805384, 0.25007229, 0.04804952, 0.95334662,
+       0.63335378, 0.47209492, 0.62060515, 0.27984375, 0.25016102,
+       0.51808883, 0.3470318 , 0.94291605, 0.03810808, 0.67986458,
+       0.77984611, 0.44660486, 0.25613276, 0.80136771, 0.91952944,
+       0.67079477, 0.86581257, 0.31946879, 0.21616568, 0.73944971,
+       0.63851548, 0.24694186, 0.35836543, 0.3732542 , 0.67413189,
+       0.94686791, 0.03412198, 0.71997131, 0.13680614, 0.62005216,
+       0.75397074, 0.77995201, 0.28552605, 0.34403036, 0.45051256,
+       0.04225046, 0.96864387, 0.86001049, 0.27184092, 0.72179958,
+       0.04509447, 0.09342063, 0.20078292, 0.28988212, 0.44171392,
+       0.96390796, 0.30265906, 0.0070929 , 0.72196709, 0.31072504,
+       0.39313298, 0.77715428, 0.17847145, 0.45952282, 0.88305206,
+       0.0032056 , 0.81757784, 0.72159243, 0.0623105 , 0.01062548,
+       0.30014949, 0.87260585, 0.5948529 , 0.72981011, 0.13362101])
+
+In [136]: [[], []]
+Out[136]: [[], []]
+
+In [137]: [[], []][0]
+Out[137]: []
+
+In [138]: [[], []][1]
+Out[138]: []
+
+In [139]: np.array([[1, 2, 3], [4, 5, 6]])
+Out[139]:
+array([[1, 2, 3],
+       [4, 5, 6]])
+
+In [140]: a = np.array([[1, 2, 3], [4, 5, 6]])
+
+In [141]: a
+Out[141]:
+array([[1, 2, 3],
+       [4, 5, 6]])
+
+In [142]: a.shape
+Out[142]: (2, 3)
+
+In [143]: a = np.array(((1, 2, 3), (4, 5, 6)))
+
+In [144]: a = np.array([(1, 2, 3), (4, 5, 6)])
+
+In [145]: a = np.array(([1, 2, 3], [4, 5, 6]])
+  File "<ipython-input-145-e1cc920e186c>", line 1
+    a = np.array(([1, 2, 3], [4, 5, 6]])
+                                      ^
+SyntaxError: invalid syntax
+
+
+In [146]: a = np.array(([1, 2, 3], [4, 5, 6]))
+
+In [147]: a
+Out[147]:
+array([[1, 2, 3],
+       [4, 5, 6]])
+
+In [148]: a = np.array([[1, 2, 3], [4, 5, 6]])
+
+In [149]: np.arange(16)
+Out[149]: array([ 0,  1,  2,  3,  4,  5,  6,  7,  8,  9, 10, 11, 12, 13, 14, 15])
+
+In [150]: np.arange(16).reshape((8, 2))
+Out[150]:
+array([[ 0,  1],
+       [ 2,  3],
+       [ 4,  5],
+       [ 6,  7],
+       [ 8,  9],
+       [10, 11],
+       [12, 13],
+       [14, 15]])
+
+In [151]: np.arange(16).reshape((8, 3))
+---------------------------------------------------------------------------
+ValueError                                Traceback (most recent call last)
+<ipython-input-151-a6667f62339f> in <module>
+----> 1 np.arange(16).reshape((8, 3))
+
+ValueError: cannot reshape array of size 16 into shape (8,3)
+> <ipython-input-151-a6667f62339f>(1)<module>()
+----> 1 np.arange(16).reshape((8, 3))
+
+ipdb> c
+
+In [152]: a = np.arange(16).reshape((8, 2))
+
+In [153]: a.shape
+Out[153]: (8, 2)
+
+In [154]: a.size
+Out[154]: 16
+
+In [155]: a
+Out[155]:
+array([[ 0,  1],
+       [ 2,  3],
+       [ 4,  5],
+       [ 6,  7],
+       [ 8,  9],
+       [10, 11],
+       [12, 13],
+       [14, 15]])
+
+In [156]: a
+Out[156]:
+array([[ 0,  1],
+       [ 2,  3],
+       [ 4,  5],
+       [ 6,  7],
+       [ 8,  9],
+       [10, 11],
+       [12, 13],
+       [14, 15]])
+
+In [157]: a.reshape((4, 4))
+Out[157]:
+array([[ 0,  1,  2,  3],
+       [ 4,  5,  6,  7],
+       [ 8,  9, 10, 11],
+       [12, 13, 14, 15]])
+
+In [158]: a
+Out[158]:
+array([[ 0,  1],
+       [ 2,  3],
+       [ 4,  5],
+       [ 6,  7],
+       [ 8,  9],
+       [10, 11],
+       [12, 13],
+       [14, 15]])
+
+In [159]: a.shape
+Out[159]: (8, 2)
+
+In [160]: a.shape = 4, 4
+
+In [161]: a
+Out[161]:
+array([[ 0,  1,  2,  3],
+       [ 4,  5,  6,  7],
+       [ 8,  9, 10, 11],
+       [12, 13, 14, 15]])
+
+In [162]: a = np.zeros(10)
+
+In [163]: a
+Out[163]: array([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.])
+
+In [164]: a = np.zeros((8, 2))
+
+In [165]: a
+Out[165]:
+array([[0., 0.],
+       [0., 0.],
+       [0., 0.],
+       [0., 0.],
+       [0., 0.],
+       [0., 0.],
+       [0., 0.],
+       [0., 0.]])
+
+In [166]: a = np.ones((8, 2))
+
+In [167]: a
+Out[167]:
+array([[1., 1.],
+       [1., 1.],
+       [1., 1.],
+       [1., 1.],
+       [1., 1.],
+       [1., 1.],
+       [1., 1.],
+       [1., 1.]])
+
+In [168]: a = np.random.random((8, 2))
+
+In [169]: a
+Out[169]:
+array([[0.17122092, 0.91033124],
+       [0.13674776, 0.65663453],
+       [0.40486211, 0.16252192],
+       [0.34201035, 0.49791477],
+       [0.67302419, 0.59026406],
+       [0.51517925, 0.35285713],
+       [0.0874    , 0.71114853],
+       [0.63379134, 0.18880502]])
+
+In [170]: np.tile?
+
+In [171]: np.tile(7, 10)
+Out[171]: array([7, 7, 7, 7, 7, 7, 7, 7, 7, 7])
+
+In [172]: np.tile(7, (8, 2))
+Out[172]:
+array([[7, 7],
+       [7, 7],
+       [7, 7],
+       [7, 7],
+       [7, 7],
+       [7, 7],
+       [7, 7],
+       [7, 7]])
+
+In [173]: np.tile(1234, (8, 2))
+Out[173]:
+array([[1234, 1234],
+       [1234, 1234],
+       [1234, 1234],
+       [1234, 1234],
+       [1234, 1234],
+       [1234, 1234],
+       [1234, 1234],
+       [1234, 1234]])
+
+In [174]: a
+Out[174]:
+array([[0.17122092, 0.91033124],
+       [0.13674776, 0.65663453],
+       [0.40486211, 0.16252192],
+       [0.34201035, 0.49791477],
+       [0.67302419, 0.59026406],
+       [0.51517925, 0.35285713],
+       [0.0874    , 0.71114853],
+       [0.63379134, 0.18880502]])
+
+In [175]: a.fill(123)
+
+In [176]: a
+Out[176]:
+array([[123., 123.],
+       [123., 123.],
+       [123., 123.],
+       [123., 123.],
+       [123., 123.],
+       [123., 123.],
+       [123., 123.],
+       [123., 123.]])
+
+In [177]: a.shape
+Out[177]: (8, 2)
+
+In [178]: np.eye?
+Signature: np.eye(N, M=None, k=0, dtype=<class 'float'>, order='C')
+Docstring:
+Return a 2-D array with ones on the diagonal and zeros elsewhere.
+
+Parameters
+----------
+N : int
+  Number of rows in the output.
+M : int, optional
+  Number of columns in the output. If None, defaults to `N`.
+k : int, optional
+  Index of the diagonal: 0 (the default) refers to the main diagonal,
+  a positive value refers to an upper diagonal, and a negative value
+  to a lower diagonal.
+dtype : data-type, optional
+  Data-type of the returned array.
+order : {'C', 'F'}, optional
+    Whether the output should be stored in row-major (C-style) or
+    column-major (Fortran-style) order in memory.
+
+    .. versionadded:: 1.14.0
+
+Returns
+-------
+I : ndarray of shape (N,M)
+  An array where all elements are equal to zero, except for the `k`-th
+  diagonal, whose values are equal to one.
+
+See Also
+--------
+identity : (almost) equivalent function
+diag : diagonal 2-D array from a 1-D array specified by the user.
+
+Examples
+--------
+>>> np.eye(2, dtype=int)
+array([[1, 0],
+       [0, 1]])
+>>> np.eye(3, k=1)
+array([[0.,  1.,  0.],
+       [0.,  0.,  1.],
+       [0.,  0.,  0.]])
+File:      /usr/local/lib/python3.6/dist-packages/numpy/lib/twodim_base.py
+Type:      function
+
+In [179]: np.eye(5)
+Out[179]:
+array([[1., 0., 0., 0., 0.],
+       [0., 1., 0., 0., 0.],
+       [0., 0., 1., 0., 0.],
+       [0., 0., 0., 1., 0.],
+       [0., 0., 0., 0., 1.]])
+
+In [180]: a.shape
+Out[180]: (8, 2)
+
+In [181]: a.shape[0]
+Out[181]: 8
+
+In [182]: a.shape[1]
+Out[182]: 2
+
+In [183]: a[0, 1]
+Out[183]: 123.0
+
+In [184]: a
+Out[184]:
+array([[123., 123.],
+       [123., 123.],
+       [123., 123.],
+       [123., 123.],
+       [123., 123.],
+       [123., 123.],
+       [123., 123.],
+       [123., 123.]])
+
+In [185]: type(a)
+Out[185]: numpy.ndarray
+
+In [186]: a.shape
+Out[186]: (8, 2)
+
+In [187]: len(a)
+Out[187]: 8
+
+In [188]: len(a)
+Out[188]: 8
+
+In [189]: a.shape[0]
+Out[189]: 8
+
+In [190]: a.shape
+Out[190]: (8, 2)
+
+In [191]: a.size
+Out[191]: 16
+
+In [192]: a
+Out[192]:
+array([[123., 123.],
+       [123., 123.],
+       [123., 123.],
+       [123., 123.],
+       [123., 123.],
+       [123., 123.],
+       [123., 123.],
+       [123., 123.]])
+
+In [193]: a.ravel()
+Out[193]:
+array([123., 123., 123., 123., 123., 123., 123., 123., 123., 123., 123.,
+       123., 123., 123., 123., 123.])
+
+In [194]: a = np.random.random((8, 2))
+
+In [195]: a
+Out[195]:
+array([[0.19639146, 0.11799329],
+       [0.37884597, 0.05343177],
+       [0.49764516, 0.61700163],
+       [0.85321605, 0.244793  ],
+       [0.0811745 , 0.47891801],
+       [0.66400313, 0.73435009],
+       [0.31614615, 0.31963236],
+       [0.41792635, 0.11289427]])
+
+In [196]: a.ravel()
+Out[196]:
+array([0.19639146, 0.11799329, 0.37884597, 0.05343177, 0.49764516,
+       0.61700163, 0.85321605, 0.244793  , 0.0811745 , 0.47891801,
+       0.66400313, 0.73435009, 0.31614615, 0.31963236, 0.41792635,
+       0.11289427])
+
+In [197]: a.ravel().shape
+Out[197]: (16,)
+
+In [198]: a
+Out[198]:
+array([[0.19639146, 0.11799329],
+       [0.37884597, 0.05343177],
+       [0.49764516, 0.61700163],
+       [0.85321605, 0.244793  ],
+       [0.0811745 , 0.47891801],
+       [0.66400313, 0.73435009],
+       [0.31614615, 0.31963236],
+       [0.41792635, 0.11289427]])
+
+In [199]: a.shape = (16,)
+
+In [200]: a
+Out[200]:
+array([0.19639146, 0.11799329, 0.37884597, 0.05343177, 0.49764516,
+       0.61700163, 0.85321605, 0.244793  , 0.0811745 , 0.47891801,
+       0.66400313, 0.73435009, 0.31614615, 0.31963236, 0.41792635,
+       0.11289427])
+
+In [201]: a.shape = (120,)
+---------------------------------------------------------------------------
+ValueError                                Traceback (most recent call last)
+<ipython-input-201-bc88fd4036de> in <module>
+----> 1 a.shape = (120,)
+
+ValueError: cannot reshape array of size 16 into shape (120,)
+> <ipython-input-201-bc88fd4036de>(1)<module>()
+----> 1 a.shape = (120,)
+
+ipdb> c
+
+In [202]: a
+Out[202]:
+array([0.19639146, 0.11799329, 0.37884597, 0.05343177, 0.49764516,
+       0.61700163, 0.85321605, 0.244793  , 0.0811745 , 0.47891801,
+       0.66400313, 0.73435009, 0.31614615, 0.31963236, 0.41792635,
+       0.11289427])
+
+In [203]: a.shape = 8, 2
+
+In [204]: a
+Out[204]:
+array([[0.19639146, 0.11799329],
+       [0.37884597, 0.05343177],
+       [0.49764516, 0.61700163],
+       [0.85321605, 0.244793  ],
+       [0.0811745 , 0.47891801],
+       [0.66400313, 0.73435009],
+       [0.31614615, 0.31963236],
+       [0.41792635, 0.11289427]])
+
+In [205]: f, ax = plt.subplots()
+
+In [206]: ax.imshow(a)
+Out[206]: <matplotlib.image.AxesImage at 0x7fda43fcf5c0>
+
+In [207]: im = ax.imshow(a)
+
+In [208]: plt.close('all')
+
+In [209]: f, ax = plt.subplots()
+
+In [210]: im = ax.imshow(a)
+
+In [211]: im
+Out[211]: <matplotlib.image.AxesImage at 0x7fda43cfc3c8>
+
+In [212]: f.colorbar(im)
+Out[212]: <matplotlib.colorbar.Colorbar at 0x7fda43ab2b38>
+
+In [213]: ax.set_xticks([])
+Out[213]: []
+
+In [214]: ax.set_yticks([])
+Out[214]: []
+
+In [215]: f, ax = plt.subplots()
+
+In [216]: im = ax.imshow(a, cmap='jet')
+
+In [217]: plt.colorbar(im)
+Out[217]: <matplotlib.colorbar.Colorbar at 0x7fda43c54780>
+
+In [218]: a
+Out[218]:
+array([[0.19639146, 0.11799329],
+       [0.37884597, 0.05343177],
+       [0.49764516, 0.61700163],
+       [0.85321605, 0.244793  ],
+       [0.0811745 , 0.47891801],
+       [0.66400313, 0.73435009],
+       [0.31614615, 0.31963236],
+       [0.41792635, 0.11289427]])
+
+In [219]: a[0, 0]
+Out[219]: 0.19639146332085733
+
+In [220]: a[0, 1]
+Out[220]: 0.11799329037794659
+
+In [221]: a[2 , 1]
+Out[221]: 0.6170016301516832
+
+In [222]: a[2, 1]
+Out[222]: 0.6170016301516832
+
+In [223]: a[-1, -1]
+Out[223]: 0.11289426697620952
+
+In [224]: a[-2, -2]
+Out[224]: 0.3161461506937149
+
+In [225]: a[2, 2]
+---------------------------------------------------------------------------
+IndexError                                Traceback (most recent call last)
+<ipython-input-225-02ce8881f7de> in <module>
+----> 1 a[2, 2]
+
+IndexError: index 2 is out of bounds for axis 1 with size 2
+> <ipython-input-225-02ce8881f7de>(1)<module>()
+----> 1 a[2, 2]
+
+ipdb> c
+
+In [226]: a[0, :]
+Out[226]: array([0.19639146, 0.11799329])
+
+In [227]: a[0, 0:]
+Out[227]: array([0.19639146, 0.11799329])
+
+In [228]: a[0, 0:2]
+Out[228]: array([0.19639146, 0.11799329])
+
+In [229]: a[0, :]
+Out[229]: array([0.19639146, 0.11799329])
+
+In [230]: a[0]
+Out[230]: array([0.19639146, 0.11799329])
+
+In [231]: a[0]
+Out[231]: array([0.19639146, 0.11799329])
+
+In [232]: a[:, 0]
+Out[232]:
+array([0.19639146, 0.37884597, 0.49764516, 0.85321605, 0.0811745 ,
+       0.66400313, 0.31614615, 0.41792635])
+
+In [233]: a
+Out[233]:
+array([[0.19639146, 0.11799329],
+       [0.37884597, 0.05343177],
+       [0.49764516, 0.61700163],
+       [0.85321605, 0.244793  ],
+       [0.0811745 , 0.47891801],
+       [0.66400313, 0.73435009],
+       [0.31614615, 0.31963236],
+       [0.41792635, 0.11289427]])
+
+In [234]: a[:, 0]
+Out[234]:
+array([0.19639146, 0.37884597, 0.49764516, 0.85321605, 0.0811745 ,
+       0.66400313, 0.31614615, 0.41792635])
+
+In [235]: a[:, 0]
+Out[235]:
+array([0.19639146, 0.37884597, 0.49764516, 0.85321605, 0.0811745 ,
+       0.66400313, 0.31614615, 0.41792635])
+
+In [236]: a[, 0]
+  File "<ipython-input-236-8c16327ac630>", line 1
+    a[, 0]
+      ^
+SyntaxError: invalid syntax
+
+
+In [237]: a[:, 0]
+Out[237]:
+array([0.19639146, 0.37884597, 0.49764516, 0.85321605, 0.0811745 ,
+       0.66400313, 0.31614615, 0.41792635])
+
+In [238]: a[:, 1]
+Out[238]:
+array([0.11799329, 0.05343177, 0.61700163, 0.244793  , 0.47891801,
+       0.73435009, 0.31963236, 0.11289427])
+
+In [239]: a[:3]
+Out[239]:
+array([[0.19639146, 0.11799329],
+       [0.37884597, 0.05343177],
+       [0.49764516, 0.61700163]])
+
+In [240]: a[:3].shape
+Out[240]: (3, 2)
+
+In [241]: a[::2]
+Out[241]:
+array([[0.19639146, 0.11799329],
+       [0.49764516, 0.61700163],
+       [0.0811745 , 0.47891801],
+       [0.31614615, 0.31963236]])
+
+In [242]: a[::2].shape
+Out[242]: (4, 2)
+
+In [243]: a
+Out[243]:
+array([[0.19639146, 0.11799329],
+       [0.37884597, 0.05343177],
+       [0.49764516, 0.61700163],
+       [0.85321605, 0.244793  ],
+       [0.0811745 , 0.47891801],
+       [0.66400313, 0.73435009],
+       [0.31614615, 0.31963236],
+       [0.41792635, 0.11289427]])
+
+In [244]: a[:, :2]
+Out[244]:
+array([[0.19639146, 0.11799329],
+       [0.37884597, 0.05343177],
+       [0.49764516, 0.61700163],
+       [0.85321605, 0.244793  ],
+       [0.0811745 , 0.47891801],
+       [0.66400313, 0.73435009],
+       [0.31614615, 0.31963236],
+       [0.41792635, 0.11289427]])
+
+In [245]: a
+Out[245]:
+array([[0.19639146, 0.11799329],
+       [0.37884597, 0.05343177],
+       [0.49764516, 0.61700163],
+       [0.85321605, 0.244793  ],
+       [0.0811745 , 0.47891801],
+       [0.66400313, 0.73435009],
+       [0.31614615, 0.31963236],
+       [0.41792635, 0.11289427]])
+
+In [246]: a[::-1]
+Out[246]:
+array([[0.41792635, 0.11289427],
+       [0.31614615, 0.31963236],
+       [0.66400313, 0.73435009],
+       [0.0811745 , 0.47891801],
+       [0.85321605, 0.244793  ],
+       [0.49764516, 0.61700163],
+       [0.37884597, 0.05343177],
+       [0.19639146, 0.11799329]])
+
+In [247]: a
+Out[247]:
+array([[0.19639146, 0.11799329],
+       [0.37884597, 0.05343177],
+       [0.49764516, 0.61700163],
+       [0.85321605, 0.244793  ],
+       [0.0811745 , 0.47891801],
+       [0.66400313, 0.73435009],
+       [0.31614615, 0.31963236],
+       [0.41792635, 0.11289427]])
+
+In [248]: a[:, ::-1]
+Out[248]:
+array([[0.11799329, 0.19639146],
+       [0.05343177, 0.37884597],
+       [0.61700163, 0.49764516],
+       [0.244793  , 0.85321605],
+       [0.47891801, 0.0811745 ],
+       [0.73435009, 0.66400313],
+       [0.31963236, 0.31614615],
+       [0.11289427, 0.41792635]])
+
+In [249]: a
+Out[249]:
+array([[0.19639146, 0.11799329],
+       [0.37884597, 0.05343177],
+       [0.49764516, 0.61700163],
+       [0.85321605, 0.244793  ],
+       [0.0811745 , 0.47891801],
+       [0.66400313, 0.73435009],
+       [0.31614615, 0.31963236],
+       [0.41792635, 0.11289427]])
+
+In [250]: np.rot90(a)
+Out[250]:
+array([[0.11799329, 0.05343177, 0.61700163, 0.244793  , 0.47891801,
+        0.73435009, 0.31963236, 0.11289427],
+       [0.19639146, 0.37884597, 0.49764516, 0.85321605, 0.0811745 ,
+        0.66400313, 0.31614615, 0.41792635]])
+
+In [251]: np.rot90?
+
+In [252]: np.rot90(a)
+Out[252]:
+array([[0.11799329, 0.05343177, 0.61700163, 0.244793  , 0.47891801,
+        0.73435009, 0.31963236, 0.11289427],
+       [0.19639146, 0.37884597, 0.49764516, 0.85321605, 0.0811745 ,
+        0.66400313, 0.31614615, 0.41792635]])
+
+In [253]: np.rot90(a).shape
+Out[253]: (2, 8)
+
+In [254]: np.rot90(a)
+Out[254]:
+array([[0.11799329, 0.05343177, 0.61700163, 0.244793  , 0.47891801,
+        0.73435009, 0.31963236, 0.11289427],
+       [0.19639146, 0.37884597, 0.49764516, 0.85321605, 0.0811745 ,
+        0.66400313, 0.31614615, 0.41792635]])
+
+In [255]: np.rot90(a, -1)
+Out[255]:
+array([[0.41792635, 0.31614615, 0.66400313, 0.0811745 , 0.85321605,
+        0.49764516, 0.37884597, 0.19639146],
+       [0.11289427, 0.31963236, 0.73435009, 0.47891801, 0.244793  ,
+        0.61700163, 0.05343177, 0.11799329]])
+
+In [256]: np.rot90(a, -1).shape
+Out[256]: (2, 8)
+
+In [257]: np.rot90(a, -2).shape
+Out[257]: (8, 2)
+
+In [258]: a
+Out[258]:
+array([[0.19639146, 0.11799329],
+       [0.37884597, 0.05343177],
+       [0.49764516, 0.61700163],
+       [0.85321605, 0.244793  ],
+       [0.0811745 , 0.47891801],
+       [0.66400313, 0.73435009],
+       [0.31614615, 0.31963236],
+       [0.41792635, 0.11289427]])
+
+In [259]: a + 2
+Out[259]:
+array([[2.19639146, 2.11799329],
+       [2.37884597, 2.05343177],
+       [2.49764516, 2.61700163],
+       [2.85321605, 2.244793  ],
+       [2.0811745 , 2.47891801],
+       [2.66400313, 2.73435009],
+       [2.31614615, 2.31963236],
+       [2.41792635, 2.11289427]])
+
+In [260]: a - 2
+Out[260]:
+array([[-1.80360854, -1.88200671],
+       [-1.62115403, -1.94656823],
+       [-1.50235484, -1.38299837],
+       [-1.14678395, -1.755207  ],
+       [-1.9188255 , -1.52108199],
+       [-1.33599687, -1.26564991],
+       [-1.68385385, -1.68036764],
+       [-1.58207365, -1.88710573]])
+
+In [261]: a * 2
+Out[261]:
+array([[0.39278293, 0.23598658],
+       [0.75769194, 0.10686354],
+       [0.99529032, 1.23400326],
+       [1.7064321 , 0.48958599],
+       [0.16234899, 0.95783601],
+       [1.32800627, 1.46870018],
+       [0.6322923 , 0.63926473],
+       [0.8358527 , 0.22578853]])
+
+In [262]: a = np.arange(16)
+
+In [263]: a.shape = 8, 2
+
+In [264]: a
+Out[264]:
+array([[ 0,  1],
+       [ 2,  3],
+       [ 4,  5],
+       [ 6,  7],
+       [ 8,  9],
+       [10, 11],
+       [12, 13],
+       [14, 15]])
+
+In [265]: b = np.random.random(16).reshape((8, 2))
+
+In [266]: b
+Out[266]:
+array([[0.64165284, 0.14732782],
+       [0.85892439, 0.2079219 ],
+       [0.03944955, 0.59238493],
+       [0.97777961, 0.649534  ],
+       [0.96206521, 0.8436492 ],
+       [0.1382313 , 0.20099911],
+       [0.93890794, 0.76545437],
+       [0.60519358, 0.89326237]])
+
+In [267]: a.shape
+Out[267]: (8, 2)
+
+In [268]: b.shape
+Out[268]: (8, 2)
+
+In [269]: a + b
+Out[269]:
+array([[ 0.64165284,  1.14732782],
+       [ 2.85892439,  3.2079219 ],
+       [ 4.03944955,  5.59238493],
+       [ 6.97777961,  7.649534  ],
+       [ 8.96206521,  9.8436492 ],
+       [10.1382313 , 11.20099911],
+       [12.93890794, 13.76545437],
+       [14.60519358, 15.89326237]])
+
+In [270]: a -n b
+  File "<ipython-input-270-98c1514f06d3>", line 1
+    a -n b
+         ^
+SyntaxError: invalid syntax
+
+
+In [271]: a - b
+Out[271]:
+array([[-0.64165284,  0.85267218],
+       [ 1.14107561,  2.7920781 ],
+       [ 3.96055045,  4.40761507],
+       [ 5.02222039,  6.350466  ],
+       [ 7.03793479,  8.1563508 ],
+       [ 9.8617687 , 10.79900089],
+       [11.06109206, 12.23454563],
+       [13.39480642, 14.10673763]])
+
+In [272]: a * b
+Out[272]:
+array([[ 0.        ,  0.14732782],
+       [ 1.71784878,  0.62376571],
+       [ 0.1577982 ,  2.96192466],
+       [ 5.86667765,  4.54673798],
+       [ 7.6965217 ,  7.59284283],
+       [ 1.38231298,  2.21099023],
+       [11.2668953 ,  9.95090687],
+       [ 8.47271017, 13.39893559]])
+
+In [273]: a / b
+Out[273]:
+array([[  0.        ,   6.78758429],
+       [  2.32849366,  14.42849421],
+       [101.39532343,   8.44045778],
+       [  6.13635215,  10.77695707],
+       [  8.31544463,  10.66794108],
+       [ 72.342517  ,  54.72661005],
+       [ 12.78080573,  16.98337671],
+       [ 23.1330939 ,  16.79237866]])
+
+In [274]: a
+Out[274]:
+array([[ 0,  1],
+       [ 2,  3],
+       [ 4,  5],
+       [ 6,  7],
+       [ 8,  9],
+       [10, 11],
+       [12, 13],
+       [14, 15]])
+
+In [275]: b / a
+/usr/local/bin/ipython:1: RuntimeWarning: divide by zero encountered in true_divide
+  #!/usr/bin/python3
+Out[275]:
+array([[       inf, 0.14732782],
+       [0.4294622 , 0.0693073 ],
+       [0.00986239, 0.11847699],
+       [0.16296327, 0.09279057],
+       [0.12025815, 0.0937388 ],
+       [0.01382313, 0.01827265],
+       [0.07824233, 0.05888111],
+       [0.04322811, 0.05955082]])
+
+In [276]: np.geterr()
+Out[276]: {'divide': 'warn', 'over': 'warn', 'under': 'ignore', 'invalid': 'warn'}
+
+In [277]: np.seterr?
+
+In [278]: np.seterr(divide='error')
+---------------------------------------------------------------------------
+KeyError                                  Traceback (most recent call last)
+<ipython-input-278-bc3b2d7e0ceb> in <module>
+----> 1 np.seterr(divide='error')
+
+/usr/local/lib/python3.6/dist-packages/numpy/core/_ufunc_config.py in seterr(all, divide, over, under, invalid)
+    122     maskvalue = ((_errdict[divide] << SHIFT_DIVIDEBYZERO) +
+    123                  (_errdict[over] << SHIFT_OVERFLOW) +
+--> 124                  (_errdict[under] << SHIFT_UNDERFLOW) +
+    125                  (_errdict[invalid] << SHIFT_INVALID))
+    126
+
+KeyError: 'error'
+> /usr/local/lib/python3.6/dist-packages/numpy/core/_ufunc_config.py(124)seterr()
+    122     maskvalue = ((_errdict[divide] << SHIFT_DIVIDEBYZERO) +
+    123                  (_errdict[over] << SHIFT_OVERFLOW) +
+--> 124                  (_errdict[under] << SHIFT_UNDERFLOW) +
+    125                  (_errdict[invalid] << SHIFT_INVALID))
+    126
+
+ipdb> c
+
+In [279]: np.seterr(divide='raise')
+Out[279]: {'divide': 'warn', 'over': 'warn', 'under': 'ignore', 'invalid': 'warn'}
+
+In [280]: np.geterr()
+Out[280]: {'divide': 'raise', 'over': 'warn', 'under': 'ignore', 'invalid': 'warn'}
+
+In [281]: b / a
+---------------------------------------------------------------------------
+FloatingPointError                        Traceback (most recent call last)
+<ipython-input-281-86f14ff2de04> in <module>
+----> 1 b / a
+
+FloatingPointError: divide by zero encountered in true_divide
+> <ipython-input-281-86f14ff2de04>(1)<module>()
+----> 1 b / a
+
+ipdb> c
+
+In [282]: np.seterr(divide='warn')
+Out[282]: {'divide': 'raise', 'over': 'warn', 'under': 'ignore', 'invalid': 'warn'}
+
+In [283]: b / a
+/usr/local/bin/ipython:1: RuntimeWarning: divide by zero encountered in true_divide
+  #!/usr/bin/python3
+Out[283]:
+array([[       inf, 0.14732782],
+       [0.4294622 , 0.0693073 ],
+       [0.00986239, 0.11847699],
+       [0.16296327, 0.09279057],
+       [0.12025815, 0.0937388 ],
+       [0.01382313, 0.01827265],
+       [0.07824233, 0.05888111],
+       [0.04322811, 0.05955082]])
+
+In [284]: 1 / 0
+---------------------------------------------------------------------------
+ZeroDivisionError                         Traceback (most recent call last)
+<ipython-input-284-bc757c3fda29> in <module>
+----> 1 1 / 0
+
+ZeroDivisionError: division by zero
+> <ipython-input-284-bc757c3fda29>(1)<module>()
+----> 1 1 / 0
+
+ipdb> c
+
+In [285]: a
+Out[285]:
+array([[ 0,  1],
+       [ 2,  3],
+       [ 4,  5],
+       [ 6,  7],
+       [ 8,  9],
+       [10, 11],
+       [12, 13],
+       [14, 15]])
+
+In [286]: x = np.arange(8)
+
+In [287]: x
+Out[287]: array([0, 1, 2, 3, 4, 5, 6, 7])
+
+In [288]: a
+Out[288]:
+array([[ 0,  1],
+       [ 2,  3],
+       [ 4,  5],
+       [ 6,  7],
+       [ 8,  9],
+       [10, 11],
+       [12, 13],
+       [14, 15]])
+
+In [289]: a * x
+---------------------------------------------------------------------------
+ValueError                                Traceback (most recent call last)
+<ipython-input-289-6ac118169318> in <module>
+----> 1 a * x
+
+ValueError: operands could not be broadcast together with shapes (8,2) (8,)
+> <ipython-input-289-6ac118169318>(1)<module>()
+----> 1 a * x
+
+ipdb> c
+
+In [290]: a * x
+---------------------------------------------------------------------------
+ValueError                                Traceback (most recent call last)
+<ipython-input-290-6ac118169318> in <module>
+----> 1 a * x
+
+ValueError: operands could not be broadcast together with shapes (8,2) (8,)
+> <ipython-input-290-6ac118169318>(1)<module>()
+----> 1 a * x
+
+ipdb> c
+
+In [291]: a.shape
+Out[291]: (8, 2)
+
+In [292]: x.shape
+Out[292]: (8,)
+
+In [293]: a.T
+Out[293]:
+array([[ 0,  2,  4,  6,  8, 10, 12, 14],
+       [ 1,  3,  5,  7,  9, 11, 13, 15]])
+
+In [294]: a.T.shape
+Out[294]: (2, 8)
+
+In [295]: a.T * x
+Out[295]:
+array([[  0,   2,   8,  18,  32,  50,  72,  98],
+       [  0,   3,  10,  21,  36,  55,  78, 105]])
+
+In [296]: a.T
+Out[296]:
+array([[ 0,  2,  4,  6,  8, 10, 12, 14],
+       [ 1,  3,  5,  7,  9, 11, 13, 15]])
+
+In [297]: x
+Out[297]: array([0, 1, 2, 3, 4, 5, 6, 7])
+
+In [298]: x.shape
+Out[298]: (8,)
+
+In [299]: a
+Out[299]:
+array([[ 0,  1],
+       [ 2,  3],
+       [ 4,  5],
+       [ 6,  7],
+       [ 8,  9],
+       [10, 11],
+       [12, 13],
+       [14, 15]])
+
+In [300]: a.max()
+Out[300]: 15
+
+In [301]: a.max?
+Docstring:
+a.max(axis=None, out=None, keepdims=False, initial=<no value>, where=True)
+
+Return the maximum along a given axis.
+
+Refer to `numpy.amax` for full documentation.
+
+See Also
+--------
+numpy.amax : equivalent function
+Type:      builtin_function_or_method
+
+In [302]: a.max(axis=0)
+Out[302]: array([14, 15])
+
+In [303]: a.max(axis=1)
+Out[303]: array([ 1,  3,  5,  7,  9, 11, 13, 15])
+
+In [304]: a.min(axis=0)
+Out[304]: array([0, 1])
+
+In [305]: a.sum(axis=0)
+Out[305]: array([56, 64])
+
+In [306]: a.sum(axis=1)
+Out[306]: array([ 1,  5,  9, 13, 17, 21, 25, 29])
+
+In [307]: a.T
+Out[307]:
+array([[ 0,  2,  4,  6,  8, 10, 12, 14],
+       [ 1,  3,  5,  7,  9, 11, 13, 15]])
+
+In [308]: a.transpose()
+Out[308]:
+array([[ 0,  2,  4,  6,  8, 10, 12, 14],
+       [ 1,  3,  5,  7,  9, 11, 13, 15]])
+
+In [309]: a.transpose?
+
+In [310]: a.diagonal()
+Out[310]: array([0, 3])
+
+In [311]: a
+Out[311]:
+array([[ 0,  1],
+       [ 2,  3],
+       [ 4,  5],
+       [ 6,  7],
+       [ 8,  9],
+       [10, 11],
+       [12, 13],
+       [14, 15]])
+
+In [312]: a.trace()
+Out[312]: 3
+
+In [313]: a
+Out[313]:
+array([[ 0,  1],
+       [ 2,  3],
+       [ 4,  5],
+       [ 6,  7],
+       [ 8,  9],
+       [10, 11],
+       [12, 13],
+       [14, 15]])
+
+In [314]: b
+Out[314]:
+array([[0.64165284, 0.14732782],
+       [0.85892439, 0.2079219 ],
+       [0.03944955, 0.59238493],
+       [0.97777961, 0.649534  ],
+       [0.96206521, 0.8436492 ],
+       [0.1382313 , 0.20099911],
+       [0.93890794, 0.76545437],
+       [0.60519358, 0.89326237]])
+
+In [315]: a.shape
+Out[315]: (8, 2)
+
+In [316]: b.shape
+Out[316]: (8, 2)
+
+In [317]: np.dot(a, b)
+---------------------------------------------------------------------------
+ValueError                                Traceback (most recent call last)
+<ipython-input-317-c9cc415545b4> in <module>
+----> 1 np.dot(a, b)
+
+<__array_function__ internals> in dot(*args, **kwargs)
+
+ValueError: shapes (8,2) and (8,2) not aligned: 2 (dim 1) != 8 (dim 0)
+> <__array_function__ internals>(6)dot()
+
+ipdb> c
+
+In [318]: np.dot(a.T, b)
+Out[318]:
+array([[36.56076477, 37.13289797],
+       [41.72296919, 41.43343169]])
+
+In [319]: a.T
+Out[319]:
+array([[ 0,  2,  4,  6,  8, 10, 12, 14],
+       [ 1,  3,  5,  7,  9, 11, 13, 15]])
+
+In [320]: a.T @ b
+Out[320]:
+array([[36.56076477, 37.13289797],
+       [41.72296919, 41.43343169]])
+
+In [321]: a @ b
+---------------------------------------------------------------------------
+ValueError                                Traceback (most recent call last)
+<ipython-input-321-88de868f0fd7> in <module>
+----> 1 a @ b
+
+ValueError: matmul: Input operand 1 has a mismatch in its core dimension 0, with gufunc signature (n?,k),(k,m?)->(n?,m?) (size 8 is different from 2)
+> <ipython-input-321-88de868f0fd7>(1)<module>()
+----> 1 a @ b
+
+ipdb> c
+
+In [322]: x = np.arange(10)
+
+In [323]: y = np.arange(5)
+
+In [324]: np.outer(x, y)
+Out[324]:
+array([[ 0,  0,  0,  0,  0],
+       [ 0,  1,  2,  3,  4],
+       [ 0,  2,  4,  6,  8],
+       [ 0,  3,  6,  9, 12],
+       [ 0,  4,  8, 12, 16],
+       [ 0,  5, 10, 15, 20],
+       [ 0,  6, 12, 18, 24],
+       [ 0,  7, 14, 21, 28],
+       [ 0,  8, 16, 24, 32],
+       [ 0,  9, 18, 27, 36]])
+
+In [325]: x
+Out[325]: array([0, 1, 2, 3, 4, 5, 6, 7, 8, 9])
+
+In [326]: y
+Out[326]: array([0, 1, 2, 3, 4])
+
+In [327]: np.concatenate?
+
+In [328]: a
+Out[328]:
+array([[ 0,  1],
+       [ 2,  3],
+       [ 4,  5],
+       [ 6,  7],
+       [ 8,  9],
+       [10, 11],
+       [12, 13],
+       [14, 15]])
+
+In [329]: b
+Out[329]:
+array([[0.64165284, 0.14732782],
+       [0.85892439, 0.2079219 ],
+       [0.03944955, 0.59238493],
+       [0.97777961, 0.649534  ],
+       [0.96206521, 0.8436492 ],
+       [0.1382313 , 0.20099911],
+       [0.93890794, 0.76545437],
+       [0.60519358, 0.89326237]])
+
+In [330]: a.shape
+Out[330]: (8, 2)
+
+In [331]: b.shape
+Out[331]: (8, 2)
+
+In [332]: np.concatenate([a, b], axis=0)
+Out[332]:
+array([[ 0.        ,  1.        ],
+       [ 2.        ,  3.        ],
+       [ 4.        ,  5.        ],
+       [ 6.        ,  7.        ],
+       [ 8.        ,  9.        ],
+       [10.        , 11.        ],
+       [12.        , 13.        ],
+       [14.        , 15.        ],
+       [ 0.64165284,  0.14732782],
+       [ 0.85892439,  0.2079219 ],
+       [ 0.03944955,  0.59238493],
+       [ 0.97777961,  0.649534  ],
+       [ 0.96206521,  0.8436492 ],
+       [ 0.1382313 ,  0.20099911],
+       [ 0.93890794,  0.76545437],
+       [ 0.60519358,  0.89326237]])
+
+In [333]: np.concatenate([b, a], axis=0)
+Out[333]:
+array([[ 0.64165284,  0.14732782],
+       [ 0.85892439,  0.2079219 ],
+       [ 0.03944955,  0.59238493],
+       [ 0.97777961,  0.649534  ],
+       [ 0.96206521,  0.8436492 ],
+       [ 0.1382313 ,  0.20099911],
+       [ 0.93890794,  0.76545437],
+       [ 0.60519358,  0.89326237],
+       [ 0.        ,  1.        ],
+       [ 2.        ,  3.        ],
+       [ 4.        ,  5.        ],
+       [ 6.        ,  7.        ],
+       [ 8.        ,  9.        ],
+       [10.        , 11.        ],
+       [12.        , 13.        ],
+       [14.        , 15.        ]])
+
+In [334]: np.concatenate([a, b], axis=1)
+Out[334]:
+array([[ 0.        ,  1.        ,  0.64165284,  0.14732782],
+       [ 2.        ,  3.        ,  0.85892439,  0.2079219 ],
+       [ 4.        ,  5.        ,  0.03944955,  0.59238493],
+       [ 6.        ,  7.        ,  0.97777961,  0.649534  ],
+       [ 8.        ,  9.        ,  0.96206521,  0.8436492 ],
+       [10.        , 11.        ,  0.1382313 ,  0.20099911],
+       [12.        , 13.        ,  0.93890794,  0.76545437],
+       [14.        , 15.        ,  0.60519358,  0.89326237]])
+
+In [335]: np.vstack([a, b])
+Out[335]:
+array([[ 0.        ,  1.        ],
+       [ 2.        ,  3.        ],
+       [ 4.        ,  5.        ],
+       [ 6.        ,  7.        ],
+       [ 8.        ,  9.        ],
+       [10.        , 11.        ],
+       [12.        , 13.        ],
+       [14.        , 15.        ],
+       [ 0.64165284,  0.14732782],
+       [ 0.85892439,  0.2079219 ],
+       [ 0.03944955,  0.59238493],
+       [ 0.97777961,  0.649534  ],
+       [ 0.96206521,  0.8436492 ],
+       [ 0.1382313 ,  0.20099911],
+       [ 0.93890794,  0.76545437],
+       [ 0.60519358,  0.89326237]])
+
+In [336]: np.hstack([a, b])
+Out[336]:
+array([[ 0.        ,  1.        ,  0.64165284,  0.14732782],
+       [ 2.        ,  3.        ,  0.85892439,  0.2079219 ],
+       [ 4.        ,  5.        ,  0.03944955,  0.59238493],
+       [ 6.        ,  7.        ,  0.97777961,  0.649534  ],
+       [ 8.        ,  9.        ,  0.96206521,  0.8436492 ],
+       [10.        , 11.        ,  0.1382313 ,  0.20099911],
+       [12.        , 13.        ,  0.93890794,  0.76545437],
+       [14.        , 15.        ,  0.60519358,  0.89326237]])
+
+In [337]: a.shape
+Out[337]: (8, 2)
+
+In [338]: b.shape
+Out[338]: (8, 2)
+
+In [339]: np.stack([a, b])
+Out[339]:
+array([[[ 0.        ,  1.        ],
+        [ 2.        ,  3.        ],
+        [ 4.        ,  5.        ],
+        [ 6.        ,  7.        ],
+        [ 8.        ,  9.        ],
+        [10.        , 11.        ],
+        [12.        , 13.        ],
+        [14.        , 15.        ]],
+
+       [[ 0.64165284,  0.14732782],
+        [ 0.85892439,  0.2079219 ],
+        [ 0.03944955,  0.59238493],
+        [ 0.97777961,  0.649534  ],
+        [ 0.96206521,  0.8436492 ],
+        [ 0.1382313 ,  0.20099911],
+        [ 0.93890794,  0.76545437],
+        [ 0.60519358,  0.89326237]]])
+
+In [340]: np.stack([a, b]).shape
+Out[340]: (2, 8, 2)
+
+In [341]: len(np.stack([a, b]))
+Out[341]: 2
+
+In [342]: movie = np.stack([a, b])
+
+In [343]: movie.shape
+Out[343]: (2, 8, 2)
+
+In [344]: movie[0]
+Out[344]:
+array([[ 0.,  1.],
+       [ 2.,  3.],
+       [ 4.,  5.],
+       [ 6.,  7.],
+       [ 8.,  9.],
+       [10., 11.],
+       [12., 13.],
+       [14., 15.]])
+
+In [345]: movie[1]
+Out[345]:
+array([[0.64165284, 0.14732782],
+       [0.85892439, 0.2079219 ],
+       [0.03944955, 0.59238493],
+       [0.97777961, 0.649534  ],
+       [0.96206521, 0.8436492 ],
+       [0.1382313 , 0.20099911],
+       [0.93890794, 0.76545437],
+       [0.60519358, 0.89326237]])
+
+In [346]: movie[0].shape
+Out[346]: (8, 2)
+
+In [347]: movie[1].shape
+Out[347]: (8, 2)
+
+In [348]: movie = np.random.random(80).reshape((5, 4, 4)) # 5 frames, each 4 x 4 pixels
+     ...: for framei, image in enumerate(movie):
+     ...: f, ax = plt.subplots()
+     ...: ax.imshow(image, cmap='jet')
+     ...: f.canvas.set_window_title('frame %d' % framei)
+  File "<ipython-input-348-710a8df0fadc>", line 3
+    f, ax = plt.subplots()
+    ^
+IndentationError: expected an indented block
+
+
+In [349]: for framei, image in enumerate(movie):
+     ...:     f, ax = plt.subplots()
+     ...:     ax.imshow(image, cmap='jet')
+     ...:     f.canvas.set_window_title('frame %d' % framei)
+     ...:
+
+In [350]: plt.close('all')
+
+In [351]: movie = np.random.random(80).reshape((5, 4, 4)) # 5 frames, each 4 x 4 pixels
+     ...: for framei, image in enumerate(movie):
+     ...:     f, ax = plt.subplots()
+     ...:     ax.imshow(image, cmap='jet')
+     ...:     f.canvas.set_window_title('frame %d' % framei)
+     ...:
+
+In [352]: ls
+ 06_fileio_mpl.md    ASCII-Conversion-Chart.pdf   plot_exercise.py        t.npy
+ 06_fileio_mpl.pdf   distribution.png            'sin and cos vs t.png'   V.npy
+ 06_history.txt      matplotlibrc                 test1D.csv              Vt.mat
+ anatomy.pdf         plot_exercise.png            test2D.csv
+
+In [353]: cd ..
+/home/mspacek/SciPyCourse2021/notes
+
+In [354]: cd 07_mpl_matrices/
+/home/mspacek/SciPyCourse2021/notes/07_mpl_matrices
+
+In [355]: ls
+07_mpl_matrices.md  07_mpl_matrices.pdf  surprise.npy  surprise.png
+
+In [356]: np.load('surprise.npy')
+Out[356]:
+array([[0, 0, 0, ..., 0, 0, 0],
+       [0, 0, 0, ..., 0, 0, 0],
+       [0, 0, 0, ..., 0, 0, 0],
+       ...,
+       [0, 0, 0, ..., 0, 0, 0],
+       [0, 0, 0, ..., 0, 0, 0],
+       [0, 0, 0, ..., 0, 0, 0]], dtype=uint8)
+
+In [357]: np.load('surprise2.npy')
+Out[357]:
+array([[0, 0, 0, ..., 0, 0, 0],
+       [0, 0, 0, ..., 0, 0, 0],
+       [0, 0, 0, ..., 0, 0, 0],
+       ...,
+       [0, 0, 0, ..., 0, 0, 0],
+       [0, 0, 0, ..., 0, 0, 0],
+       [0, 0, 0, ..., 0, 0, 0]], dtype=uint8)
+
+In [358]: pwd
+Out[358]: '/home/mspacek/SciPyCourse2021/notes/07_mpl_matrices'
+
+In [359]: a = np.load('surprise.npy')
+
+In [360]: a.ndim
+Out[360]: 2
+
+In [361]: a.shape
+Out[361]: (1024, 1024)
+
+In [362]: a
+Out[362]:
+array([[0, 0, 0, ..., 0, 0, 0],
+       [0, 0, 0, ..., 0, 0, 0],
+       [0, 0, 0, ..., 0, 0, 0],
+       ...,
+       [0, 0, 0, ..., 0, 0, 0],
+       [0, 0, 0, ..., 0, 0, 0],
+       [0, 0, 0, ..., 0, 0, 0]], dtype=uint8)
+
+In [363]: a
+Out[363]:
+array([[0, 0, 0, ..., 0, 0, 0],
+       [0, 0, 0, ..., 0, 0, 0],
+       [0, 0, 0, ..., 0, 0, 0],
+       ...,
+       [0, 0, 0, ..., 0, 0, 0],
+       [0, 0, 0, ..., 0, 0, 0],
+       [0, 0, 0, ..., 0, 0, 0]], dtype=uint8)
+
+In [364]: a[::80][::80]
+Out[364]: array([[0, 0, 0, ..., 0, 0, 0]], dtype=uint8)
+
+In [365]: a[::80][::80].shape
+Out[365]: (1, 1024)
+
+In [366]: a[::80, ::80]
+Out[366]:
+array([[  0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0],
+       [  0,   0,   0,   0,   0,   0, 182, 182,   0,   0,   0,   0,   0],
+       [  0,   0,   0, 182, 182, 182, 182, 182, 182, 182,   0,   0,   0],
+       [  0,   0, 182, 182, 182, 182, 182, 182, 182, 182, 182,   0,   0],
+       [  0,   0, 182, 182,  99, 160, 182, 182, 182, 182, 182, 182,   0],
+       [  0, 182, 182, 182,  99,  99, 182, 182,  99,  99, 182, 182, 182],
+       [  0, 182, 182, 182,  99, 182, 182, 182, 182, 182, 182, 182, 182],
+       [  0, 182, 182, 182, 182, 182, 182, 162, 162, 162, 182, 182, 182],
+       [  0, 182, 182, 162, 162, 162, 162, 162, 162, 162, 162, 182, 182],
+       [  0, 182, 182, 162, 162, 162, 162, 162, 162, 162, 162, 182, 182],
+       [  0, 182, 182, 182, 182, 182, 182, 182, 162, 162, 182, 182, 182],
+       [  0,   0, 182, 182, 182, 182, 182, 182, 182, 182, 182, 182,   0],
+       [  0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0]],
+      dtype=uint8)
+
+In [367]: f, ax = plt.subplots()
+
+In [368]: im = ax.imshow(a)
+
+In [369]: f.colormap(im)
+---------------------------------------------------------------------------
+AttributeError                            Traceback (most recent call last)
+<ipython-input-369-1815e970bdf9> in <module>
+----> 1 f.colormap(im)
+
+AttributeError: 'Figure' object has no attribute 'colormap'
+> <ipython-input-369-1815e970bdf9>(1)<module>()
+----> 1 f.colormap(im)
+
+ipdb> c
+
+In [370]: f.colorbar(im)
+Out[370]: <matplotlib.colorbar.Colorbar at 0x7fda41d76320>
+
+In [371]: f, ax = plt.subplots()
+
+In [372]: im = ax.imshow(a, cmap='gray')
+
+In [373]: f.colorbar(im)
+Out[373]: <matplotlib.colorbar.Colorbar at 0x7fda414a9940>
+
+In [374]: plt.close('all')
+
+In [375]: f, ax = plt.subplots([1, 4])
+---------------------------------------------------------------------------
+TypeError                                 Traceback (most recent call last)
+<ipython-input-375-bf28735762ce> in <module>
+----> 1 f, ax = plt.subplots([1, 4])
+
+/usr/local/lib/python3.6/dist-packages/matplotlib/pyplot.py in subplots(nrows, ncols, sharex, sharey, squeeze, subplot_kw, gridspec_kw, **fig_kw)
+   1210     axs = fig.subplots(nrows=nrows, ncols=ncols, sharex=sharex, sharey=sharey,
+   1211                        squeeze=squeeze, subplot_kw=subplot_kw,
+-> 1212                        gridspec_kw=gridspec_kw)
+   1213     return fig, axs
+   1214
+
+/usr/local/lib/python3.6/dist-packages/matplotlib/figure.py in subplots(self, nrows, ncols, sharex, sharey, squeeze, subplot_kw, gridspec_kw)
+   1566
+   1567         # Create array to hold all axes.
+-> 1568         axarr = np.empty((nrows, ncols), dtype=object)
+   1569         for row in range(nrows):
+   1570             for col in range(ncols):
+
+TypeError: 'list' object cannot be interpreted as an integer
+> /usr/local/lib/python3.6/dist-packages/matplotlib/figure.py(1568)subplots()
+   1566
+   1567         # Create array to hold all axes.
+-> 1568         axarr = np.empty((nrows, ncols), dtype=object)
+   1569         for row in range(nrows):
+   1570             for col in range(ncols):
+
+ipdb> c
+
+In [376]: f, ax = plt.subplots(nrows=1, ncols=4)
+
+In [377]: plt.close('all')
+
+In [378]: f, axs = plt.subplots(nrows=1, ncols=4)
+
+In [379]: axs[0]
+Out[379]: <matplotlib.axes._subplots.AxesSubplot at 0x7fda429a38d0>
+
+In [380]: axs
+Out[380]:
+array([<matplotlib.axes._subplots.AxesSubplot object at 0x7fda429a38d0>,
+       <matplotlib.axes._subplots.AxesSubplot object at 0x7fda417fc278>,
+       <matplotlib.axes._subplots.AxesSubplot object at 0x7fda417ac390>,
+       <matplotlib.axes._subplots.AxesSubplot object at 0x7fda417da4a8>],
+      dtype=object)
+
+In [381]: axs.shape
+Out[381]: (4,)
+
+In [382]: axs[0, 0]
+---------------------------------------------------------------------------
+IndexError                                Traceback (most recent call last)
+<ipython-input-382-81842154f21f> in <module>
+----> 1 axs[0, 0]
+
+IndexError: too many indices for array: array is 1-dimensional, but 2 were indexed
+> <ipython-input-382-81842154f21f>(1)<module>()
+----> 1 axs[0, 0]
+
+ipdb> c
+
+In [383]: axs[0]
+Out[383]: <matplotlib.axes._subplots.AxesSubplot at 0x7fda429a38d0>
+
+In [384]: axs[0].imshow(a, cmap='gray')
+Out[384]: <matplotlib.image.AxesImage at 0x7fda4175cc18>
+
+In [385]: axs[1].imshow(np.rot90(a), cmap='gray')
+Out[385]: <matplotlib.image.AxesImage at 0x7fda4166bc50>
+
+In [386]: axs[2].imshow(np.rot90(a, 2), cmap='gray')
+Out[386]: <matplotlib.image.AxesImage at 0x7fda41798048>
+
+In [387]: axs[2].imshow(np.rot90(a, -1), cmap='gray')
+Out[387]: <matplotlib.image.AxesImage at 0x7fda416952e8>
+
+In [388]: axs[2].imshow(np.rot90(a, 2), cmap='gray')
+Out[388]: <matplotlib.image.AxesImage at 0x7fda43300908>
+
+In [389]: axs[3].imshow(np.rot90(a, -1), cmap='gray')
+Out[389]: <matplotlib.image.AxesImage at 0x7fda41675908>
+
+In [390]: f, ax = plt.subplots()
+
+In [391]: ax.imshow(a.T, cmap='gray')
+Out[391]: <matplotlib.image.AxesImage at 0x7fda406e67f0>
+
+In [392]: a
+Out[392]:
+array([[0, 0, 0, ..., 0, 0, 0],
+       [0, 0, 0, ..., 0, 0, 0],
+       [0, 0, 0, ..., 0, 0, 0],
+       ...,
+       [0, 0, 0, ..., 0, 0, 0],
+       [0, 0, 0, ..., 0, 0, 0],
+       [0, 0, 0, ..., 0, 0, 0]], dtype=uint8)
+
+In [393]: a.shape
+Out[393]: (1024, 1024)
+
+In [394]: a.shape = 4096, 4096
+---------------------------------------------------------------------------
+ValueError                                Traceback (most recent call last)
+<ipython-input-394-1fac99c24170> in <module>
+----> 1 a.shape = 4096, 4096
+
+ValueError: cannot reshape array of size 1048576 into shape (4096,4096)
+> <ipython-input-394-1fac99c24170>(1)<module>()
+----> 1 a.shape = 4096, 4096
+
+ipdb> c
+
+In [395]: np.tile(a, (2, 2))
+Out[395]:
+array([[0, 0, 0, ..., 0, 0, 0],
+       [0, 0, 0, ..., 0, 0, 0],
+       [0, 0, 0, ..., 0, 0, 0],
+       ...,
+       [0, 0, 0, ..., 0, 0, 0],
+       [0, 0, 0, ..., 0, 0, 0],
+       [0, 0, 0, ..., 0, 0, 0]], dtype=uint8)
+
+In [396]: np.tile(a, (2, 2)).shape
+Out[396]: (2048, 2048)
+
+In [397]: np.tile(a, (2, 2)).shape
+Out[397]: (2048, 2048)
+
+In [398]: tiled = np.tile(a, (2, 2))
+
+In [399]: f, ax = plt.subplots()
+
+In [400]: ax.imshow(tiled, cmap='gray')
+Out[400]: <matplotlib.image.AxesImage at 0x7fda4066a9b0>
+
+In [401]:

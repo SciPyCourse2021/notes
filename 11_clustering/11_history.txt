@@ -1,0 +1,983 @@
+
+mspacek@Godel:~/SciPyCourse2021/notes/homework5$ ls
+homework5.md          homework5_solutions.py              nissl_gray.png   student_solutions
+homework5.pdf         log_reaction_time_distribution.png  nissl.tif
+homework5_samples.py  misc                                stroop_data.csv
+mspacek@Godel:~/SciPyCourse2021/notes/homework5$ ipython
+Python 3.6.9 (default, Jan 26 2021, 15:33:00)
+Type 'copyright', 'credits' or 'license' for more information
+IPython 7.10.0 -- An enhanced Interactive Python. Type '?' for help.
+
+In [1]: import matplotlib.pyplot as plt
+
+In [2]: from skimage import io
+
+In [3]: data = io.imread('nissl.tif')
+
+In [4]: data.shape
+Out[4]: (2048, 2048, 3)
+
+In [5]: data.dtype
+Out[5]: dtype('uint8')
+
+In [6]: data
+Out[6]:
+array([[[ 0,  0,  0],
+        [ 0,  0,  0],
+        [ 0,  0,  0],
+        ...,
+        [ 0,  0,  0],
+        [ 0,  0,  0],
+        [ 0,  0,  0]],
+
+       [[ 0,  1,  0],
+        [ 0,  0,  0],
+        [ 0,  1,  0],
+        ...,
+        [ 0,  0,  0],
+        [ 0,  0,  0],
+        [ 0,  0,  0]],
+
+       [[ 0,  0,  0],
+        [ 0,  1,  0],
+        [ 0,  0,  0],
+        ...,
+        [ 0,  0,  0],
+        [ 0,  0,  0],
+        [ 0,  0,  0]],
+
+       ...,
+
+       [[ 0, 13,  0],
+        [ 0, 24,  0],
+        [ 0, 32,  0],
+        ...,
+        [ 0, 34,  0],
+        [ 0, 16,  0],
+        [ 0,  7,  0]],
+
+       [[ 0, 19,  0],
+        [ 0, 26,  0],
+        [ 0, 62,  0],
+        ...,
+        [ 0,  8,  0],
+        [ 0,  3,  0],
+        [ 0, 14,  0]],
+
+       [[ 0, 43,  0],
+        [ 0, 67,  0],
+        [ 0, 55,  0],
+        ...,
+        [ 0,  9,  0],
+        [ 0,  3,  0],
+        [ 0, 19,  0]]], dtype=uint8)
+
+In [7]: f1, ax1 = plt.subplots()
+
+In [8]: ax1.imshow(data)
+Out[8]: <matplotlib.image.AxesImage at 0x7fc85e68c978>
+
+In [9]: data.shape
+Out[9]: (2048, 2048, 3)
+
+In [10]: data[:, :, 0]
+Out[10]:
+array([[0, 0, 0, ..., 0, 0, 0],
+       [0, 0, 0, ..., 0, 0, 0],
+       [0, 0, 0, ..., 0, 0, 0],
+       ...,
+       [0, 0, 0, ..., 0, 0, 0],
+       [0, 0, 0, ..., 0, 0, 0],
+       [0, 0, 0, ..., 0, 0, 0]], dtype=uint8)
+
+In [11]: data[:, :, 0].shape
+Out[11]: (2048, 2048)
+
+In [12]: data[:, :, 0]
+Out[12]:
+array([[0, 0, 0, ..., 0, 0, 0],
+       [0, 0, 0, ..., 0, 0, 0],
+       [0, 0, 0, ..., 0, 0, 0],
+       ...,
+       [0, 0, 0, ..., 0, 0, 0],
+       [0, 0, 0, ..., 0, 0, 0],
+       [0, 0, 0, ..., 0, 0, 0]], dtype=uint8)
+
+In [13]: data[:, :, 0].sum()
+Out[13]: 0
+
+In [14]: (data[:, :, 0] == 0)
+Out[14]:
+array([[ True,  True,  True, ...,  True,  True,  True],
+       [ True,  True,  True, ...,  True,  True,  True],
+       [ True,  True,  True, ...,  True,  True,  True],
+       ...,
+       [ True,  True,  True, ...,  True,  True,  True],
+       [ True,  True,  True, ...,  True,  True,  True],
+       [ True,  True,  True, ...,  True,  True,  True]])
+
+In [15]: data[:, :, 0].sum()
+Out[15]: 0
+
+In [16]: data[:, :, 0].sum() == 0
+Out[16]: True
+
+In [17]: (data[:, :, 0] == 0)
+Out[17]:
+array([[ True,  True,  True, ...,  True,  True,  True],
+       [ True,  True,  True, ...,  True,  True,  True],
+       [ True,  True,  True, ...,  True,  True,  True],
+       ...,
+       [ True,  True,  True, ...,  True,  True,  True],
+       [ True,  True,  True, ...,  True,  True,  True],
+       [ True,  True,  True, ...,  True,  True,  True]])
+
+In [18]: (data[:, :, 0] == 0).all()
+Out[18]: True
+
+In [19]: np.all(data[:, :, 0] == 0)
+Out[19]: True
+
+In [20]: (data[:, :, 0] == 0).any()
+Out[20]: True
+
+In [21]: (data[:, :, 0] != 0).any()
+Out[21]: False
+
+In [22]: (data[:, :, 0] != 0).any()
+Out[22]: False
+
+In [23]: (data[:, :, 1] != 0).any()
+Out[23]: True
+
+In [24]: (data[:, :, 1] != 2).any()
+Out[24]: True
+
+In [25]: (data[:, :, 1] != 0).any()
+Out[25]: True
+
+In [26]: (data[:, :, 2] != 0).any()
+Out[26]: False
+
+In [27]: (data[:, :, 2] == 0).all()
+Out[27]: True
+
+In [28]: (data[:, :, 1] == 0).all()
+Out[28]: False
+
+In [29]: (data[:, :, 0] == 0).all()
+Out[29]: True
+
+In [30]: data[:, :, 1]
+Out[30]:
+array([[ 0,  0,  0, ...,  0,  0,  0],
+       [ 1,  0,  1, ...,  0,  0,  0],
+       [ 0,  1,  0, ...,  0,  0,  0],
+       ...,
+       [13, 24, 32, ..., 34, 16,  7],
+       [19, 26, 62, ...,  8,  3, 14],
+       [43, 67, 55, ...,  9,  3, 19]], dtype=uint8)
+
+In [31]: data[:, :, 1].shape
+Out[31]: (2048, 2048)
+
+In [32]: from skimage import color
+
+In [33]: color.rgb2gray(data)
+Out[33]:
+array([[0.        , 0.        , 0.        , ..., 0.        , 0.        ,
+        0.        ],
+       [0.00280549, 0.        , 0.00280549, ..., 0.        , 0.        ,
+        0.        ],
+       [0.        , 0.00280549, 0.        , ..., 0.        , 0.        ,
+        0.        ],
+       ...,
+       [0.03647137, 0.06733176, 0.08977569, ..., 0.09538667, 0.04488784,
+        0.01963843],
+       [0.05330431, 0.07294275, 0.17394039, ..., 0.02244392, 0.00841647,
+        0.03927686],
+       [0.12063608, 0.18796784, 0.15430196, ..., 0.02524941, 0.00841647,
+        0.05330431]])
+
+In [34]: green = data[:, :, 1]
+
+In [35]: green.shape
+Out[35]: (2048, 2048)
+
+In [36]: green.dtype
+Out[36]: dtype('uint8')
+
+In [37]: green.max()
+Out[37]: 255
+
+In [38]: green.min()
+Out[38]: 0
+
+In [39]: 255 - green
+Out[39]:
+array([[255, 255, 255, ..., 255, 255, 255],
+       [254, 255, 254, ..., 255, 255, 255],
+       [255, 254, 255, ..., 255, 255, 255],
+       ...,
+       [242, 231, 223, ..., 221, 239, 248],
+       [236, 229, 193, ..., 247, 252, 241],
+       [212, 188, 200, ..., 246, 252, 236]], dtype=uint8)
+
+In [40]: inv = 255 - green
+
+In [41]: subsampled = inv[::2, ::2]
+
+In [42]: subsampled.shape
+Out[42]: (1024, 1024)
+
+In [43]: f2, ax2 = plt.subplots()
+
+In [44]: ax2.imshow(subsampled, cmap='gray')
+Out[44]: <matplotlib.image.AxesImage at 0x7fc81e0b60b8>
+
+In [45]: io.imsave('nissl_gray.png', subsampled)
+
+In [46]: ls
+homework5.md          homework5_solutions.py              nissl_gray.png   student_solutions/
+homework5.pdf         log_reaction_time_distribution.png  nissl.tif
+homework5_samples.py  misc/                               stroop_data.csv
+
+In [47]: import pandas as pd
+
+In [48]: data = pd.read_csv('stroop.csv')
+---------------------------------------------------------------------------
+FileNotFoundError                         Traceback (most recent call last)
+<ipython-input-48-befc7f63a745> in <module>
+----> 1 data = pd.read_csv('stroop.csv')
+
+/usr/local/lib/python3.6/dist-packages/pandas/io/parsers.py in read_csv(filepath_or_buffer, sep, delimiter, header, names, index_col, usecols, squeeze, prefix, mangle_dupe_cols, dtype, engine, converters, true_values, false_values, skipinitialspace, skiprows, skipfooter, nrows, na_values, keep_default_na, na_filter, verbose, skip_blank_lines, parse_dates, infer_datetime_format, keep_date_col, date_parser, dayfirst, cache_dates, iterator, chunksize, compression, thousands, decimal, lineterminator, quotechar, quoting, doublequote, escapechar, comment, encoding, dialect, error_bad_lines, warn_bad_lines, delim_whitespace, low_memory, memory_map, float_precision)
+    684     )
+    685
+--> 686     return _read(filepath_or_buffer, kwds)
+    687
+    688
+
+/usr/local/lib/python3.6/dist-packages/pandas/io/parsers.py in _read(filepath_or_buffer, kwds)
+    450
+    451     # Create the parser.
+--> 452     parser = TextFileReader(fp_or_buf, **kwds)
+    453
+    454     if chunksize or iterator:
+
+/usr/local/lib/python3.6/dist-packages/pandas/io/parsers.py in __init__(self, f, engine, **kwds)
+    934             self.options["has_index_names"] = kwds["has_index_names"]
+    935
+--> 936         self._make_engine(self.engine)
+    937
+    938     def close(self):
+
+/usr/local/lib/python3.6/dist-packages/pandas/io/parsers.py in _make_engine(self, engine)
+   1166     def _make_engine(self, engine="c"):
+   1167         if engine == "c":
+-> 1168             self._engine = CParserWrapper(self.f, **self.options)
+   1169         else:
+   1170             if engine == "python":
+
+/usr/local/lib/python3.6/dist-packages/pandas/io/parsers.py in __init__(self, src, **kwds)
+   1996         kwds["usecols"] = self.usecols
+   1997
+-> 1998         self._reader = parsers.TextReader(src, **kwds)
+   1999         self.unnamed_cols = self._reader.unnamed_cols
+   2000
+
+pandas/_libs/parsers.pyx in pandas._libs.parsers.TextReader.__cinit__()
+
+pandas/_libs/parsers.pyx in pandas._libs.parsers.TextReader._setup_parser_source()
+
+FileNotFoundError: [Errno 2] No such file or directory: 'stroop.csv'
+> /home/mspacek/SciPyCourse2021/notes/homework5/pandas/_libs/parsers.pyx(653)pandas._libs.parsers.TextReader._setup_parser_source()
+
+ipdb> c
+
+In [49]: ls
+homework5.md          homework5_solutions.py              nissl_gray.png   student_solutions/
+homework5.pdf         log_reaction_time_distribution.png  nissl.tif
+homework5_samples.py  misc/                               stroop_data.csv
+
+In [50]: data = pd.read_csv('stroop_data.csv')
+
+In [51]: data.shape
+Out[51]: (1953, 6)
+
+In [52]: data
+Out[52]:
+      subject  trial stimword stimcolor respcolor  reaction_time
+0      156772      1        Y         Y         Y           1389
+1      156772      2        G         G         G           2043
+2      156772      3        R         R         R           1389
+3      156772      4        Y         Y         Y           1092
+4      156772      5        G         G         G           1310
+...       ...    ...      ...       ...       ...            ...
+1948   156875     86        G         G         G            936
+1949   156875     87        Y         Y         Y            944
+1950   156875     88        R         R         R            984
+1951   156875     89        G         G         G           1096
+1952   156875     90        R         R         R            984
+
+[1953 rows x 6 columns]
+
+In [53]: len(data)
+Out[53]: 1953
+
+In [54]: description = data.grouby('subject').describe()
+---------------------------------------------------------------------------
+AttributeError                            Traceback (most recent call last)
+<ipython-input-54-089002b479c3> in <module>
+----> 1 description = data.grouby('subject').describe()
+
+/usr/local/lib/python3.6/dist-packages/pandas/core/generic.py in __getattr__(self, name)
+   5128             if self._info_axis._can_hold_identifiers_and_holds_name(name):
+   5129                 return self[name]
+-> 5130             return object.__getattribute__(self, name)
+   5131
+   5132     def __setattr__(self, name: str, value) -> None:
+
+AttributeError: 'DataFrame' object has no attribute 'grouby'
+> /usr/local/lib/python3.6/dist-packages/pandas/core/generic.py(5130)__getattr__()
+   5128             if self._info_axis._can_hold_identifiers_and_holds_name(name):
+   5129                 return self[name]
+-> 5130             return object.__getattribute__(self, name)
+   5131
+   5132     def __setattr__(self, name: str, value) -> None:
+
+ipdb> c
+
+In [55]: description = data.groupby('subject').describe()
+
+In [56]: description
+Out[56]:
+        trial                                    ... reaction_time
+        count       mean        std  min    25%  ...           min      25%     50%     75%     max
+subject                                          ...
+156772   90.0  45.500000  26.124701  1.0  23.25  ...         639.0  1029.00  1389.0  1572.0  2387.0
+156839   90.0  45.500000  26.124701  1.0  23.25  ...         119.0   200.00   452.0   624.0  5770.0
+156856   90.0  45.500000  26.124701  1.0  23.25  ...         219.0   826.25   998.0  1275.0  2355.0
+156857   89.0  46.000000  25.836021  2.0  24.00  ...         584.0   944.00  1263.0  1696.0  5312.0
+156858   89.0  46.000000  25.836021  2.0  24.00  ...         584.0   944.00  1263.0  1696.0  5312.0
+156859   89.0  46.000000  25.836021  2.0  24.00  ...         584.0   944.00  1263.0  1696.0  5312.0
+156860   88.0  46.090909  26.120691  1.0  24.75  ...        1063.0  1591.75  1900.0  2286.0  5024.0
+156861   88.0  46.090909  26.120691  1.0  24.75  ...        1063.0  1591.75  1900.0  2286.0  5024.0
+156862   89.0  46.000000  25.836021  2.0  24.00  ...         584.0   944.00  1263.0  1696.0  5312.0
+156863   88.0  46.090909  26.120691  1.0  24.75  ...        1063.0  1591.75  1900.0  2286.0  5024.0
+156864   89.0  45.898876  25.995649  1.0  24.00  ...         440.0  1056.00  1583.0  2149.0  4208.0
+156865   89.0  45.898876  25.995649  1.0  24.00  ...         440.0  1056.00  1583.0  2149.0  4208.0
+156866   89.0  45.898876  25.995649  1.0  24.00  ...         440.0  1056.00  1583.0  2149.0  4208.0
+156867   89.0  45.898876  25.995649  1.0  24.00  ...         440.0  1056.00  1583.0  2149.0  4208.0
+156868   90.0  45.500000  26.124701  1.0  23.25  ...         776.0  1268.00  1592.0  1870.0  4552.0
+156869   89.0  45.898876  25.995649  1.0  24.00  ...         440.0  1056.00  1583.0  2149.0  4208.0
+156870   89.0  45.898876  25.995649  1.0  24.00  ...         440.0  1056.00  1583.0  2149.0  4208.0
+156871   89.0  45.898876  25.995649  1.0  24.00  ...         440.0  1056.00  1583.0  2149.0  4208.0
+156872   87.0  46.931034  25.377060  2.0  25.50  ...        1176.0  1560.00  1944.0  2279.5  4600.0
+156873   89.0  45.898876  25.995649  1.0  24.00  ...         440.0  1056.00  1583.0  2149.0  4208.0
+156874   89.0  45.898876  25.995649  1.0  24.00  ...         440.0  1056.00  1583.0  2149.0  4208.0
+156875   85.0  46.858824  25.735908  3.0  25.00  ...         896.0  1096.00  1551.0  1968.0  5760.0
+
+[22 rows x 16 columns]
+
+In [57]: description.columns
+Out[57]:
+MultiIndex([(        'trial', 'count'),
+            (        'trial',  'mean'),
+            (        'trial',   'std'),
+            (        'trial',   'min'),
+            (        'trial',   '25%'),
+            (        'trial',   '50%'),
+            (        'trial',   '75%'),
+            (        'trial',   'max'),
+            ('reaction_time', 'count'),
+            ('reaction_time',  'mean'),
+            ('reaction_time',   'std'),
+            ('reaction_time',   'min'),
+            ('reaction_time',   '25%'),
+            ('reaction_time',   '50%'),
+            ('reaction_time',   '75%'),
+            ('reaction_time',   'max')],
+           )
+
+In [58]: description['reaction_time']
+Out[58]:
+         count         mean          std     min      25%     50%     75%     max
+subject
+156772    90.0  1339.344444   360.489840   639.0  1029.00  1389.0  1572.0  2387.0
+156839    90.0   601.711111   739.645029   119.0   200.00   452.0   624.0  5770.0
+156856    90.0  1080.044444   379.719202   219.0   826.25   998.0  1275.0  2355.0
+156857    89.0  1523.977528   888.860302   584.0   944.00  1263.0  1696.0  5312.0
+156858    89.0  1523.977528   888.860302   584.0   944.00  1263.0  1696.0  5312.0
+156859    89.0  1523.977528   888.860302   584.0   944.00  1263.0  1696.0  5312.0
+156860    88.0  2058.443182   774.802056  1063.0  1591.75  1900.0  2286.0  5024.0
+156861    88.0  2058.443182   774.802056  1063.0  1591.75  1900.0  2286.0  5024.0
+156862    89.0  1523.977528   888.860302   584.0   944.00  1263.0  1696.0  5312.0
+156863    88.0  2058.443182   774.802056  1063.0  1591.75  1900.0  2286.0  5024.0
+156864    89.0  1700.865169   819.255124   440.0  1056.00  1583.0  2149.0  4208.0
+156865    89.0  1700.865169   819.255124   440.0  1056.00  1583.0  2149.0  4208.0
+156866    89.0  1700.865169   819.255124   440.0  1056.00  1583.0  2149.0  4208.0
+156867    89.0  1700.865169   819.255124   440.0  1056.00  1583.0  2149.0  4208.0
+156868    90.0  1671.988889   607.828193   776.0  1268.00  1592.0  1870.0  4552.0
+156869    89.0  1700.865169   819.255124   440.0  1056.00  1583.0  2149.0  4208.0
+156870    89.0  1700.865169   819.255124   440.0  1056.00  1583.0  2149.0  4208.0
+156871    89.0  1700.865169   819.255124   440.0  1056.00  1583.0  2149.0  4208.0
+156872    87.0  2064.712644   659.718666  1176.0  1560.00  1944.0  2279.5  4600.0
+156873    89.0  1700.865169   819.255124   440.0  1056.00  1583.0  2149.0  4208.0
+156874    89.0  1700.865169   819.255124   440.0  1056.00  1583.0  2149.0  4208.0
+156875    85.0  1844.541176  1111.735693   896.0  1096.00  1551.0  1968.0  5760.0
+
+In [59]: len(description['reaction_time'])
+Out[59]: 22
+
+In [60]: description['reaction_time']['mean']
+Out[60]:
+subject
+156772    1339.344444
+156839     601.711111
+156856    1080.044444
+156857    1523.977528
+156858    1523.977528
+156859    1523.977528
+156860    2058.443182
+156861    2058.443182
+156862    1523.977528
+156863    2058.443182
+156864    1700.865169
+156865    1700.865169
+156866    1700.865169
+156867    1700.865169
+156868    1671.988889
+156869    1700.865169
+156870    1700.865169
+156871    1700.865169
+156872    2064.712644
+156873    1700.865169
+156874    1700.865169
+156875    1844.541176
+Name: mean, dtype: float64
+
+In [61]: description['reaction_time']['mean'].mean()
+Out[61]: 1644.6076765320759
+
+In [62]: data.groupby('subject')['reaction_time']
+Out[62]: <pandas.core.groupby.generic.SeriesGroupBy object at 0x7fc7b6ac32b0>
+
+In [63]: data.groupby('subject')['reaction_time'].mean()
+Out[63]:
+subject
+156772    1339.344444
+156839     601.711111
+156856    1080.044444
+156857    1523.977528
+156858    1523.977528
+156859    1523.977528
+156860    2058.443182
+156861    2058.443182
+156862    1523.977528
+156863    2058.443182
+156864    1700.865169
+156865    1700.865169
+156866    1700.865169
+156867    1700.865169
+156868    1671.988889
+156869    1700.865169
+156870    1700.865169
+156871    1700.865169
+156872    2064.712644
+156873    1700.865169
+156874    1700.865169
+156875    1844.541176
+Name: reaction_time, dtype: float64
+
+In [64]: data.groupby('subject')['reaction_time'].mean().mean()
+Out[64]: 1644.6076765320759
+
+In [65]: data.reaction_time
+Out[65]:
+0       1389
+1       2043
+2       1389
+3       1092
+4       1310
+        ...
+1948     936
+1949     944
+1950     984
+1951    1096
+1952     984
+Name: reaction_time, Length: 1953, dtype: int64
+
+In [66]: data
+Out[66]:
+      subject  trial stimword stimcolor respcolor  reaction_time
+0      156772      1        Y         Y         Y           1389
+1      156772      2        G         G         G           2043
+2      156772      3        R         R         R           1389
+3      156772      4        Y         Y         Y           1092
+4      156772      5        G         G         G           1310
+...       ...    ...      ...       ...       ...            ...
+1948   156875     86        G         G         G            936
+1949   156875     87        Y         Y         Y            944
+1950   156875     88        R         R         R            984
+1951   156875     89        G         G         G           1096
+1952   156875     90        R         R         R            984
+
+[1953 rows x 6 columns]
+
+In [67]: data['reaction_time']
+Out[67]:
+0       1389
+1       2043
+2       1389
+3       1092
+4       1310
+        ...
+1948     936
+1949     944
+1950     984
+1951    1096
+1952     984
+Name: reaction_time, Length: 1953, dtype: int64
+
+In [68]: data['reaction_time'].mean()
+Out[68]: 1642.1669226830518
+
+In [69]: sub = data.groupby('subject')
+
+In [70]: sub.describe()
+Out[70]:
+        trial                                          ... reaction_time
+        count       mean        std  min    25%   50%  ...           std     min      25%     50%     75%     max
+subject                                                ...
+156772   90.0  45.500000  26.124701  1.0  23.25  45.5  ...    360.489840   639.0  1029.00  1389.0  1572.0  2387.0
+156839   90.0  45.500000  26.124701  1.0  23.25  45.5  ...    739.645029   119.0   200.00   452.0   624.0  5770.0
+156856   90.0  45.500000  26.124701  1.0  23.25  45.5  ...    379.719202   219.0   826.25   998.0  1275.0  2355.0
+156857   89.0  46.000000  25.836021  2.0  24.00  46.0  ...    888.860302   584.0   944.00  1263.0  1696.0  5312.0
+156858   89.0  46.000000  25.836021  2.0  24.00  46.0  ...    888.860302   584.0   944.00  1263.0  1696.0  5312.0
+156859   89.0  46.000000  25.836021  2.0  24.00  46.0  ...    888.860302   584.0   944.00  1263.0  1696.0  5312.0
+156860   88.0  46.090909  26.120691  1.0  24.75  46.5  ...    774.802056  1063.0  1591.75  1900.0  2286.0  5024.0
+156861   88.0  46.090909  26.120691  1.0  24.75  46.5  ...    774.802056  1063.0  1591.75  1900.0  2286.0  5024.0
+156862   89.0  46.000000  25.836021  2.0  24.00  46.0  ...    888.860302   584.0   944.00  1263.0  1696.0  5312.0
+156863   88.0  46.090909  26.120691  1.0  24.75  46.5  ...    774.802056  1063.0  1591.75  1900.0  2286.0  5024.0
+156864   89.0  45.898876  25.995649  1.0  24.00  46.0  ...    819.255124   440.0  1056.00  1583.0  2149.0  4208.0
+156865   89.0  45.898876  25.995649  1.0  24.00  46.0  ...    819.255124   440.0  1056.00  1583.0  2149.0  4208.0
+156866   89.0  45.898876  25.995649  1.0  24.00  46.0  ...    819.255124   440.0  1056.00  1583.0  2149.0  4208.0
+156867   89.0  45.898876  25.995649  1.0  24.00  46.0  ...    819.255124   440.0  1056.00  1583.0  2149.0  4208.0
+156868   90.0  45.500000  26.124701  1.0  23.25  45.5  ...    607.828193   776.0  1268.00  1592.0  1870.0  4552.0
+156869   89.0  45.898876  25.995649  1.0  24.00  46.0  ...    819.255124   440.0  1056.00  1583.0  2149.0  4208.0
+156870   89.0  45.898876  25.995649  1.0  24.00  46.0  ...    819.255124   440.0  1056.00  1583.0  2149.0  4208.0
+156871   89.0  45.898876  25.995649  1.0  24.00  46.0  ...    819.255124   440.0  1056.00  1583.0  2149.0  4208.0
+156872   87.0  46.931034  25.377060  2.0  25.50  47.0  ...    659.718666  1176.0  1560.00  1944.0  2279.5  4600.0
+156873   89.0  45.898876  25.995649  1.0  24.00  46.0  ...    819.255124   440.0  1056.00  1583.0  2149.0  4208.0
+156874   89.0  45.898876  25.995649  1.0  24.00  46.0  ...    819.255124   440.0  1056.00  1583.0  2149.0  4208.0
+156875   85.0  46.858824  25.735908  3.0  25.00  47.0  ...   1111.735693   896.0  1096.00  1551.0  1968.0  5760.0
+
+[22 rows x 16 columns]
+
+In [71]: data['reaction_time'].mean()
+Out[71]: 1642.1669226830518
+
+In [72]: sub.describe()
+Out[72]:
+        trial                                          ... reaction_time
+        count       mean        std  min    25%   50%  ...           std     min      25%     50%     75%     max
+subject                                                ...
+156772   90.0  45.500000  26.124701  1.0  23.25  45.5  ...    360.489840   639.0  1029.00  1389.0  1572.0  2387.0
+156839   90.0  45.500000  26.124701  1.0  23.25  45.5  ...    739.645029   119.0   200.00   452.0   624.0  5770.0
+156856   90.0  45.500000  26.124701  1.0  23.25  45.5  ...    379.719202   219.0   826.25   998.0  1275.0  2355.0
+156857   89.0  46.000000  25.836021  2.0  24.00  46.0  ...    888.860302   584.0   944.00  1263.0  1696.0  5312.0
+156858   89.0  46.000000  25.836021  2.0  24.00  46.0  ...    888.860302   584.0   944.00  1263.0  1696.0  5312.0
+156859   89.0  46.000000  25.836021  2.0  24.00  46.0  ...    888.860302   584.0   944.00  1263.0  1696.0  5312.0
+156860   88.0  46.090909  26.120691  1.0  24.75  46.5  ...    774.802056  1063.0  1591.75  1900.0  2286.0  5024.0
+156861   88.0  46.090909  26.120691  1.0  24.75  46.5  ...    774.802056  1063.0  1591.75  1900.0  2286.0  5024.0
+156862   89.0  46.000000  25.836021  2.0  24.00  46.0  ...    888.860302   584.0   944.00  1263.0  1696.0  5312.0
+156863   88.0  46.090909  26.120691  1.0  24.75  46.5  ...    774.802056  1063.0  1591.75  1900.0  2286.0  5024.0
+156864   89.0  45.898876  25.995649  1.0  24.00  46.0  ...    819.255124   440.0  1056.00  1583.0  2149.0  4208.0
+156865   89.0  45.898876  25.995649  1.0  24.00  46.0  ...    819.255124   440.0  1056.00  1583.0  2149.0  4208.0
+156866   89.0  45.898876  25.995649  1.0  24.00  46.0  ...    819.255124   440.0  1056.00  1583.0  2149.0  4208.0
+156867   89.0  45.898876  25.995649  1.0  24.00  46.0  ...    819.255124   440.0  1056.00  1583.0  2149.0  4208.0
+156868   90.0  45.500000  26.124701  1.0  23.25  45.5  ...    607.828193   776.0  1268.00  1592.0  1870.0  4552.0
+156869   89.0  45.898876  25.995649  1.0  24.00  46.0  ...    819.255124   440.0  1056.00  1583.0  2149.0  4208.0
+156870   89.0  45.898876  25.995649  1.0  24.00  46.0  ...    819.255124   440.0  1056.00  1583.0  2149.0  4208.0
+156871   89.0  45.898876  25.995649  1.0  24.00  46.0  ...    819.255124   440.0  1056.00  1583.0  2149.0  4208.0
+156872   87.0  46.931034  25.377060  2.0  25.50  47.0  ...    659.718666  1176.0  1560.00  1944.0  2279.5  4600.0
+156873   89.0  45.898876  25.995649  1.0  24.00  46.0  ...    819.255124   440.0  1056.00  1583.0  2149.0  4208.0
+156874   89.0  45.898876  25.995649  1.0  24.00  46.0  ...    819.255124   440.0  1056.00  1583.0  2149.0  4208.0
+156875   85.0  46.858824  25.735908  3.0  25.00  47.0  ...   1111.735693   896.0  1096.00  1551.0  1968.0  5760.0
+
+[22 rows x 16 columns]
+
+In [73]: sub.describe().mean
+Out[73]:
+<bound method DataFrame.mean of         trial                                          ... reaction_time
+        count       mean        std  min    25%   50%  ...           std     min      25%     50%     75%     max
+subject                                                ...
+156772   90.0  45.500000  26.124701  1.0  23.25  45.5  ...    360.489840   639.0  1029.00  1389.0  1572.0  2387.0
+156839   90.0  45.500000  26.124701  1.0  23.25  45.5  ...    739.645029   119.0   200.00   452.0   624.0  5770.0
+156856   90.0  45.500000  26.124701  1.0  23.25  45.5  ...    379.719202   219.0   826.25   998.0  1275.0  2355.0
+156857   89.0  46.000000  25.836021  2.0  24.00  46.0  ...    888.860302   584.0   944.00  1263.0  1696.0  5312.0
+156858   89.0  46.000000  25.836021  2.0  24.00  46.0  ...    888.860302   584.0   944.00  1263.0  1696.0  5312.0
+156859   89.0  46.000000  25.836021  2.0  24.00  46.0  ...    888.860302   584.0   944.00  1263.0  1696.0  5312.0
+156860   88.0  46.090909  26.120691  1.0  24.75  46.5  ...    774.802056  1063.0  1591.75  1900.0  2286.0  5024.0
+156861   88.0  46.090909  26.120691  1.0  24.75  46.5  ...    774.802056  1063.0  1591.75  1900.0  2286.0  5024.0
+156862   89.0  46.000000  25.836021  2.0  24.00  46.0  ...    888.860302   584.0   944.00  1263.0  1696.0  5312.0
+156863   88.0  46.090909  26.120691  1.0  24.75  46.5  ...    774.802056  1063.0  1591.75  1900.0  2286.0  5024.0
+156864   89.0  45.898876  25.995649  1.0  24.00  46.0  ...    819.255124   440.0  1056.00  1583.0  2149.0  4208.0
+156865   89.0  45.898876  25.995649  1.0  24.00  46.0  ...    819.255124   440.0  1056.00  1583.0  2149.0  4208.0
+156866   89.0  45.898876  25.995649  1.0  24.00  46.0  ...    819.255124   440.0  1056.00  1583.0  2149.0  4208.0
+156867   89.0  45.898876  25.995649  1.0  24.00  46.0  ...    819.255124   440.0  1056.00  1583.0  2149.0  4208.0
+156868   90.0  45.500000  26.124701  1.0  23.25  45.5  ...    607.828193   776.0  1268.00  1592.0  1870.0  4552.0
+156869   89.0  45.898876  25.995649  1.0  24.00  46.0  ...    819.255124   440.0  1056.00  1583.0  2149.0  4208.0
+156870   89.0  45.898876  25.995649  1.0  24.00  46.0  ...    819.255124   440.0  1056.00  1583.0  2149.0  4208.0
+156871   89.0  45.898876  25.995649  1.0  24.00  46.0  ...    819.255124   440.0  1056.00  1583.0  2149.0  4208.0
+156872   87.0  46.931034  25.377060  2.0  25.50  47.0  ...    659.718666  1176.0  1560.00  1944.0  2279.5  4600.0
+156873   89.0  45.898876  25.995649  1.0  24.00  46.0  ...    819.255124   440.0  1056.00  1583.0  2149.0  4208.0
+156874   89.0  45.898876  25.995649  1.0  24.00  46.0  ...    819.255124   440.0  1056.00  1583.0  2149.0  4208.0
+156875   85.0  46.858824  25.735908  3.0  25.00  47.0  ...   1111.735693   896.0  1096.00  1551.0  1968.0  5760.0
+
+[22 rows x 16 columns]>
+
+In [74]: sub.describe().mean()
+Out[74]:
+trial          count      88.772727
+               mean       45.961476
+               std        25.967217
+               min         1.318182
+               25%        24.079545
+               50%        46.068182
+               75%        68.056818
+               max        90.000000
+reaction_time  count      88.772727
+               mean     1644.607677
+               std       777.830915
+               min       605.000000
+               25%      1092.477273
+               50%      1496.590909
+               75%      1935.068182
+               max      4528.000000
+dtype: float64
+
+In [75]: sub.describe().mean()['reaction_time']
+Out[75]:
+count      88.772727
+mean     1644.607677
+std       777.830915
+min       605.000000
+25%      1092.477273
+50%      1496.590909
+75%      1935.068182
+max      4528.000000
+dtype: float64
+
+In [76]: sub.describe().min()
+Out[76]:
+trial          count      85.000000
+               mean       45.500000
+               std        25.377060
+               min         1.000000
+               25%        23.250000
+               50%        45.500000
+               75%        67.750000
+               max        90.000000
+reaction_time  count      85.000000
+               mean      601.711111
+               std       360.489840
+               min       119.000000
+               25%       200.000000
+               50%       452.000000
+               75%       624.000000
+               max      2355.000000
+dtype: float64
+
+In [77]: sub.describe().mean()
+Out[77]:
+trial          count      88.772727
+               mean       45.961476
+               std        25.967217
+               min         1.318182
+               25%        24.079545
+               50%        46.068182
+               75%        68.056818
+               max        90.000000
+reaction_time  count      88.772727
+               mean     1644.607677
+               std       777.830915
+               min       605.000000
+               25%      1092.477273
+               50%      1496.590909
+               75%      1935.068182
+               max      4528.000000
+dtype: float64
+
+In [78]: plt.close('all')
+
+In [79]: f, ax = plt.subplots()
+
+In [80]: np.sqrt(1900)
+Out[80]: 43.58898943540674
+
+In [81]: nbins = 30
+
+In [82]: ax.hist(data['reaction_time'], bins=nbins)
+Out[82]:
+(array([ 37.,  28.,  50., 135., 259., 233., 225., 174., 149., 159., 110.,
+         87.,  69.,  55.,  34.,  29.,  34.,   5.,   8.,  24.,  15.,   9.,
+          3.,   2.,   3.,   1.,   7.,   7.,   0.,   2.]),
+ array([ 119.        ,  307.36666667,  495.73333333,  684.1       ,
+         872.46666667, 1060.83333333, 1249.2       , 1437.56666667,
+        1625.93333333, 1814.3       , 2002.66666667, 2191.03333333,
+        2379.4       , 2567.76666667, 2756.13333333, 2944.5       ,
+        3132.86666667, 3321.23333333, 3509.6       , 3697.96666667,
+        3886.33333333, 4074.7       , 4263.06666667, 4451.43333333,
+        4639.8       , 4828.16666667, 5016.53333333, 5204.9       ,
+        5393.26666667, 5581.63333333, 5770.        ]),
+ <a list of 30 Patch objects>)
+
+In [83]: ax.set_xlabel('Reaction time (ms)')
+Out[83]: Text(0.5, 13.94444444444443, 'Reaction time (ms)')
+
+In [84]: ax.set_ylabel('Trial count')
+Out[84]: Text(13.944444444444452, 0.5, 'Trial count')
+
+Module PySide2 not importable in path ['/usr/local/bin', '/usr/lib/python36.zip', '/usr/lib/python3.6', '/usr/lib/python3.6/lib-dynload', '/usr/local/lib/python3.6/dist-packages', '/home/mspacek/dev/djd', '/home/mspacek/dev/expio', '/home/mspacek/dev/spyke', '/home/mspacek/dev/pitrack/pydc1394', '/home/mspacek/dev/pitrack', '/usr/lib/python3/dist-packages', '/usr/local/lib/python3.6/dist-packages/IPython/extensions', '/home/mspacek/.ipython'].
+Module PyQt5.QtWidgets not importable in path ['/usr/local/bin', '/usr/lib/python36.zip', '/usr/lib/python3.6', '/usr/lib/python3.6/lib-dynload', '/usr/local/lib/python3.6/dist-packages', '/home/mspacek/dev/djd', '/home/mspacek/dev/expio', '/home/mspacek/dev/spyke', '/home/mspacek/dev/pitrack/pydc1394', '/home/mspacek/dev/pitrack', '/usr/lib/python3/dist-packages', '/usr/local/lib/python3.6/dist-packages/IPython/extensions', '/home/mspacek/.ipython'].
+Module PySide not importable in path ['/usr/local/bin', '/usr/lib/python36.zip', '/usr/lib/python3.6', '/usr/lib/python3.6/lib-dynload', '/usr/local/lib/python3.6/dist-packages', '/home/mspacek/dev/djd', '/home/mspacek/dev/expio', '/home/mspacek/dev/spyke', '/home/mspacek/dev/pitrack/pydc1394', '/home/mspacek/dev/pitrack', '/usr/lib/python3/dist-packages', '/usr/local/lib/python3.6/dist-packages/IPython/extensions', '/home/mspacek/.ipython'].
+In [85]: f.canvas.set_window_title('Reaction time distribution')
+
+In [86]: np.logspace
+Out[86]: <function numpy.logspace(start, stop, num=50, endpoint=True, base=10.0, dtype=None, axis=0)>
+
+In [87]: edges = np.logspace(2, 4, 31)
+
+In [88]: edges
+Out[88]:
+array([  100.        ,   116.59144012,   135.93563909,   158.48931925,
+         184.78497974,   215.443469  ,   251.18864315,   292.86445646,
+         341.45488738,   398.10717055,   464.15888336,   541.16952655,
+         630.95734448,   735.64225446,   857.69589859,  1000.        ,
+        1165.91440118,  1359.35639088,  1584.89319246,  1847.84979742,
+        2154.43469003,  2511.88643151,  2928.64456463,  3414.54887383,
+        3981.07170553,  4641.58883361,  5411.69526546,  6309.5734448 ,
+        7356.4225446 ,  8576.95898591, 10000.        ])
+
+In [89]: f2, ax2 = plt.subplots()
+
+In [90]: ax2.hist(data['reaction_time'], bins=edges)
+Out[90]:
+(array([  0.,   4.,   5.,  10.,  12.,   4.,   2.,   1.,   4.,  18.,  19.,
+         28.,  33.,  93., 187., 206., 249., 196., 243., 229., 167.,  84.,
+         76.,  35.,  28.,  18.,   2.,   0.,   0.,   0.]),
+ array([  100.        ,   116.59144012,   135.93563909,   158.48931925,
+          184.78497974,   215.443469  ,   251.18864315,   292.86445646,
+          341.45488738,   398.10717055,   464.15888336,   541.16952655,
+          630.95734448,   735.64225446,   857.69589859,  1000.        ,
+         1165.91440118,  1359.35639088,  1584.89319246,  1847.84979742,
+         2154.43469003,  2511.88643151,  2928.64456463,  3414.54887383,
+         3981.07170553,  4641.58883361,  5411.69526546,  6309.5734448 ,
+         7356.4225446 ,  8576.95898591, 10000.        ]),
+ <a list of 30 Patch objects>)
+
+In [91]: ax2.set_xscale('log')
+
+In [92]: ax2.set_xlabel('Log Reaction time (ms)')
+Out[92]: Text(0.5, 13.944444444444438, 'Log Reaction time (ms)')
+
+In [93]: ax2.set_ylabel('Trial count')
+Out[93]: Text(13.944444444444438, 0.5, 'Trial count')
+
+In [94]: f2.canvas.set_window_title('Log reaction time distribution')
+
+In [95]: np.log
+Out[95]: <ufunc 'log'>
+
+In [96]: np.log?
+
+In [97]: log_data = np.log10(data)
+    ...: fig = plt.figure()
+    ...: ax = fig.add_subplot()
+    ...: ax.set_xscale('log')
+    ...: plt.hist(log_data, bins='auto')
+---------------------------------------------------------------------------
+AttributeError                            Traceback (most recent call last)
+AttributeError: 'int' object has no attribute 'log10'
+
+The above exception was the direct cause of the following exception:
+
+TypeError                                 Traceback (most recent call last)
+<ipython-input-97-acb0c93d9dd6> in <module>
+----> 1 log_data = np.log10(data)
+      2 fig = plt.figure()
+      3 ax = fig.add_subplot()
+      4 ax.set_xscale('log')
+      5 plt.hist(log_data, bins='auto')
+
+TypeError: loop of ufunc does not support argument 0 of type int which has no callable log10 method
+> <ipython-input-97-acb0c93d9dd6>(1)<module>()
+----> 1 log_data = np.log10(data)
+      2 fig = plt.figure()
+      3 ax = fig.add_subplot()
+      4 ax.set_xscale('log')
+      5 plt.hist(log_data, bins='auto')
+
+ipdb> c
+
+In [98]: np.log10
+Out[98]: <ufunc 'log10'>
+
+In [99]: log_data = np.log10(data)
+---------------------------------------------------------------------------
+AttributeError                            Traceback (most recent call last)
+AttributeError: 'int' object has no attribute 'log10'
+
+The above exception was the direct cause of the following exception:
+
+TypeError                                 Traceback (most recent call last)
+<ipython-input-99-9932435ebdab> in <module>
+----> 1 log_data = np.log10(data)
+
+TypeError: loop of ufunc does not support argument 0 of type int which has no callable log10 method
+> <ipython-input-99-9932435ebdab>(1)<module>()
+----> 1 log_data = np.log10(data)
+
+ipdb> c
+
+In [100]: data
+Out[100]:
+      subject  trial stimword stimcolor respcolor  reaction_time
+0      156772      1        Y         Y         Y           1389
+1      156772      2        G         G         G           2043
+2      156772      3        R         R         R           1389
+3      156772      4        Y         Y         Y           1092
+4      156772      5        G         G         G           1310
+...       ...    ...      ...       ...       ...            ...
+1948   156875     86        G         G         G            936
+1949   156875     87        Y         Y         Y            944
+1950   156875     88        R         R         R            984
+1951   156875     89        G         G         G           1096
+1952   156875     90        R         R         R            984
+
+[1953 rows x 6 columns]
+
+In [101]: data = df['reaction_time']
+     ...: log_data = np.log10(data)
+     ...: fig = plt.figure()
+     ...: ax = fig.add_subplot()
+     ...: ax.set_xscale('log')
+     ...: plt.hist(log_data, bins='auto')
+     ...:
+---------------------------------------------------------------------------
+NameError                                 Traceback (most recent call last)
+<ipython-input-101-f55593a668f2> in <module>
+----> 1 data = df['reaction_time']
+      2 log_data = np.log10(data)
+      3 fig = plt.figure()
+      4 ax = fig.add_subplot()
+      5 ax.set_xscale('log')
+
+NameError: name 'df' is not defined
+> <ipython-input-101-f55593a668f2>(1)<module>()
+----> 1 data = df['reaction_time']
+      2 log_data = np.log10(data)
+      3 fig = plt.figure()
+      4 ax = fig.add_subplot()
+      5 ax.set_xscale('log')
+
+ipdb> c
+
+In [102]: df = pd.read_csv('stroop_data.csv')
+
+In [103]: data = df['reaction_time']
+     ...: log_data = np.log10(data)
+     ...: fig = plt.figure()
+     ...: ax = fig.add_subplot()
+     ...: ax.set_xscale('log')
+     ...: plt.hist(log_data, bins='auto')
+     ...:
+Out[103]:
+(array([  3.,   4.,   4.,   4.,  13.,   4.,   2.,   3.,   0.,   1.,   4.,
+          0.,  18.,   9.,  15.,  23.,  15.,  47.,  82., 110., 164., 146.,
+        169., 151., 169., 139., 153., 152.,  94.,  76.,  57.,  39.,  11.,
+         47.,   5.,  11.,   9.]),
+ array([2.07554696, 2.1211045 , 2.16666203, 2.21221957, 2.25777711,
+        2.30333464, 2.34889218, 2.39444972, 2.44000725, 2.48556479,
+        2.53112233, 2.57667986, 2.6222374 , 2.66779494, 2.71335247,
+        2.75891001, 2.80446755, 2.85002508, 2.89558262, 2.94114016,
+        2.98669769, 3.03225523, 3.07781277, 3.1233703 , 3.16892784,
+        3.21448537, 3.26004291, 3.30560045, 3.35115798, 3.39671552,
+        3.44227306, 3.48783059, 3.53338813, 3.57894567, 3.6245032 ,
+        3.67006074, 3.71561828, 3.76117581]),
+ <a list of 37 Patch objects>)
+
+In [104]: np.log10(5770)
+Out[104]: 3.7611758131557314
+
+In [105]: np.log10(190)
+Out[105]: 2.278753600952829
+
+In [106]: import sklearn
+
+In [107]: import skimage
+
+In [108]: df
+Out[108]:
+      subject  trial stimword stimcolor respcolor  reaction_time
+0      156772      1        Y         Y         Y           1389
+1      156772      2        G         G         G           2043
+2      156772      3        R         R         R           1389
+3      156772      4        Y         Y         Y           1092
+4      156772      5        G         G         G           1310
+...       ...    ...      ...       ...       ...            ...
+1948   156875     86        G         G         G            936
+1949   156875     87        Y         Y         Y            944
+1950   156875     88        R         R         R            984
+1951   156875     89        G         G         G           1096
+1952   156875     90        R         R         R            984
+
+[1953 rows x 6 columns]
+
+In [109]: df.values
+Out[109]:
+array([[156772, 1, 'Y', 'Y', 'Y', 1389],
+       [156772, 2, 'G', 'G', 'G', 2043],
+       [156772, 3, 'R', 'R', 'R', 1389],
+       ...,
+       [156875, 88, 'R', 'R', 'R', 984],
+       [156875, 89, 'G', 'G', 'G', 1096],
+       [156875, 90, 'R', 'R', 'R', 984]], dtype=object)
+
+In [110]: ls
+homework5.md   homework5_samples.py    log_reaction_time_distribution.png  nissl_gray.png  stroop_data.csv
+homework5.pdf  homework5_solutions.py  misc/                               nissl.tif       student_solutions/
+
+In [111]: cd ..
+/home/mspacek/SciPyCourse2021/notes
+
+In [112]: cd 11_clustering/
+/home/mspacek/SciPyCourse2021/notes/11_clustering
+
+In [113]: ls
+11_clustering.md   1404.1100.pdf          clustering_exercise_solutions.ipynb  measurements.xlsx
+11_clustering.pdf  clustering_demo.ipynb  generate_measurements.py
+
+In [114]: measurements = pd.read_excel('measurements.xlsx')
+
+In [115]: measurements
+Out[115]:
+             0         1         2         3         4         5         6
+0    -0.981154 -2.528742 -0.248891  0.195579  1.142154  1.085348  0.180768
+1    -0.736366 -1.897231 -0.666810  0.531328  1.550128  1.443983  0.058933
+2     1.291544  1.551358  1.371443 -1.580453 -1.162967 -0.954218 -0.634125
+3    -0.252193 -0.792980 -0.269614 -1.040343 -1.046027 -0.899913  1.248024
+4    -0.562443 -0.128654  0.640542 -0.935357  0.646274  0.728409 -1.240694
+...        ...       ...       ...       ...       ...       ...       ...
+9995 -0.263691  0.114853  0.298469  2.317880  1.919156  1.606380  0.262037
+9996  0.182818 -0.260589  0.908907 -0.757806  0.405162  0.475381 -0.382755
+9997  1.222563  0.828395  0.501491 -0.404852 -0.874514 -0.803149 -0.074484
+9998 -0.919295  0.126887  1.335809 -1.958596  2.074536  2.224144  0.685785
+9999 -1.510404 -0.823130  0.484970 -0.813755  0.916300  0.976772  0.605644
+
+[10000 rows x 7 columns]
+
+In [116]: measurements.to_csv('measurements.csv')
+
+In [117]:
